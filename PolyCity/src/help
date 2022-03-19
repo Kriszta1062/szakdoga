@@ -1,0 +1,54 @@
+//Nest 
+
+const geometry = new THREE.Geometry()
+
+for(let i = 0; i < 5000; i++){
+    for(let j = 0; j < 3; j++){
+        geometry.vertices.push(new THREE.Vector3(
+            (Math.random()-0.5)*4,
+            (Math.random()-0.5)*4,
+            (Math.random()-0.5)*4
+        ))
+    }
+
+    const verticesIndex = i*3 
+    geometry.faces.push(new THREE.Face3(
+        verticesIndex, 
+        verticesIndex+1,
+        verticesIndex+2
+    ))
+
+}
+
+const material = new THREE.MeshBasicMaterial({color: param.color, wireframe: true})
+const mesh = new THREE.Mesh(geometry, material)
+mesh.visible= false
+mesh.position.y=1
+scene.add(mesh)
+
+
+/*Dat.Gui */
+
+const gui = new dat.GUI({closed: true})
+
+const param = {
+    color: 0x73db40,
+    spin: () =>{
+        gsap.to(mesh.rotation, {duration: 1, y: mesh.rotation.y +10})
+    }
+}
+
+gui.addColor(param, 'color').onChange(() => {
+    material.color.set(param.color)
+})
+
+gui.add(param, 'spin')
+
+
+/*
+const geometry1 = new THREE.BoxGeometry(1, 1, 1)
+const material1 = new THREE.MeshBasicMaterial({ color: 0xff0000 })
+const mesh2 = new THREE.Mesh(geometry1, material1)
+mesh2.position.y=0.5
+scene.add(mesh2)
+*/
