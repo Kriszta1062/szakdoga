@@ -9,8 +9,26 @@ import * as dat from 'dat.gui'
 
 /*Global variables*/
 
+let rotation = 0
 let landWidth = 30
 let landHeight= 30
+
+//array[0][0] = x=-14 z=-14
+
+let horisontal = -14
+let vertical = -14
+let value = 0
+
+let arr = Array.from(Array(landWidth), () => new Array(landHeight));
+for(let i=0; i<landWidth; i++){
+    for(let j=0; j<landHeight; j++){
+        arr[i][j]= [horisontal,vertical,value]
+        horisontal++
+    }
+    horisontal=-14
+    vertical++
+}
+console.log(arr);
 
 /*Dat.Gui */
 
@@ -42,54 +60,31 @@ dracoLoader.setDecoderPath('/draco/')
 const gltfLoader = new GLTFLoader()
 gltfLoader.setDRACOLoader(dracoLoader)
 
-let icecream
-
-gltfLoader.load(
-    '/models/IceCream/gltf/icecream.gltf',
-    (gltf) =>{
-        icecream= gltf.scene
-        gltf.scene.scale.set(0.1,0.1,0.1)
-        gltf.scene.position.set(-3, -1.5, 0)
-        scene.add(gltf.scene)
-
-        /*Debug Object */
-        gui.add(icecream.position, 'y', -3, 3, 0.01).name('icecream stand') // min, max, step 
-        gui.add(icecream.position, 'x', -3, 3, 0.01)
-        gui.add(icecream.position, 'z', -3, 3, 0.01)
-        gui.add(icecream, 'visible')
-    }
-)
-
-gltfLoader.load('/models/Panel/panel.gltf',
-    (gltf) =>{
-        gltf.scene.scale.set(0.1,0.1,0.1)
-        gltf.scene.position.set(0, -1.5, 0)
-        scene.add(gltf.scene)
-    }
-)
-
 
 /*Objects*/
+
 
 const material = new THREE.MeshStandardMaterial({color: param.color})
 const land = new THREE.Mesh(new THREE.PlaneBufferGeometry(landWidth, landHeight), material)
 land.rotation.x = - Math.PI * 0.5
 land.position.y = -1.5
 scene.add(land)
+const y = land.position.y
 
  /*Debug Object */
- gui.add(land.position, 'y', -3, 3, 0.01).name('icecream stand') // min, max, step 
- gui.add(land.position, 'x', -3, 3, 0.01)
- gui.add(land.position, 'z', -3, 3, 0.01)
- gui.add(land, 'visible')
+//  gui.add(land.position, 'y', -3, 3, 0.01).name('icecream stand') // min, max, step 
+//  gui.add(land.position, 'x', -3, 3, 0.01)
+//  gui.add(land.position, 'z', -3, 3, 0.01)
+//  gui.add(land, 'visible')
 
 
- const object = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial({color: 0x3246a8}))
- object.position.set(3, -0.5, 0)
+ const object = new THREE.Mesh(new THREE.ConeGeometry(0.5, 1,20), new THREE.MeshBasicMaterial({color: 0x3246a8}))
+ object.position.set(3, -1.5, 0)
+ object.rotation.x=Math.PI/2
  scene.add(object)
 
 
-
+ 
 //gui.addColor()
 
 /*Lights*/
@@ -144,48 +139,83 @@ window.addEventListener('dblclick', ()=>{
     window.addEventListener('keydown', (event) => {
 
         if( event.keyCode == 38) {
-                // const tween = new TWEEN.Tween(object.position);
-                // tween.to({z: object.position.z - 1}, 1000);
-                // tween.start();
                 object.position.z -= 1
+                console.log('x=' + object.position.x + 'z=' + object.position.z);
         }
         if( event.keyCode == 39) {
-                // const tween = new TWEEN.Tween(object.position);
-                // tween.to({x: object.position.x + 1}, 1000);
-                // tween.start();
                 object.position.x += 1
+                console.log('x=' + object.position.x + 'z=' + object.position.z);
         }
         if( event.keyCode == 37) {
-                // const tween = new TWEEN.Tween(object.position);
-                // tween.to({x: object.position.x - 1}, 1000);
-                // tween.start();
                 object.position.x -= 1
-
+                console.log('x=' + object.position.x + 'z=' + object.position.z);
         }
         if( event.keyCode == 40) {
-                // const tween = new TWEEN.Tween(object.position);
-                // tween.to({z: object.position.z + 1}, 1000);
-                // tween.start();
                 object.position.z += 1
+                console.log('x=' + object.position.x + 'z=' + object.position.z);
         }
+        if(event.keyCode == 51){
+            rotation += Math.PI/2 
+            object.rotation.z =rotation
+
+
+        }
+        if( event.keyCode == 49) {
+            for(let i = 0; i < arr.length; i++){
+                for(let j = 0; j < arr.length; j++){
+
+                    console.log(arr[i][j][2]);
+
+                    if(arr[i][j][0] == object.position.x && arr[i][j][1] == object.position.z){
+                        if(arr[i][j][2] == 0){
+                            gltfLoader.load('/models/Panel/panel.gltf',
+                            (gltf) =>{
+                                gltf.scene.scale.set(0.1,0.1,0.1)
+                                gltf.scene.position.set(object.position.x, y, object.position.z)
+                                gltf.scene.rotation.y-= rotation 
+                                scene.add(gltf.scene)
+                                arr[i][j][2]=1
+                                console.log('panel added');
+                                // landWidth+= Math.abs(gltf.scene.position.x)
+                                // landHeight+= Math.abs(gltf.scene.position.z)
+                                // console.log(landWidth);
+                                // console.log(landHeight);
+                                }
+
+                            )
+                            }
+                    }
+                }
+                
+            }
+        }
+        if(event.keyCode == 50){
+            for(let i = 0; i < arr.length; i++){
+                for(let j = 0; j < arr.length; j++){
+
+                    console.log(arr[i][j][2]);
+
+                    if(arr[i][j][0] == object.position.x && arr[i][j][1] == object.position.z){
+                        if(arr[i][j][2] == 0){
+                            gltfLoader.load(
+                                '/models/IceCream/gltf/icecream.gltf',
+                                (gltf) =>{
+                                    gltf.scene.scale.set(0.1,0.1,0.1)
+                                    gltf.scene.position.set(object.position.x, y, object.position.z)
+                                    gltf.scene.rotation.y-= rotation 
+                                    scene.add(gltf.scene)
+                                    arr[i][j][2]=1
+                                    console.log('icecream added');
+                                    }
+                                )
+                        }
+                    }
+                }
+                
+            }
+        }
+        
     }
-/*
-//Place objects
-let x = 0
-let y = 0
-let z = 0
-
-window.addEventListener('keydown', ()=>{
-    console.log('ok');
-   /* gltfLoader.load('/models/IceCream/gltf/icecream.gltf',
-    (gltf) =>{
-        gltf.scene.scale.set(0.025, 0.025, 0.025)
-        gltf.scene.position.set(x, y, z)
-        scene.add(gltf.scene)
-    }, x++, z++
-)
-
-}*/
 )
 
 
