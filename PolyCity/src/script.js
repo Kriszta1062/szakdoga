@@ -3,8 +3,8 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
-import {TWEEN} from 'three/examples/jsm/libs/tween.module.min.js';
-import gsap from 'gsap'
+//import {TWEEN} from 'three/examples/jsm/libs/tween.module.min.js';
+//import gsap from 'gsap'
 import * as dat from 'dat.gui'
 
 /*Global variables*/
@@ -28,9 +28,9 @@ for(let i=0; i<landWidth; i++){
     horisontal=-14
     vertical++
 }
-console.log(arr);
 
-/*Dat.Gui */
+
+/*Dat.Gui*/
 
 const gui = new dat.GUI({closed: true})
 
@@ -50,7 +50,7 @@ const canvas = document.querySelector('canvas.polycity')
 // Scene
 const scene = new THREE.Scene()
 
-/*MODELS*/
+/*MODEL LOADERS*/
 
 //a videoban: 21. video 56. perc
 
@@ -66,6 +66,7 @@ gltfLoader.setDRACOLoader(dracoLoader)
 
 const material = new THREE.MeshStandardMaterial({color: param.color})
 const land = new THREE.Mesh(new THREE.PlaneBufferGeometry(landWidth, landHeight), material)
+land.receiveShadow = true
 land.rotation.x = - Math.PI * 0.5
 land.position.y = -1.5
 scene.add(land)
@@ -78,13 +79,11 @@ const y = land.position.y
 //  gui.add(land, 'visible')
 
 
- const object = new THREE.Mesh(new THREE.ConeGeometry(0.5, 1,20), new THREE.MeshBasicMaterial({color: 0x3246a8}))
+ const object = new THREE.Mesh(new THREE.ConeGeometry(0.5, 1,20), new THREE.MeshBasicMaterial({color: 0xfa70aa}))
  object.position.set(3, -1.5, 0)
  object.rotation.x=Math.PI/2
  scene.add(object)
 
-
- 
 //gui.addColor()
 
 /*Lights*/
@@ -92,6 +91,7 @@ const y = land.position.y
 const ambientLight = new THREE.AmbientLight('#ffffff', 0.5)
 //gui.add(ambientLight, 'intensity').min(0).max(1).step(0.001)
 scene.add(ambientLight)
+
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6)
 directionalLight.castShadow = true
@@ -101,8 +101,9 @@ directionalLight.shadow.camera.left = - 7
 directionalLight.shadow.camera.top = 7
 directionalLight.shadow.camera.right = 7
 directionalLight.shadow.camera.bottom = - 7
-directionalLight.position.set(- 5, 5, 0)
+directionalLight.position.set(-5, 5, 0)
 scene.add(directionalLight)
+
 
 /*Sizes*/
 
@@ -163,18 +164,17 @@ window.addEventListener('dblclick', ()=>{
         if( event.keyCode == 49) {
             for(let i = 0; i < arr.length; i++){
                 for(let j = 0; j < arr.length; j++){
-
-                    console.log(arr[i][j][2]);
-
                     if(arr[i][j][0] == object.position.x && arr[i][j][1] == object.position.z){
                         if(arr[i][j][2] == 0){
                             gltfLoader.load('/models/Panel/panel.gltf',
                             (gltf) =>{
-                                gltf.scene.scale.set(0.1,0.1,0.1)
+                                gltf.scene.scale.set(0.04,0.04,0.04)
                                 gltf.scene.position.set(object.position.x, y, object.position.z)
-                                gltf.scene.rotation.y-= rotation 
+                                gltf.scene.rotation.y -= rotation
+                                gltf.scene.receiveShadow = true
                                 scene.add(gltf.scene)
                                 arr[i][j][2]=1
+
                                 console.log('panel added');
                                 // landWidth+= Math.abs(gltf.scene.position.x)
                                 // landHeight+= Math.abs(gltf.scene.position.z)
@@ -183,7 +183,30 @@ window.addEventListener('dblclick', ()=>{
                                 }
 
                             )
+                            /*  generating way  */
+                            arr[i-1][j-1][2] = 2
+                            arr[i-1][j][2] = 2
+                            arr[i-1][j+1][2] = 2
+                            arr[i][j-1][2] = 2
+                            arr[i][j+1][2] = 2
+                            arr[i+1][j-1][2] = 2
+                            arr[i+1][j][2] = 2
+                            arr[i+1][j+1][2] = 2
+
+                            /*Drawing the road */
+                            for(let i = 0; i < arr.length; i++){
+                                for(let j = 0; j < arr.length; j++){
+                                    if(arr[i][j][2]==2){
+                                        const grey = new THREE.MeshStandardMaterial({color: 0x57544d})
+                                        const road = new THREE.Mesh(new THREE.PlaneBufferGeometry(1, 1), grey)
+                                        road.rotation.x = - Math.PI * 0.5
+                                        road.position.set(arr[i][j][0],y+0.01,arr[i][j][1])
+                                        scene.add(road)
+                                    }
+                                }
                             }
+                            }
+
                     }
                 }
                 
@@ -192,22 +215,88 @@ window.addEventListener('dblclick', ()=>{
         if(event.keyCode == 50){
             for(let i = 0; i < arr.length; i++){
                 for(let j = 0; j < arr.length; j++){
-
-                    console.log(arr[i][j][2]);
-
                     if(arr[i][j][0] == object.position.x && arr[i][j][1] == object.position.z){
                         if(arr[i][j][2] == 0){
                             gltfLoader.load(
                                 '/models/IceCream/gltf/icecream.gltf',
                                 (gltf) =>{
-                                    gltf.scene.scale.set(0.1,0.1,0.1)
+                                    gltf.scene.scale.set(0.02,0.02,0.02)
                                     gltf.scene.position.set(object.position.x, y, object.position.z)
                                     gltf.scene.rotation.y-= rotation 
+                                    gltf.scene.receiveShadow = true
                                     scene.add(gltf.scene)
                                     arr[i][j][2]=1
                                     console.log('icecream added');
                                     }
                                 )
+                                /*  generating way  */
+                                arr[i-1][j-1][2] = 2
+                                arr[i-1][j][2] = 2
+                                arr[i-1][j+1][2] = 2
+                                arr[i][j-1][2] = 2
+                                arr[i][j+1][2] = 2
+                                arr[i+1][j-1][2] = 2
+                                arr[i+1][j][2] = 2
+                                arr[i+1][j+1][2] = 2
+
+                                /*Drawing the road */
+                                for(let i = 0; i < arr.length; i++){
+                                    for(let j = 0; j < arr.length; j++){
+                                        if(arr[i][j][2]==2){
+                                            const grey = new THREE.MeshStandardMaterial({color: 0x57544d})
+                                            const road = new THREE.Mesh(new THREE.PlaneBufferGeometry(1, 1), grey)
+                                            road.rotation.x = - Math.PI * 0.5
+                                            road.position.set(arr[i][j][0],y+0.01,arr[i][j][1])
+                                            scene.add(road)
+                                        }
+                                    }
+                                }
+                        }
+                    }
+                }
+                
+            }
+        }
+        if(event.keyCode == 52){
+            for(let i = 0; i < arr.length; i++){
+                for(let j = 0; j < arr.length; j++){
+                    if(arr[i][j][0] == object.position.x && arr[i][j][1] == object.position.z){
+                        if(arr[i][j][2] == 0){
+                            gltfLoader.load(
+                                '/models/House/house.gltf',
+                                (gltf) =>{
+                                    gltf.scene.scale.set(0.025,0.025,0.025)
+                                    gltf.scene.position.set(object.position.x, y, object.position.z)  
+                                    gltf.scene.rotation.y += rotation 
+                                    gltf.scene.receiveShadow = true
+                                    scene.add(gltf.scene)
+                                    arr[i][j][2]=1
+                                    console.log('house added');
+                                    }
+
+                                )
+                                /*  generating way  */
+                                arr[i-1][j-1][2] = 2
+                                arr[i-1][j][2] = 2
+                                arr[i-1][j+1][2] = 2
+                                arr[i][j-1][2] = 2
+                                arr[i][j+1][2] = 2
+                                arr[i+1][j-1][2] = 2
+                                arr[i+1][j][2] = 2
+                                arr[i+1][j+1][2] = 2
+
+                                /*Drawing the road */
+                                for(let i = 0; i < arr.length; i++){
+                                    for(let j = 0; j < arr.length; j++){
+                                        if(arr[i][j][2]==2){
+                                            const grey = new THREE.MeshStandardMaterial({color: 0x57544d})
+                                            const road = new THREE.Mesh(new THREE.PlaneBufferGeometry(1, 1), grey)
+                                            road.rotation.x = - Math.PI * 0.5
+                                            road.position.set(arr[i][j][0],y+0.01,arr[i][j][1])
+                                            scene.add(road)
+                                        }
+                                    }
+                                }
                         }
                     }
                 }
@@ -217,6 +306,8 @@ window.addEventListener('dblclick', ()=>{
         
     }
 )
+
+
 
 
 
