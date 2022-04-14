@@ -12,12 +12,16 @@ import * as dat from 'dat.gui'
 let rotation = 0
 let landWidth = 30
 let landHeight= 30
+let textureLoader = new THREE.TextureLoader();
+const roadText = textureLoader.load( './texture/road2.jpg' );
+
 
 //array[0][0] = x=-14 z=-14
 
 let horisontal = -14 /*-((landwidth/2)-2)*/
 let vertical = -14 /*-((landwidth/2)-2)*/
 let value = 0
+
 
 let arr = Array.from(Array(landWidth), () => new Array(landHeight));
 for(let i=0; i<landWidth; i++){
@@ -358,6 +362,7 @@ function drawingRoad(i,j){
             if(arr[i][j][2]==2){
                 const grey = new THREE.MeshStandardMaterial({color: 0x57544d})
                 const road = new THREE.Mesh(new THREE.PlaneBufferGeometry(1, 1), grey)
+            //    grey.map=roadText
                 road.rotation.x = - Math.PI * 0.5
                 road.position.set(arr[i][j][0],y+0.01,arr[i][j][1])
                 scene.add(road)
