@@ -257,17 +257,140 @@ function landGrow(x, y) {
 }
 
 function generatingRoad(x, z) {
-  // TODO: ellenőrizzük le, hogy van e már azon a helyen valami. ha igen akkor ne csináljunk semmit
-  map.set(`${object.position.x - 1}_${object.position.z - 1}`, 21);
-  map.set(`${object.position.x}_${object.position.z - 1}`, 31);
-  map.set(`${object.position.x + 1}_${object.position.z - 1}`, 22);
-  map.set(`${object.position.x + 1}_${object.position.z}`, 32);
-  map.set(`${object.position.x + 1}_${object.position.z + 1}`, 23);
-  map.set(`${object.position.x}_${object.position.z + 1}`, 31);
-  map.set(`${object.position.x - 1}_${object.position.z + 1}`, 24);
-  map.set(`${object.position.x - 1}_${object.position.z}`, 32);
-  roadRebuild();
+  let place_value;
+  if (!map.has(`${x - 1}_${z - 1}`)) {
+    place_value = 21;
+    newRoad(x - 1, z - 1, place_value);
+    roadRebuild();
+  }
+  if (!map.has(`${x}_${z - 1}`)) {
+    place_value = 31;
+    newRoad(x, z - 1, place_value);
+
+    roadRebuild();
+  }
+  if (!map.has(`${x + 1}_${z - 1}`)) {
+    place_value = 22;
+    newRoad(x + 1, z - 1, place_value);
+
+    roadRebuild();
+  }
+  if (!map.has(`${x + 1}_${z}`)) {
+    place_value = 32;
+    newRoad(x + 1, z, place_value);
+
+    roadRebuild();
+  }
+  if (!map.has(`${x + 1}_${z + 1}`)) {
+    place_value = 23;
+    newRoad(x + 1, z + 1, place_value);
+
+    roadRebuild();
+  }
+  if (!map.has(`${x}_${z + 1}`)) {
+    place_value = 31;
+    newRoad(x, z + 1, place_value);
+
+    roadRebuild();
+  }
+  if (!map.has(`${x - 1}_${z + 1}`)) {
+    place_value = 24;
+    newRoad(x - 1, z + 1, place_value);
+
+    roadRebuild();
+  }
+  if (!map.has(`${x - 1}_${z}`)) {
+    place_value = 32;
+    newRoad(x - 1, z, place_value);
+
+    roadRebuild();
+  }
 }
+
+function newRoad(x, z, place_value) {
+  console.log(map.has(`${x - 1}_${z}`));
+  console.log(map.get(`${x - 1}_${z}`) !== 1);
+  console.log(map.has(`${x + 1}_${z}`));
+  console.log(map.get(`${x + 1}_${z}`) !== 1);
+  console.log(map.has(`${x}_${z - 1}`));
+  console.log(map.get(`${x}_${z - 1}`) !== 1);
+  console.log(map.has(`${x}_${z + 1}`));
+  console.log(map.get(`${x}_${z + 1}`) !== 1);
+
+  if (
+    map.has(`${x - 1}_${z}`) &&
+    map.get(`${x - 1}_${z}`) !== 1 &&
+    map.has(`${x + 1}_${z}`) &&
+    map.get(`${x + 1}_${z}`) !== 1 &&
+    map.has(`${x}_${z - 1}`) &&
+    map.get(`${x}_${z - 1}`) !== 1 &&
+    map.has(`${x}_${z + 1}`) &&
+    map.get(`${x}_${z + 1}`) !== 1
+  ) {
+    console.log("set44");
+
+    map.set(`${x}_${z}`, 44);
+  } else {
+    map.set(`${x}_${z}`, place_value);
+    console.log(`${x}_${z}` + "....." + place_value);
+  }
+}
+/*
+function generatingRoad(x, z) {
+  let place_value;
+  if (!map.has(`${x - 1}_${z - 1}`)) {
+    place_value = 21
+    map.set(`${x - 1}_${z - 1}`, 21);
+    roadRebuild();
+  }
+  if (!map.has(`${x}_${z - 1}`)) {
+    map.set(`${x}_${z - 1}`, 31);
+    roadRebuild();
+  }
+  if (!map.has(`${x + 1}_${z - 1}`)) {
+    map.set(`${x + 1}_${z - 1}`, 22);
+    roadRebuild();
+  }
+  if (!map.has(`${x + 1}_${z}`)) {
+    map.set(`${x + 1}_${z}`, 32);
+    roadRebuild();
+  }
+  if (!map.has(`${x + 1}_${z + 1}`)) {
+    map.set(`${x + 1}_${z + 1}`, 23);
+    roadRebuild();
+  }
+  if (!map.has(`${x}_${z + 1}`)) {
+    map.set(`${x}_${z + 1}`, 31);
+    roadRebuild();
+  }
+  if (!map.has(`${x - 1}_${z + 1}`)) {
+    map.set(`${x - 1}_${z + 1}`, 24);
+    roadRebuild();
+  }
+  if (!map.has(`${x - 1}_${z}`)) {
+    map.set(`${x - 1}_${z}`, 32);
+    roadRebuild();
+  }
+}
+
+function newRoad(x, z, place_value) {
+  if (
+    map.has(`${x - 1}_${z}`) &&
+    map.get(`${x - 1}_${z}`) !== 1 &&
+    map.has(`${x + 1}_${z}`) &&
+    map.get(`${x + 1}_${z}`) !== 1 &&
+    map.has(`${x}_${z - 1}`) &&
+    map.get(`${x}_${z - 1}`) !== 1 &&
+    map.has(`${x}_${z + 1}`) &&
+    map.get(`${x}_${z + 1}`) !== 1
+  ) {
+    console.log("set44");
+
+    map.set(`${x}_${z}`, 44);
+  } else {
+    map.set(`${x}_${z}`, place_value);
+  }
+}*/
 
 function drawingRoad() {
   map.forEach((value, key) => {
@@ -348,6 +471,8 @@ function drawingRoad() {
           new THREE.PlaneBufferGeometry(1, 1),
           fourRoadMaterial
         );
+        road44.rotation.x = -Math.PI * 0.5;
+        road44.rotation.z = -Math.PI * 1.5;
 
         road44.position.set(xKey, y + 0.01, zKey);
         scene.add(road44);
@@ -359,41 +484,33 @@ function drawingRoad() {
 function roadRebuild() {
   map.forEach((value, key) => {
     if (value !== 1) {
+      console.log(value);
       let [xKey, zKey] = key.split("_");
-      console.log(
-        map.has(`${xKey - 1}_${zKey}`) &&
-          map.get(`${xKey - 1}_${zKey}`) !== 1 &&
-          map.has(`${xKey + 1}_${zKey}`) &&
-          map.get(`${xKey + 1}_${zKey}`) !== 1 &&
-          (
-            map.has(`${xKey}_${zKey - 1}`) &&
-            map.get(`${xKey}_${zKey - 1}`) !== 1
-          )(
-            map.has(`${xKey}_${zKey + 1}`) &&
-              map.get(`${xKey}_${zKey + 1}`) !== 1
-          )
-      );
-      /* console.log(key + map.has(`${xKey - 1}_${zKey}`));
+
+      console.log(key + map.has(`${xKey - 1}_${zKey}`));
       console.log(map);
-*/
-      console.log(key + " " + map.has(`${xKey - 1}_${zKey}`) + "jobb");
-      console.log(map.has(`${xKey + 1}_${zKey}`) + "alatta");
-      console.log(map.has(`${xKey}_${zKey + 1}`) + " felette");
-      console.log(map.has(`${xKey}_${zKey - 1}`) + " bal");
+
+      /*console.log(key + " " + map.has(`${xKey++}_${zKey}`) + " jobb");
+      console.log(map.has(`${xKey - 1}_${zKey}`) + " bal");
+      console.log(map.has(`${xKey}_${zKey++}`) + " alatta");
+      console.log(map.has(`${xKey}_${zKey - 1}`) + " felette");*/
+
+      console.log("start");
+      console.log(map.get(`${xKey - 1}_${zKey}`));
+      console.log(map.has(`${xKey - 1}_${zKey}`));
+      console.log(map.get(`${xKey - 1}_${zKey}`) !== 1);
+      console.log("end");
 
       if (
         map.has(`${xKey - 1}_${zKey}`) &&
         map.get(`${xKey - 1}_${zKey}`) !== 1 &&
         map.has(`${xKey + 1}_${zKey}`) &&
         map.get(`${xKey + 1}_${zKey}`) !== 1 &&
-        (
-          map.has(`${xKey}_${zKey - 1}`) && map.get(`${xKey}_${zKey - 1}`) !== 1
-        )(
-          map.has(`${xKey}_${zKey + 1}`) && map.get(`${xKey}_${zKey + 1}`) !== 1
-        )
+        map.has(`${xKey}_${zKey - 1}`) &&
+        map.get(`${xKey}_${zKey - 1}`) !== 1 &&
+        map.has(`${xKey}_${zKey + 1}`) &&
+        map.get(`${xKey}_${zKey + 1}`) !== 1
       ) {
-        console.log("set44");
-
         map.set(`${xKey}_${zKey}`, 44);
       }
     }
@@ -444,5 +561,8 @@ const tick = () => {
 tick();
 
 /*
+  - parenthez kötni az utat és minden generáláskor kitörölni és újraépíteni az utakat 
+
+
 útgenerálást törölni, majd frissíteni az új elemek szerint 
 */
