@@ -13,6 +13,22 @@ let rotation = 0;
 let landWidth = 30;
 let landHeight = 30;
 let map = new Map();
+const groundObject = {
+  road: {
+    road_down_right: 121,
+    road_up_right: 122,
+    road_down_left: 124,
+    road_up_left: 123,
+    road_hori: 131,
+    road_verti: 132,
+    four_crossing: 144,
+    three_crossing: 143,
+  },
+
+  building: {
+    house: 10,
+  },
+};
 
 /*Base*/
 // Canvas
@@ -115,7 +131,7 @@ window.addEventListener("keydown", (event) => {
     console.log("x= " + object.position.x + "z= " + object.position.z);
   }
   if (event.keyCode == 39) {
-    if (Math.abs(object.position.x + 1) < land.scale.x / 2) {
+    if (Math.abs(object.position.x - -1) < land.scale.x / 2) {
       object.position.x += 1;
     }
     console.log("x=" + object.position.x + "z=" + object.position.z);
@@ -127,7 +143,7 @@ window.addEventListener("keydown", (event) => {
     console.log("x=" + object.position.x + "z=" + object.position.z);
   }
   if (event.keyCode == 40) {
-    if (Math.abs(object.position.z + 1) < land.scale.y / 2) {
+    if (Math.abs(object.position.z - -1) < land.scale.y / 2) {
       object.position.z += 1;
     }
     console.log("x=" + object.position.x + "z=" + object.position.z);
@@ -144,7 +160,10 @@ window.addEventListener("keydown", (event) => {
         gltf.scene.rotation.y -= rotation;
         gltf.scene.receiveShadow = true;
         scene.add(gltf.scene);
-        map.set(`${object.position.x}_${object.position.z}`, 1);
+        map.set(
+          `${object.position.x}_${object.position.z}`,
+          groundObject.building.house
+        );
         console.log("panel added");
       });
       generatingRoad(object.position.x, object.position.z);
@@ -161,7 +180,10 @@ window.addEventListener("keydown", (event) => {
         gltf.scene.rotation.y -= rotation;
         gltf.scene.receiveShadow = true;
         scene.add(gltf.scene);
-        map.set(`${object.position.x}_${object.position.z}`, 1);
+        map.set(
+          `${object.position.x}_${object.position.z}`,
+          groundObject.building.house
+        );
         console.log("icecream added");
       });
       generatingRoad(object.position.x, object.position.z);
@@ -179,7 +201,10 @@ window.addEventListener("keydown", (event) => {
         gltf.scene.rotation.y -= rotation;
         gltf.scene.receiveShadow = true;
         scene.add(gltf.scene);
-        map.set(`${object.position.x}_${object.position.z}`, 1);
+        map.set(
+          `${object.position.x}_${object.position.z}`,
+          groundObject.building.house
+        );
         console.log("house added");
       });
       generatingRoad(object.position.x, object.position.z);
@@ -197,7 +222,10 @@ window.addEventListener("keydown", (event) => {
         gltf.scene.rotation.y -= rotation;
         gltf.scene.receiveShadow = true;
         scene.add(gltf.scene);
-        map.set(`${object.position.x}_${object.position.z}`, 1);
+        map.set(
+          `${object.position.x}_${object.position.z}`,
+          groundObject.building.house
+        );
         console.log("house added");
       });
       generatingRoad(object.position.x, object.position.z);
@@ -215,7 +243,10 @@ window.addEventListener("keydown", (event) => {
         gltf.scene.rotation.y -= rotation;
         gltf.scene.receiveShadow = true;
         scene.add(gltf.scene);
-        map.set(`${object.position.x}_${object.position.z}`, 1);
+        map.set(
+          `${object.position.x}_${object.position.z}`,
+          groundObject.building.house
+        );
         console.log("house added");
       });
       generatingRoad(object.position.x, object.position.z);
@@ -233,7 +264,10 @@ window.addEventListener("keydown", (event) => {
         gltf.scene.rotation.y -= rotation;
         gltf.scene.receiveShadow = true;
         scene.add(gltf.scene);
-        map.set(`${object.position.x}_${object.position.z}`, 1);
+        map.set(
+          `${object.position.x}_${object.position.z}`,
+          groundObject.building.house
+        );
         console.log("house added");
       });
       generatingRoad(object.position.x, object.position.z);
@@ -246,151 +280,73 @@ window.addEventListener("keydown", (event) => {
 /*functions */
 
 function landGrow(x, y) {
-  if (Math.abs(x) + 10 > land.scale.x / 2) {
-    land.scale.y += Math.ceil(Math.abs(x) + 10 - land.scale.x / 2); //adunk minden épületnek egy 5 sugarú területet
-    land.scale.x += Math.ceil(Math.abs(x) + 10 - land.scale.x / 2);
+  if (Math.abs(x) - -10 > land.scale.x / 2) {
+    land.scale.y += Math.ceil(Math.abs(x) - -10 - land.scale.x / 2); //adunk minden épületnek egy 5 sugarú területet
+    land.scale.x += Math.ceil(Math.abs(x) - -10 - land.scale.x / 2);
   }
-  if (Math.abs(y) + 10 > land.scale.x / 2) {
-    land.scale.x += Math.ceil(Math.abs(y) + 10 - land.scale.y / 2); // azért kell előbb az x, hogy ne változtassuk meg scale.y értékét, mert különben azzal számol tovább
-    land.scale.y += Math.ceil(Math.abs(y) + 10 - land.scale.y / 2);
+  if (Math.abs(y) - -10 > land.scale.x / 2) {
+    land.scale.x += Math.ceil(Math.abs(y) - -10 - land.scale.y / 2); // azért kell előbb az x, hogy ne változtassuk meg scale.y értékét, mert különben azzal számol tovább
+    land.scale.y += Math.ceil(Math.abs(y) - -10 - land.scale.y / 2);
   }
 }
 
 function generatingRoad(x, z) {
-  let place_value;
   if (!map.has(`${x - 1}_${z - 1}`)) {
-    place_value = 21;
-    newRoad(x - 1, z - 1, place_value);
+    newRoad(x - 1, z - 1, groundObject.road.road_down_right);
     roadRebuild();
   }
   if (!map.has(`${x}_${z - 1}`)) {
-    place_value = 31;
-    newRoad(x, z - 1, place_value);
+    newRoad(x, z - 1, groundObject.road.road_hori);
 
     roadRebuild();
   }
-  if (!map.has(`${x + 1}_${z - 1}`)) {
-    place_value = 22;
-    newRoad(x + 1, z - 1, place_value);
+  if (!map.has(`${x - -1}_${z - 1}`)) {
+    newRoad(x - -1, z - 1, groundObject.road.road_up_right);
 
     roadRebuild();
   }
-  if (!map.has(`${x + 1}_${z}`)) {
-    place_value = 32;
-    newRoad(x + 1, z, place_value);
+  if (!map.has(`${x - -1}_${z}`)) {
+    newRoad(x - -1, z, groundObject.road.road_verti);
 
     roadRebuild();
   }
-  if (!map.has(`${x + 1}_${z + 1}`)) {
-    place_value = 23;
-    newRoad(x + 1, z + 1, place_value);
+  if (!map.has(`${x - -1}_${z - -1}`)) {
+    newRoad(x - -1, z - -1, groundObject.road.road_up_left);
 
     roadRebuild();
   }
-  if (!map.has(`${x}_${z + 1}`)) {
-    place_value = 31;
-    newRoad(x, z + 1, place_value);
+  if (!map.has(`${x}_${z - -1}`)) {
+    newRoad(x, z - -1, groundObject.road.road_hori);
 
     roadRebuild();
   }
-  if (!map.has(`${x - 1}_${z + 1}`)) {
-    place_value = 24;
-    newRoad(x - 1, z + 1, place_value);
+  if (!map.has(`${x - 1}_${z - -1}`)) {
+    newRoad(x - 1, z - -1, groundObject.road.road_down_left);
 
     roadRebuild();
   }
   if (!map.has(`${x - 1}_${z}`)) {
-    place_value = 32;
-    newRoad(x - 1, z, place_value);
+    newRoad(x - 1, z, groundObject.road.road_verti);
 
     roadRebuild();
   }
 }
 
 function newRoad(x, z, place_value) {
-  console.log(map.has(`${x - 1}_${z}`));
-  console.log(map.get(`${x - 1}_${z}`) !== 1);
-  console.log(map.has(`${x + 1}_${z}`));
-  console.log(map.get(`${x + 1}_${z}`) !== 1);
-  console.log(map.has(`${x}_${z - 1}`));
-  console.log(map.get(`${x}_${z - 1}`) !== 1);
-  console.log(map.has(`${x}_${z + 1}`));
-  console.log(map.get(`${x}_${z + 1}`) !== 1);
-
+  console.log(isRoad(map.get(`${x}_${z}`)));
   if (
-    map.has(`${x - 1}_${z}`) &&
-    map.get(`${x - 1}_${z}`) !== 1 &&
-    map.has(`${x + 1}_${z}`) &&
-    map.get(`${x + 1}_${z}`) !== 1 &&
-    map.has(`${x}_${z - 1}`) &&
-    map.get(`${x}_${z - 1}`) !== 1 &&
-    map.has(`${x}_${z + 1}`) &&
-    map.get(`${x}_${z + 1}`) !== 1
+    isRoad(map.get(`${x - 1}_${z}`)) &&
+    isRoad(map.get(`${x - -1}_${z}`)) &&
+    isRoad(map.get(`${x}_${z - 1}`)) &&
+    isRoad(map.get(`${x}_${z - -1}`)) &&
+    isRoad(map.get(`${x}_${z}`))
   ) {
-    console.log("set44");
-
-    map.set(`${x}_${z}`, 44);
-  } else {
+    // map.set(`${x}_${z}`, groundObject.road.four_crossing);
+  } else if (map.get(`${x}_${z}`) != groundObject.building.house) {
     map.set(`${x}_${z}`, place_value);
     console.log(`${x}_${z}` + "....." + place_value);
   }
 }
-/*
-function generatingRoad(x, z) {
-  let place_value;
-  if (!map.has(`${x - 1}_${z - 1}`)) {
-    place_value = 21
-    map.set(`${x - 1}_${z - 1}`, 21);
-    roadRebuild();
-  }
-  if (!map.has(`${x}_${z - 1}`)) {
-    map.set(`${x}_${z - 1}`, 31);
-    roadRebuild();
-  }
-  if (!map.has(`${x + 1}_${z - 1}`)) {
-    map.set(`${x + 1}_${z - 1}`, 22);
-    roadRebuild();
-  }
-  if (!map.has(`${x + 1}_${z}`)) {
-    map.set(`${x + 1}_${z}`, 32);
-    roadRebuild();
-  }
-  if (!map.has(`${x + 1}_${z + 1}`)) {
-    map.set(`${x + 1}_${z + 1}`, 23);
-    roadRebuild();
-  }
-  if (!map.has(`${x}_${z + 1}`)) {
-    map.set(`${x}_${z + 1}`, 31);
-    roadRebuild();
-  }
-  if (!map.has(`${x - 1}_${z + 1}`)) {
-    map.set(`${x - 1}_${z + 1}`, 24);
-    roadRebuild();
-  }
-  if (!map.has(`${x - 1}_${z}`)) {
-    map.set(`${x - 1}_${z}`, 32);
-    roadRebuild();
-  }
-}
-
-function newRoad(x, z, place_value) {
-  if (
-    map.has(`${x - 1}_${z}`) &&
-    map.get(`${x - 1}_${z}`) !== 1 &&
-    map.has(`${x + 1}_${z}`) &&
-    map.get(`${x + 1}_${z}`) !== 1 &&
-    map.has(`${x}_${z - 1}`) &&
-    map.get(`${x}_${z - 1}`) !== 1 &&
-    map.has(`${x}_${z + 1}`) &&
-    map.get(`${x}_${z + 1}`) !== 1
-  ) {
-    console.log("set44");
-
-    map.set(`${x}_${z}`, 44);
-  } else {
-    map.set(`${x}_${z}`, place_value);
-  }
-}*/
 
 function drawingRoad() {
   map.forEach((value, key) => {
@@ -403,120 +359,128 @@ function drawingRoad() {
       map: fourRoadTexture,
     });
 
-    switch (value) {
-      case 21:
-        const road2 = new THREE.Mesh(
-          new THREE.PlaneBufferGeometry(1, 1),
-          cornerMaterial
-        );
-        road2.rotation.x = -Math.PI * 0.5;
-        road2.position.set(xKey, y + 0.01, zKey);
-        scene.add(road2);
-        break;
-      case 31:
-        const road3 = new THREE.Mesh(
-          new THREE.PlaneBufferGeometry(1, 1),
-          roadMaterial
-        );
-        road3.rotation.x = -Math.PI * 0.5;
-        road3.rotation.z = -Math.PI * 0.5;
-        road3.position.set(xKey, y + 0.01, zKey);
-        scene.add(road3);
+    if (isRoad(value)) {
+      switch (value) {
+        case groundObject.road.road_down_right:
+          const road2 = new THREE.Mesh(
+            new THREE.PlaneBufferGeometry(1, 1),
+            cornerMaterial
+          );
+          road2.rotation.x = -Math.PI * 0.5;
+          road2.position.set(xKey, y + 0.01, zKey);
+          scene.add(road2);
+          break;
+        case groundObject.road.road_hori:
+          const road3 = new THREE.Mesh(
+            new THREE.PlaneBufferGeometry(1, 1),
+            roadMaterial
+          );
+          road3.rotation.x = -Math.PI * 0.5;
+          road3.rotation.z = -Math.PI * 0.5;
+          road3.position.set(xKey, y + 0.01, zKey);
+          scene.add(road3);
 
-        break;
-      case 22:
-        const road4 = new THREE.Mesh(
-          new THREE.PlaneBufferGeometry(1, 1),
-          cornerMaterial
-        );
-        road4.rotation.x = -Math.PI * 0.5;
-        road4.rotation.z = -Math.PI * 0.5;
+          break;
+        case groundObject.road.road_up_right:
+          const road4 = new THREE.Mesh(
+            new THREE.PlaneBufferGeometry(1, 1),
+            cornerMaterial
+          );
+          road4.rotation.x = -Math.PI * 0.5;
+          road4.rotation.z = -Math.PI * 0.5;
 
-        road4.position.set(xKey, y + 0.01, zKey);
-        scene.add(road4);
-        break;
-      case 32:
-        const road5 = new THREE.Mesh(
-          new THREE.PlaneBufferGeometry(1, 1),
-          roadMaterial
-        );
-        road5.rotation.x = -Math.PI * 0.5;
-        road5.position.set(xKey, y + 0.01, zKey);
-        scene.add(road5);
-        break;
-      case 23:
-        const road6 = new THREE.Mesh(
-          new THREE.PlaneBufferGeometry(1, 1),
-          cornerMaterial
-        );
-        road6.rotation.x = -Math.PI * 0.5;
-        road6.rotation.z = -Math.PI;
+          road4.position.set(xKey, y + 0.01, zKey);
+          scene.add(road4);
+          break;
+        case groundObject.road.road_verti:
+          const road5 = new THREE.Mesh(
+            new THREE.PlaneBufferGeometry(1, 1),
+            roadMaterial
+          );
+          road5.rotation.x = -Math.PI * 0.5;
+          road5.position.set(xKey, y + 0.01, zKey);
+          scene.add(road5);
+          break;
+        case groundObject.road.road_up_left:
+          const road6 = new THREE.Mesh(
+            new THREE.PlaneBufferGeometry(1, 1),
+            cornerMaterial
+          );
+          road6.rotation.x = -Math.PI * 0.5;
+          road6.rotation.z = -Math.PI;
 
-        road6.position.set(xKey, y + 0.01, zKey);
-        scene.add(road6);
-        break;
-      case 24:
-        const road8 = new THREE.Mesh(
-          new THREE.PlaneBufferGeometry(1, 1),
-          cornerMaterial
-        );
-        road8.rotation.x = -Math.PI * 0.5;
-        road8.rotation.z = -Math.PI * 1.5;
+          road6.position.set(xKey, y + 0.01, zKey);
+          scene.add(road6);
+          break;
+        case groundObject.road.road_down_left:
+          const road8 = new THREE.Mesh(
+            new THREE.PlaneBufferGeometry(1, 1),
+            cornerMaterial
+          );
+          road8.rotation.x = -Math.PI * 0.5;
+          road8.rotation.z = -Math.PI * 1.5;
 
-        road8.position.set(xKey, y + 0.01, zKey);
-        scene.add(road8);
-        break;
-      case 44:
-        const road44 = new THREE.Mesh(
-          new THREE.PlaneBufferGeometry(1, 1),
-          fourRoadMaterial
-        );
-        road44.rotation.x = -Math.PI * 0.5;
-        road44.rotation.z = -Math.PI * 1.5;
+          road8.position.set(xKey, y + 0.01, zKey);
+          scene.add(road8);
+          break;
+        case groundObject.road.four_crossing:
+          const road44 = new THREE.Mesh(
+            new THREE.PlaneBufferGeometry(1, 1),
+            fourRoadMaterial
+          );
+          road44.rotation.x = -Math.PI * 0.5;
+          road44.rotation.z = -Math.PI * 1.5;
 
-        road44.position.set(xKey, y + 0.01, zKey);
-        scene.add(road44);
-        break;
+          road44.position.set(xKey, y + 0.01, zKey);
+          scene.add(road44);
+          break;
+      }
     }
   });
 }
 
 function roadRebuild() {
   map.forEach((value, key) => {
-    if (value !== 1) {
-      console.log(value);
+    console.log("key " + key + " value " + value);
+
+    if (isRoad(value)) {
+      console.log(" masik key " + key + " value " + value);
+
       let [xKey, zKey] = key.split("_");
 
+      /*
       console.log(key + map.has(`${xKey - 1}_${zKey}`));
       console.log(map);
-
+      */
       /*console.log(key + " " + map.has(`${xKey++}_${zKey}`) + " jobb");
       console.log(map.has(`${xKey - 1}_${zKey}`) + " bal");
       console.log(map.has(`${xKey}_${zKey++}`) + " alatta");
       console.log(map.has(`${xKey}_${zKey - 1}`) + " felette");*/
-
+      /*
       console.log("start");
       console.log(map.get(`${xKey - 1}_${zKey}`));
       console.log(map.has(`${xKey - 1}_${zKey}`));
       console.log(map.get(`${xKey - 1}_${zKey}`) !== 1);
       console.log("end");
-
+*/
       if (
-        map.has(`${xKey - 1}_${zKey}`) &&
-        map.get(`${xKey - 1}_${zKey}`) !== 1 &&
-        map.has(`${xKey + 1}_${zKey}`) &&
-        map.get(`${xKey + 1}_${zKey}`) !== 1 &&
-        map.has(`${xKey}_${zKey - 1}`) &&
-        map.get(`${xKey}_${zKey - 1}`) !== 1 &&
-        map.has(`${xKey}_${zKey + 1}`) &&
-        map.get(`${xKey}_${zKey + 1}`) !== 1
+        isRoad(map.get(`${xKey - 1}_${zKey}`)) &&
+        isRoad(map.get(`${xKey - -1}_${zKey}`)) &&
+        isRoad(map.get(`${xKey}_${zKey - 1}`)) &&
+        isRoad(map.get(`${xKey}_${zKey - -1}`)) &&
+        isRoad(map.get(`${xKey}_${zKey}`))
       ) {
-        map.set(`${xKey}_${zKey}`, 44);
+        map.set(`${xKey}_${zKey}`, groundObject.road.four_crossing);
       }
     }
   });
   drawingRoad();
 }
+
+function isRoad(value) {
+  return 100 <= value <= 200 && value !== undefined;
+}
+
 /*Camera*/
 
 // Base camera
