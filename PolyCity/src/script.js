@@ -185,10 +185,10 @@ window.addEventListener("keydown", (event) => {
           groundObject.building.house
         );
         console.log("icecream added");
+        generatingRoad(object.position.x, object.position.z);
+        //      drawingRoad();
+        landGrow(object.position.x, object.position.z);
       });
-      generatingRoad(object.position.x, object.position.z);
-      //      drawingRoad();
-      landGrow(object.position.x, object.position.z);
     }
   }
 
@@ -206,10 +206,10 @@ window.addEventListener("keydown", (event) => {
           groundObject.building.house
         );
         console.log("house added");
+        generatingRoad(object.position.x, object.position.z);
+        //     drawingRoad();
+        landGrow(object.position.x, object.position.z);
       });
-      generatingRoad(object.position.x, object.position.z);
-      //     drawingRoad();
-      landGrow(object.position.x, object.position.z);
     }
   }
   /*OFFICE */
@@ -341,7 +341,7 @@ function newRoad(x, z, place_value) {
     isRoad(map.get(`${x}_${z - -1}`)) &&
     isRoad(map.get(`${x}_${z}`))
   ) {
-    // map.set(`${x}_${z}`, groundObject.road.four_crossing);
+    //map.set(`${x}_${z}`, groundObject.road.four_crossing);
   } else if (map.get(`${x}_${z}`) != groundObject.building.house) {
     map.set(`${x}_${z}`, place_value);
     console.log(`${x}_${z}` + "....." + place_value);
@@ -440,12 +440,14 @@ function drawingRoad() {
 }
 
 function roadRebuild() {
+  console.log("roadRe ");
+  console.log(map);
   map.forEach((value, key) => {
-    console.log("key " + key + " value " + value);
+    console.log("value, key, " + value + " " + key);
+    // console.log(map);
+    // console.log("value masik, key, " + value + " " + key);
 
     if (isRoad(value)) {
-      console.log(" masik key " + key + " value " + value);
-
       let [xKey, zKey] = key.split("_");
 
       /*
@@ -463,6 +465,7 @@ function roadRebuild() {
       console.log(map.get(`${xKey - 1}_${zKey}`) !== 1);
       console.log("end");
 */
+
       if (
         isRoad(map.get(`${xKey - 1}_${zKey}`)) &&
         isRoad(map.get(`${xKey - -1}_${zKey}`)) &&
@@ -472,9 +475,9 @@ function roadRebuild() {
       ) {
         map.set(`${xKey}_${zKey}`, groundObject.road.four_crossing);
       }
+      drawingRoad();
     }
   });
-  drawingRoad();
 }
 
 function isRoad(value) {
