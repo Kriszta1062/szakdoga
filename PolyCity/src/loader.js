@@ -9,6 +9,7 @@ const texture = {
   road: new THREE.TextureLoader().load("/texture/road3.jpg"),
   corner: new THREE.TextureLoader().load("/texture/corner.jpg"),
   fourRoad: new THREE.TextureLoader().load("/texture/fourRoad.jpg"),
+  threeRoad: new THREE.TextureLoader().load("/texture/three_road.jpg"),
 };
 
 const dracoLoader = new DRACOLoader();
@@ -27,7 +28,7 @@ async function loadModels() {
     "/models/IceCream/gltf/icecream.gltf"
   );
   scenes.iceCreamScene = iceCreamGltf.scene;
-  scenes.iceCreamScene.scale.set(0.02, 0.02, 0.02);
+  scenes.iceCreamScene.scale.set(0.03, 0.03, 0.03);
   scenes.iceCreamScene.receiveShadow = true;
 
   const houseGltf = await gltfLoader.loadAsync("/models/House/house.gltf");
@@ -49,6 +50,25 @@ async function loadModels() {
   scenes.groceryScene = groceryGltf.scene;
   scenes.groceryScene.scale.set(0.025, 0.025, 0.025);
   scenes.groceryScene.receiveShadow = true;
+
+  const toyShopGltf = await gltfLoader.loadAsync(
+    "/models/toyshop/toyshop.gltf"
+  );
+  scenes.toyShopScene = toyShopGltf.scene;
+  scenes.toyShopScene.scale.set(0.025, 0.025, 0.025);
+  scenes.toyShopScene.receiveShadow = true;
+
+  const playgroundGltf = await gltfLoader.loadAsync(
+    "/models/Playground/playground.gltf"
+  );
+  scenes.playgroundScene = playgroundGltf.scene;
+  scenes.playgroundScene.scale.set(0.04, 0.04, 0.04);
+  scenes.playgroundScene.receiveShadow = true;
+
+  const carGltf = await gltfLoader.loadAsync("/models/car.gltf");
+  scenes.carScene = carGltf.scene;
+  scenes.carScene.scale.set(0.1, 0.1, 0.1);
+  scenes.carScene.receiveShadow = true;
 }
 
 export { texture, loadModels };

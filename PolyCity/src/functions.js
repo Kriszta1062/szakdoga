@@ -15,71 +15,51 @@ function landGrow(x, y) {
 
 function generatingRoad(x, z) {
   if (!map.has(`${x - 1}_${z - 1}`)) {
-    newRoad(x - 1, z - 1, groundObject.road.road_down_right);
-    roadRebuild();
+    map.set(`${x - 1}_${z - 1}`, groundObject.road.road_down_right);
   }
   if (!map.has(`${x}_${z - 1}`)) {
-    newRoad(x, z - 1, groundObject.road.road_hori);
-
-    roadRebuild();
+    map.set(`${x}_${z - 1}`, groundObject.road.road_hori);
   }
   if (!map.has(`${x - -1}_${z - 1}`)) {
-    newRoad(x - -1, z - 1, groundObject.road.road_up_right);
-
-    roadRebuild();
+    map.set(`${x - -1}_${z - 1}`, groundObject.road.road_up_right);
   }
   if (!map.has(`${x - -1}_${z}`)) {
-    newRoad(x - -1, z, groundObject.road.road_verti);
-
-    roadRebuild();
+    map.set(`${x - -1}_${z}`, groundObject.road.road_verti);
   }
   if (!map.has(`${x - -1}_${z - -1}`)) {
-    newRoad(x - -1, z - -1, groundObject.road.road_up_left);
-
-    roadRebuild();
+    map.set(`${x - -1}_${z - -1}`, groundObject.road.road_up_left);
   }
   if (!map.has(`${x}_${z - -1}`)) {
-    newRoad(x, z - -1, groundObject.road.road_hori);
-
-    roadRebuild();
+    map.set(`${x}_${z - -1}`, groundObject.road.road_hori);
   }
   if (!map.has(`${x - 1}_${z - -1}`)) {
-    newRoad(x - 1, z - -1, groundObject.road.road_down_left);
-
-    roadRebuild();
+    map.set(`${x - 1}_${z - -1}`, groundObject.road.road_down_left);
   }
   if (!map.has(`${x - 1}_${z}`)) {
-    newRoad(x - 1, z, groundObject.road.road_verti);
-
-    roadRebuild();
+    map.set(`${x - 1}_${z}`, groundObject.road.road_verti);
   }
-}
 
-function newRoad(x, z, place_value) {
-  console.log(isRoad(map.get(`${x}_${z}`)));
-  if (
-    isRoad(map.get(`${x - 1}_${z}`)) &&
-    isRoad(map.get(`${x - -1}_${z}`)) &&
-    isRoad(map.get(`${x}_${z - 1}`)) &&
-    isRoad(map.get(`${x}_${z - -1}`)) &&
-    isRoad(map.get(`${x}_${z}`))
-  ) {
-    //map.set(`${x}_${z}`, groundObject.road.four_crossing);
-  } else if (map.get(`${x}_${z}`) != groundObject.building.house) {
-    map.set(`${x}_${z}`, place_value);
-    console.log(`${x}_${z}` + "....." + place_value);
-  }
+  roadRebuild();
 }
 
 function drawingRoad() {
   map.forEach((value, key) => {
     let [xKey, zKey] = key.split("_");
+    console.log("szures --------------------");
+    console.log(map);
+
     const roadMaterial = new THREE.MeshStandardMaterial({ map: texture.road });
+
     const cornerMaterial = new THREE.MeshStandardMaterial({
       map: texture.corner,
     });
+
     const fourRoadMaterial = new THREE.MeshStandardMaterial({
       map: texture.fourRoad,
+    });
+
+    const threeRoadMaterial = new THREE.MeshStandardMaterial({
+      map: texture.threeRoad,
     });
 
     if (isRoad(value)) {
@@ -147,15 +127,59 @@ function drawingRoad() {
           scene.add(road8);
           break;
         case groundObject.road.four_crossing:
-          const road44 = new THREE.Mesh(
+          const four = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(1, 1),
             fourRoadMaterial
           );
-          road44.rotation.x = -Math.PI * 0.5;
-          road44.rotation.z = -Math.PI * 1.5;
+          four.rotation.x = -Math.PI * 0.5;
+          four.rotation.z = -Math.PI * 1.5;
 
-          road44.position.set(xKey, land.position.y + 0.01, zKey);
-          scene.add(road44);
+          four.position.set(xKey, land.position.y + 0.0101, zKey);
+          scene.add(four);
+          break;
+        case groundObject.road.three_up_crossing:
+          const three_up = new THREE.Mesh(
+            new THREE.PlaneBufferGeometry(1, 1),
+            threeRoadMaterial
+          );
+          three_up.rotation.x = -Math.PI * 0.5;
+          three_up.rotation.z = -Math.PI * 0.5; //jo
+
+          three_up.position.set(xKey, land.position.y + 0.0101, zKey);
+          scene.add(three_up);
+          break;
+        case groundObject.road.three_down_crossing:
+          const three_down = new THREE.Mesh(
+            new THREE.PlaneBufferGeometry(1, 1),
+            threeRoadMaterial
+          );
+          three_down.rotation.x = -Math.PI * 0.5;
+          three_down.rotation.z = -Math.PI * 1.5; //jo
+
+          three_down.position.set(xKey, land.position.y + 0.0101, zKey);
+          scene.add(three_down);
+          break;
+        case groundObject.road.three_left_crossing:
+          const three_left = new THREE.Mesh(
+            new THREE.PlaneBufferGeometry(1, 1),
+            threeRoadMaterial
+          );
+          three_left.rotation.x = -Math.PI * 0.5;
+          three_left.rotation.z = -Math.PI * 2; //jo
+
+          three_left.position.set(xKey, land.position.y + 0.0101, zKey);
+          scene.add(three_left);
+          break;
+        case groundObject.road.three_right_crossing:
+          const three_right = new THREE.Mesh(
+            new THREE.PlaneBufferGeometry(1, 1),
+            threeRoadMaterial
+          );
+          three_right.rotation.x = -Math.PI * 0.5;
+          three_right.rotation.z = -Math.PI * 1;
+
+          three_right.position.set(xKey, land.position.y + 0.0101, zKey);
+          scene.add(three_right);
           break;
       }
     }
@@ -163,31 +187,9 @@ function drawingRoad() {
 }
 
 function roadRebuild() {
-  console.log("roadRe ");
-  console.log(map);
   map.forEach((value, key) => {
-    console.log("value, key, " + value + " " + key);
-    // console.log(map);
-    // console.log("value masik, key, " + value + " " + key);
-
     if (isRoad(value)) {
       let [xKey, zKey] = key.split("_");
-
-      /*
-      console.log(key + map.has(`${xKey - 1}_${zKey}`));
-      console.log(map);
-      */
-      /*console.log(key + " " + map.has(`${xKey++}_${zKey}`) + " jobb");
-      console.log(map.has(`${xKey - 1}_${zKey}`) + " bal");
-      console.log(map.has(`${xKey}_${zKey++}`) + " alatta");
-      console.log(map.has(`${xKey}_${zKey - 1}`) + " felette");*/
-      /*
-      console.log("start");
-      console.log(map.get(`${xKey - 1}_${zKey}`));
-      console.log(map.has(`${xKey - 1}_${zKey}`));
-      console.log(map.get(`${xKey - 1}_${zKey}`) !== 1);
-      console.log("end");
-*/
 
       if (
         isRoad(map.get(`${xKey - 1}_${zKey}`)) &&
@@ -197,6 +199,38 @@ function roadRebuild() {
         isRoad(map.get(`${xKey}_${zKey}`))
       ) {
         map.set(`${xKey}_${zKey}`, groundObject.road.four_crossing);
+      } else if (
+        isRoad(map.get(`${xKey - 1}_${zKey}`)) &&
+        isRoad(map.get(`${xKey - -1}_${zKey}`)) &&
+        isRoad(map.get(`${xKey}_${zKey - 1}`)) &&
+        notRoad(map.get(`${xKey}_${zKey - -1}`)) &&
+        isRoad(map.get(`${xKey}_${zKey}`))
+      ) {
+        map.set(`${xKey}_${zKey}`, groundObject.road.three_up_crossing);
+      } else if (
+        isRoad(map.get(`${xKey - 1}_${zKey}`)) &&
+        isRoad(map.get(`${xKey - -1}_${zKey}`)) &&
+        notRoad(map.get(`${xKey}_${zKey - 1}`)) &&
+        isRoad(map.get(`${xKey}_${zKey - -1}`)) &&
+        isRoad(map.get(`${xKey}_${zKey}`))
+      ) {
+        map.set(`${xKey}_${zKey}`, groundObject.road.three_down_crossing);
+      } else if (
+        isRoad(map.get(`${xKey - 1}_${zKey}`)) &&
+        notRoad(map.get(`${xKey - -1}_${zKey}`)) &&
+        isRoad(map.get(`${xKey}_${zKey - 1}`)) &&
+        isRoad(map.get(`${xKey}_${zKey - -1}`)) &&
+        isRoad(map.get(`${xKey}_${zKey}`))
+      ) {
+        map.set(`${xKey}_${zKey}`, groundObject.road.three_left_crossing);
+      } else if (
+        notRoad(map.get(`${xKey - 1}_${zKey}`)) &&
+        isRoad(map.get(`${xKey - -1}_${zKey}`)) &&
+        isRoad(map.get(`${xKey}_${zKey - 1}`)) &&
+        isRoad(map.get(`${xKey}_${zKey - -1}`)) &&
+        isRoad(map.get(`${xKey}_${zKey}`))
+      ) {
+        map.set(`${xKey}_${zKey}`, groundObject.road.three_right_crossing);
       }
       drawingRoad();
     }
@@ -204,7 +238,11 @@ function roadRebuild() {
 }
 
 function isRoad(value) {
-  return 100 <= value <= 200 && value !== undefined;
+  return 100 <= value && value <= 200;
 }
 
-export { landGrow, generatingRoad, newRoad, drawingRoad, roadRebuild, isRoad };
+function notRoad(value) {
+  return 100 > value || value > 200 || value === undefined;
+}
+
+export { landGrow, generatingRoad, drawingRoad, roadRebuild, isRoad };

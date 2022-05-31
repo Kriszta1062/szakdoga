@@ -9,7 +9,8 @@ import {
   groundObject,
 } from "./globals";
 
-import { generatingRoad, landGrow } from "./functions";
+import { camera } from "./script";
+import { generatingRoad, landGrow, isRoad } from "./functions";
 
 function keydownListener(event) {
   if (event.keyCode == 38) {
@@ -81,6 +82,8 @@ function keydownListener(event) {
         groundObject.building.house
       );
       console.log("icecream added");
+      console.log(map);
+
       generatingRoad(placePicker.position.x, placePicker.position.z);
       //      drawingRoad();
       landGrow(placePicker.position.x, placePicker.position.z);
@@ -178,6 +181,73 @@ function keydownListener(event) {
       generatingRoad(placePicker.position.x, placePicker.position.z);
       //      drawingRoad();
       landGrow(placePicker.position.x, placePicker.position.z);
+    }
+  }
+  /*TOYSHOP */
+  if (event.keyCode == 56) {
+    if (!map.has(`${placePicker.position.x}_${placePicker.position.z}`)) {
+      const toyShopScene = scenes.toyShopScene.clone();
+
+      toyShopScene.position.set(
+        placePicker.position.x,
+        land.position.y,
+        placePicker.position.z
+      );
+      toyShopScene.rotation.y -= rotation;
+      scene.add(toyShopScene);
+      map.set(
+        `${placePicker.position.x}_${placePicker.position.z}`,
+        groundObject.building.house
+      );
+      console.log("toyshop added");
+      generatingRoad(placePicker.position.x, placePicker.position.z);
+      //      drawingRoad();
+      landGrow(placePicker.position.x, placePicker.position.z);
+    }
+  }
+  /*PLAYGROUND */
+  if (event.keyCode == 57) {
+    if (!map.has(`${placePicker.position.x}_${placePicker.position.z}`)) {
+      const playgroundScene = scenes.playgroundScene.clone();
+
+      playgroundScene.position.set(
+        placePicker.position.x,
+        land.position.y,
+        placePicker.position.z
+      );
+      playgroundScene.rotation.y -= rotation;
+      scene.add(playgroundScene);
+      map.set(
+        `${placePicker.position.x}_${placePicker.position.z}`,
+        groundObject.building.house
+      );
+      console.log("toyshop added");
+      generatingRoad(placePicker.position.x, placePicker.position.z);
+      //      drawingRoad();
+      landGrow(placePicker.position.x, placePicker.position.z);
+    }
+  }
+  /*CAR */
+  if (event.keyCode == 67) {
+    if (
+      isRoad(map.get(`${placePicker.position.x}_${placePicker.position.z}`))
+    ) {
+      // kellenek tovabbi feltetelek az utak iranyarol
+      const carScene = scenes.carScene.clone();
+
+      carScene.position.set(
+        placePicker.position.x,
+        land.position.y,
+        placePicker.position.z
+      );
+      carScene.rotation.y = -Math.PI / 2;
+      carScene.rotation.y -= rotation;
+      scene.add(carScene);
+      map.set(
+        `${placePicker.position.x}_${placePicker.position.z}`,
+        groundObject.vehicle.car
+      );
+      console.log("car added");
     }
   }
 }

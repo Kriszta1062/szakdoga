@@ -64,17 +64,16 @@ function initWorld() {
   //Resize updter
 
   window.addEventListener("resize", resizeListener);
-  /*
-// Fullschreen function
 
-window.addEventListener('dblclick', ()=>{
-    if(!document.fullscreenElement){
-        canvas.requestFullscreen()
-    }else{
-        document.exitFullscreen()
+  /*Fullschreen function*/
+
+  window.addEventListener("dblclick", () => {
+    if (!document.fullscreenElement) {
+      canvas.requestFullscreen();
+    } else {
+      document.exitFullscreen();
     }
-})
-*/
+  });
 
   window.addEventListener("keydown", keydownListener);
 
