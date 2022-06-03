@@ -82,7 +82,6 @@ function keydownListener(event) {
         groundObject.building.house
       );
       console.log("icecream added");
-      console.log(map);
 
       generatingRoad(placePicker.position.x, placePicker.position.z);
       //      drawingRoad();

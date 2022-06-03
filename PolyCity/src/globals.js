@@ -47,3 +47,11 @@ const placePicker = new THREE.Mesh(
 );
 
 export { sizes, rotation, map, groundObject, scenes, scene, land, placePicker };
+
+/*
+const navigationHelpers = {
+  placePicker: new THREE.Mesh(
+    new THREE.ConeGeometry(0.5, 1, 20),
+    new THREE.MeshLambertMaterial({ color: 0xfa70aa })
+  ),
+};*/

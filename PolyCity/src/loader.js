@@ -65,7 +65,7 @@ async function loadModels() {
   scenes.playgroundScene.scale.set(0.04, 0.04, 0.04);
   scenes.playgroundScene.receiveShadow = true;
 
-  const carGltf = await gltfLoader.loadAsync("/models/car.gltf");
+  const carGltf = await gltfLoader.loadAsync("/models/Car/car.gltf");
   scenes.carScene = carGltf.scene;
   scenes.carScene.scale.set(0.1, 0.1, 0.1);
   scenes.carScene.receiveShadow = true;

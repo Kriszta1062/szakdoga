@@ -45,9 +45,6 @@ function generatingRoad(x, z) {
 function drawingRoad() {
   map.forEach((value, key) => {
     let [xKey, zKey] = key.split("_");
-    console.log("szures --------------------");
-    console.log(map);
-
     const roadMaterial = new THREE.MeshStandardMaterial({ map: texture.road });
 
     const cornerMaterial = new THREE.MeshStandardMaterial({
@@ -134,7 +131,7 @@ function drawingRoad() {
           four.rotation.x = -Math.PI * 0.5;
           four.rotation.z = -Math.PI * 1.5;
 
-          four.position.set(xKey, land.position.y + 0.0101, zKey);
+          four.position.set(xKey, land.position.y + 0.0105, zKey);
           scene.add(four);
           break;
         case groundObject.road.three_up_crossing:
