@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
-import { scenes } from "./globals";
+import globals from "./globals";
 
 /*MODEL LOADERS*/
 
@@ -20,55 +20,64 @@ gltfLoader.setDRACOLoader(dracoLoader);
 
 async function loadModels() {
   const panelGltf = await gltfLoader.loadAsync("/models/Panel/panel.gltf");
-  scenes.panelScene = panelGltf.scene;
-  scenes.panelScene.scale.set(0.04, 0.04, 0.04);
-  scenes.panelScene.receiveShadow = true;
+  globals.scenes.panelScene = panelGltf.scene;
+  globals.scenes.panelScene.scale.set(0.04, 0.04, 0.04);
+  globals.scenes.panelScene.receiveShadow = true;
+  console.log("panel loaded");
 
   const iceCreamGltf = await gltfLoader.loadAsync(
     "/models/IceCream/gltf/icecream.gltf"
   );
-  scenes.iceCreamScene = iceCreamGltf.scene;
-  scenes.iceCreamScene.scale.set(0.03, 0.03, 0.03);
-  scenes.iceCreamScene.receiveShadow = true;
+  globals.scenes.iceCreamScene = iceCreamGltf.scene;
+  globals.scenes.iceCreamScene.scale.set(0.03, 0.03, 0.03);
+  globals.scenes.iceCreamScene.receiveShadow = true;
+  console.log("icecream loaded");
 
   const houseGltf = await gltfLoader.loadAsync("/models/House/house.gltf");
-  scenes.houseScene = houseGltf.scene;
-  scenes.houseScene.receiveShadow = true;
-  scenes.houseScene.scale.set(0.025, 0.025, 0.025);
+  globals.scenes.houseScene = houseGltf.scene;
+  globals.scenes.houseScene.receiveShadow = true;
+  globals.scenes.houseScene.scale.set(0.025, 0.025, 0.025);
+  console.log("house loaded");
 
   const officeGltf = await gltfLoader.loadAsync("/models/House/house.gltf");
-  scenes.officeScene = officeGltf.scene;
-  scenes.officeScene.scale.set(0.025, 0.025, 0.025);
-  scenes.officeScene.receiveShadow = true;
+  globals.scenes.officeScene = officeGltf.scene;
+  globals.scenes.officeScene.scale.set(0.025, 0.025, 0.025);
+  globals.scenes.officeScene.receiveShadow = true;
+  console.log("office loaded");
 
   const hamburgerGltf = await gltfLoader.loadAsync("/models/House/house.gltf");
-  scenes.hamburgerScene = hamburgerGltf.scene;
-  scenes.hamburgerScene.scale.set(0.025, 0.025, 0.025);
-  scenes.hamburgerScene.receiveShadow = true;
+  globals.scenes.hamburgerScene = hamburgerGltf.scene;
+  globals.scenes.hamburgerScene.scale.set(0.025, 0.025, 0.025);
+  globals.scenes.hamburgerScene.receiveShadow = true;
+  console.log("hamburger loaded");
 
   const groceryGltf = await gltfLoader.loadAsync("/models/House/house.gltf");
-  scenes.groceryScene = groceryGltf.scene;
-  scenes.groceryScene.scale.set(0.025, 0.025, 0.025);
-  scenes.groceryScene.receiveShadow = true;
+  globals.scenes.groceryScene = groceryGltf.scene;
+  globals.scenes.groceryScene.scale.set(0.025, 0.025, 0.025);
+  globals.scenes.groceryScene.receiveShadow = true;
+  console.log("grocery loaded");
 
   const toyShopGltf = await gltfLoader.loadAsync(
     "/models/toyshop/toyshop.gltf"
   );
-  scenes.toyShopScene = toyShopGltf.scene;
-  scenes.toyShopScene.scale.set(0.025, 0.025, 0.025);
-  scenes.toyShopScene.receiveShadow = true;
+  globals.scenes.toyShopScene = toyShopGltf.scene;
+  globals.scenes.toyShopScene.scale.set(0.025, 0.025, 0.025);
+  globals.scenes.toyShopScene.receiveShadow = true;
+  console.log("toyShop loaded");
 
   const playgroundGltf = await gltfLoader.loadAsync(
     "/models/Playground/playground.gltf"
   );
-  scenes.playgroundScene = playgroundGltf.scene;
-  scenes.playgroundScene.scale.set(0.04, 0.04, 0.04);
-  scenes.playgroundScene.receiveShadow = true;
+  globals.scenes.playgroundScene = playgroundGltf.scene;
+  globals.scenes.playgroundScene.scale.set(0.04, 0.04, 0.04);
+  globals.scenes.playgroundScene.receiveShadow = true;
+  console.log("playground loaded");
 
-  const carGltf = await gltfLoader.loadAsync("/models/Car/car.gltf");
-  scenes.carScene = carGltf.scene;
-  scenes.carScene.scale.set(0.1, 0.1, 0.1);
-  scenes.carScene.receiveShadow = true;
+  const carGltf = await gltfLoader.loadAsync("/models/Car/car2.gltf");
+  globals.scenes.carScene = carGltf.scene;
+  globals.scenes.carScene.scale.set(0.1, 0.1, 0.1);
+  globals.scenes.carScene.receiveShadow = true;
+  console.log("car loaded");
 }
 
 export { texture, loadModels };

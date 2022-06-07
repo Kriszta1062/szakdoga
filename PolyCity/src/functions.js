@@ -1,49 +1,72 @@
 import * as THREE from "three";
 import { texture } from "./loader.js";
-import { map, land, groundObject, scene } from "./globals";
+import globals from "./globals";
 
 function landGrow(x, y) {
-  if (Math.abs(x) - -10 > land.scale.x / 2) {
-    land.scale.y += Math.ceil(Math.abs(x) - -10 - land.scale.x / 2); //adunk minden épületnek egy 5 sugarú területet
-    land.scale.x += Math.ceil(Math.abs(x) - -10 - land.scale.x / 2);
+  if (Math.abs(x) - -10 > globals.land.scale.x / 2) {
+    globals.land.scale.y += Math.ceil(
+      Math.abs(x) - -10 - globals.land.scale.x / 2
+    ); //adunk minden épületnek egy 5 sugarú területet
+    globals.land.scale.x += Math.ceil(
+      Math.abs(x) - -10 - globals.land.scale.x / 2
+    );
   }
-  if (Math.abs(y) - -10 > land.scale.x / 2) {
-    land.scale.x += Math.ceil(Math.abs(y) - -10 - land.scale.y / 2); // azért kell előbb az x, hogy ne változtassuk meg scale.y értékét, mert különben azzal számol tovább
-    land.scale.y += Math.ceil(Math.abs(y) - -10 - land.scale.y / 2);
+  if (Math.abs(y) - -10 > globals.land.scale.x / 2) {
+    globals.land.scale.x += Math.ceil(
+      Math.abs(y) - -10 - globals.land.scale.y / 2
+    ); // azért kell előbb az x, hogy ne változtassuk meg scale.y értékét, mert különben azzal számol tovább
+    globals.land.scale.y += Math.ceil(
+      Math.abs(y) - -10 - globals.land.scale.y / 2
+    );
   }
 }
 
 function generatingRoad(x, z) {
-  if (!map.has(`${x - 1}_${z - 1}`)) {
-    map.set(`${x - 1}_${z - 1}`, groundObject.road.road_down_right);
+  if (!globals.map.has(`${x - 1}_${z - 1}`)) {
+    globals.map.set(
+      `${x - 1}_${z - 1}`,
+      globals.groundObject.road.road_down_right
+    );
   }
-  if (!map.has(`${x}_${z - 1}`)) {
-    map.set(`${x}_${z - 1}`, groundObject.road.road_hori);
+  if (!globals.map.has(`${x}_${z - 1}`)) {
+    globals.map.set(`${x}_${z - 1}`, globals.groundObject.road.road_hori);
   }
-  if (!map.has(`${x - -1}_${z - 1}`)) {
-    map.set(`${x - -1}_${z - 1}`, groundObject.road.road_up_right);
+  if (!globals.map.has(`${x - -1}_${z - 1}`)) {
+    globals.map.set(
+      `${x - -1}_${z - 1}`,
+      globals.groundObject.road.road_up_right
+    );
   }
-  if (!map.has(`${x - -1}_${z}`)) {
-    map.set(`${x - -1}_${z}`, groundObject.road.road_verti);
+  if (!globals.map.has(`${x - -1}_${z}`)) {
+    globals.map.set(`${x - -1}_${z}`, globals.groundObject.road.road_verti);
   }
-  if (!map.has(`${x - -1}_${z - -1}`)) {
-    map.set(`${x - -1}_${z - -1}`, groundObject.road.road_up_left);
+  if (!globals.map.has(`${x - -1}_${z - -1}`)) {
+    globals.map.set(
+      `${x - -1}_${z - -1}`,
+      globals.groundObject.road.road_up_left
+    );
   }
-  if (!map.has(`${x}_${z - -1}`)) {
-    map.set(`${x}_${z - -1}`, groundObject.road.road_hori);
+  if (!globals.map.has(`${x}_${z - -1}`)) {
+    globals.map.set(`${x}_${z - -1}`, globals.groundObject.road.road_hori);
   }
-  if (!map.has(`${x - 1}_${z - -1}`)) {
-    map.set(`${x - 1}_${z - -1}`, groundObject.road.road_down_left);
+  if (!globals.map.has(`${x - 1}_${z - -1}`)) {
+    globals.map.set(
+      `${x - 1}_${z - -1}`,
+      globals.groundObject.road.road_down_left
+    );
   }
-  if (!map.has(`${x - 1}_${z}`)) {
-    map.set(`${x - 1}_${z}`, groundObject.road.road_verti);
+  if (!globals.map.has(`${x - 1}_${z}`)) {
+    globals.map.set(`${x - 1}_${z}`, globals.groundObject.road.road_verti);
   }
 
   roadRebuild();
 }
 
+// delete this line:
+let fourRoadsCount = 0;
+
 function drawingRoad() {
-  map.forEach((value, key) => {
+  globals.map.forEach((value, key) => {
     let [xKey, zKey] = key.split("_");
     const roadMaterial = new THREE.MeshStandardMaterial({ map: texture.road });
 
@@ -61,27 +84,27 @@ function drawingRoad() {
 
     if (isRoad(value)) {
       switch (value) {
-        case groundObject.road.road_down_right:
+        case globals.groundObject.road.road_down_right:
           const road2 = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(1, 1),
             cornerMaterial
           );
           road2.rotation.x = -Math.PI * 0.5;
-          road2.position.set(xKey, land.position.y + 0.01, zKey);
-          scene.add(road2);
+          road2.position.set(xKey, globals.land.position.y + 0.01, zKey);
+          globals.scene.add(road2);
           break;
-        case groundObject.road.road_hori:
+        case globals.groundObject.road.road_hori:
           const road3 = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(1, 1),
             roadMaterial
           );
           road3.rotation.x = -Math.PI * 0.5;
           road3.rotation.z = -Math.PI * 0.5;
-          road3.position.set(xKey, land.position.y + 0.01, zKey);
-          scene.add(road3);
+          road3.position.set(xKey, globals.land.position.y + 0.01, zKey);
+          globals.scene.add(road3);
 
           break;
-        case groundObject.road.road_up_right:
+        case globals.groundObject.road.road_up_right:
           const road4 = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(1, 1),
             cornerMaterial
@@ -89,19 +112,19 @@ function drawingRoad() {
           road4.rotation.x = -Math.PI * 0.5;
           road4.rotation.z = -Math.PI * 0.5;
 
-          road4.position.set(xKey, land.position.y + 0.01, zKey);
-          scene.add(road4);
+          road4.position.set(xKey, globals.land.position.y + 0.01, zKey);
+          globals.scene.add(road4);
           break;
-        case groundObject.road.road_verti:
+        case globals.groundObject.road.road_verti:
           const road5 = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(1, 1),
             roadMaterial
           );
           road5.rotation.x = -Math.PI * 0.5;
-          road5.position.set(xKey, land.position.y + 0.01, zKey);
-          scene.add(road5);
+          road5.position.set(xKey, globals.land.position.y + 0.01, zKey);
+          globals.scene.add(road5);
           break;
-        case groundObject.road.road_up_left:
+        case globals.groundObject.road.road_up_left:
           const road6 = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(1, 1),
             cornerMaterial
@@ -109,10 +132,10 @@ function drawingRoad() {
           road6.rotation.x = -Math.PI * 0.5;
           road6.rotation.z = -Math.PI;
 
-          road6.position.set(xKey, land.position.y + 0.01, zKey);
-          scene.add(road6);
+          road6.position.set(xKey, globals.land.position.y + 0.01, zKey);
+          globals.scene.add(road6);
           break;
-        case groundObject.road.road_down_left:
+        case globals.groundObject.road.road_down_left:
           const road8 = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(1, 1),
             cornerMaterial
@@ -120,10 +143,10 @@ function drawingRoad() {
           road8.rotation.x = -Math.PI * 0.5;
           road8.rotation.z = -Math.PI * 1.5;
 
-          road8.position.set(xKey, land.position.y + 0.01, zKey);
-          scene.add(road8);
+          road8.position.set(xKey, globals.land.position.y + 0.01, zKey);
+          globals.scene.add(road8);
           break;
-        case groundObject.road.four_crossing:
+        case globals.groundObject.road.four_crossing:
           const four = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(1, 1),
             fourRoadMaterial
@@ -131,10 +154,15 @@ function drawingRoad() {
           four.rotation.x = -Math.PI * 0.5;
           four.rotation.z = -Math.PI * 1.5;
 
-          four.position.set(xKey, land.position.y + 0.0105, zKey);
-          scene.add(four);
+          four.position.set(xKey, globals.land.position.y + 0.0105, zKey);
+          globals.scene.add(four);
+          console.log(
+            `four added (${fourRoadsCount++}), total scene children: ${
+              globals.scene.children.length
+            }`
+          );
           break;
-        case groundObject.road.three_up_crossing:
+        case globals.groundObject.road.three_up_crossing:
           const three_up = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(1, 1),
             threeRoadMaterial
@@ -142,10 +170,10 @@ function drawingRoad() {
           three_up.rotation.x = -Math.PI * 0.5;
           three_up.rotation.z = -Math.PI * 0.5; //jo
 
-          three_up.position.set(xKey, land.position.y + 0.0101, zKey);
-          scene.add(three_up);
+          three_up.position.set(xKey, globals.land.position.y + 0.0101, zKey);
+          globals.scene.add(three_up);
           break;
-        case groundObject.road.three_down_crossing:
+        case globals.groundObject.road.three_down_crossing:
           const three_down = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(1, 1),
             threeRoadMaterial
@@ -153,10 +181,10 @@ function drawingRoad() {
           three_down.rotation.x = -Math.PI * 0.5;
           three_down.rotation.z = -Math.PI * 1.5; //jo
 
-          three_down.position.set(xKey, land.position.y + 0.0101, zKey);
-          scene.add(three_down);
+          three_down.position.set(xKey, globals.land.position.y + 0.0101, zKey);
+          globals.scene.add(three_down);
           break;
-        case groundObject.road.three_left_crossing:
+        case globals.groundObject.road.three_left_crossing:
           const three_left = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(1, 1),
             threeRoadMaterial
@@ -164,10 +192,10 @@ function drawingRoad() {
           three_left.rotation.x = -Math.PI * 0.5;
           three_left.rotation.z = -Math.PI * 2; //jo
 
-          three_left.position.set(xKey, land.position.y + 0.0101, zKey);
-          scene.add(three_left);
+          three_left.position.set(xKey, globals.land.position.y + 0.0101, zKey);
+          globals.scene.add(three_left);
           break;
-        case groundObject.road.three_right_crossing:
+        case globals.groundObject.road.three_right_crossing:
           const three_right = new THREE.Mesh(
             new THREE.PlaneBufferGeometry(1, 1),
             threeRoadMaterial
@@ -175,8 +203,12 @@ function drawingRoad() {
           three_right.rotation.x = -Math.PI * 0.5;
           three_right.rotation.z = -Math.PI * 1;
 
-          three_right.position.set(xKey, land.position.y + 0.0101, zKey);
-          scene.add(three_right);
+          three_right.position.set(
+            xKey,
+            globals.land.position.y + 0.0101,
+            zKey
+          );
+          globals.scene.add(three_right);
           break;
       }
     }
@@ -184,50 +216,65 @@ function drawingRoad() {
 }
 
 function roadRebuild() {
-  map.forEach((value, key) => {
+  globals.map.forEach((value, key) => {
     if (isRoad(value)) {
       let [xKey, zKey] = key.split("_");
 
       if (
-        isRoad(map.get(`${xKey - 1}_${zKey}`)) &&
-        isRoad(map.get(`${xKey - -1}_${zKey}`)) &&
-        isRoad(map.get(`${xKey}_${zKey - 1}`)) &&
-        isRoad(map.get(`${xKey}_${zKey - -1}`)) &&
-        isRoad(map.get(`${xKey}_${zKey}`))
+        isRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
+        isRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
+        isRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
+        isRoad(globals.map.get(`${xKey}_${zKey - -1}`)) &&
+        isRoad(globals.map.get(`${xKey}_${zKey}`))
       ) {
-        map.set(`${xKey}_${zKey}`, groundObject.road.four_crossing);
+        globals.map.set(
+          `${xKey}_${zKey}`,
+          globals.groundObject.road.four_crossing
+        );
       } else if (
-        isRoad(map.get(`${xKey - 1}_${zKey}`)) &&
-        isRoad(map.get(`${xKey - -1}_${zKey}`)) &&
-        isRoad(map.get(`${xKey}_${zKey - 1}`)) &&
-        notRoad(map.get(`${xKey}_${zKey - -1}`)) &&
-        isRoad(map.get(`${xKey}_${zKey}`))
+        isRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
+        isRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
+        isRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
+        notRoad(globals.map.get(`${xKey}_${zKey - -1}`)) &&
+        isRoad(globals.map.get(`${xKey}_${zKey}`))
       ) {
-        map.set(`${xKey}_${zKey}`, groundObject.road.three_up_crossing);
+        globals.map.set(
+          `${xKey}_${zKey}`,
+          globals.groundObject.road.three_up_crossing
+        );
       } else if (
-        isRoad(map.get(`${xKey - 1}_${zKey}`)) &&
-        isRoad(map.get(`${xKey - -1}_${zKey}`)) &&
-        notRoad(map.get(`${xKey}_${zKey - 1}`)) &&
-        isRoad(map.get(`${xKey}_${zKey - -1}`)) &&
-        isRoad(map.get(`${xKey}_${zKey}`))
+        isRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
+        isRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
+        notRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
+        isRoad(globals.map.get(`${xKey}_${zKey - -1}`)) &&
+        isRoad(globals.map.get(`${xKey}_${zKey}`))
       ) {
-        map.set(`${xKey}_${zKey}`, groundObject.road.three_down_crossing);
+        globals.map.set(
+          `${xKey}_${zKey}`,
+          globals.groundObject.road.three_down_crossing
+        );
       } else if (
-        isRoad(map.get(`${xKey - 1}_${zKey}`)) &&
-        notRoad(map.get(`${xKey - -1}_${zKey}`)) &&
-        isRoad(map.get(`${xKey}_${zKey - 1}`)) &&
-        isRoad(map.get(`${xKey}_${zKey - -1}`)) &&
-        isRoad(map.get(`${xKey}_${zKey}`))
+        isRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
+        notRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
+        isRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
+        isRoad(globals.map.get(`${xKey}_${zKey - -1}`)) &&
+        isRoad(globals.map.get(`${xKey}_${zKey}`))
       ) {
-        map.set(`${xKey}_${zKey}`, groundObject.road.three_left_crossing);
+        globals.map.set(
+          `${xKey}_${zKey}`,
+          globals.groundObject.road.three_left_crossing
+        );
       } else if (
-        notRoad(map.get(`${xKey - 1}_${zKey}`)) &&
-        isRoad(map.get(`${xKey - -1}_${zKey}`)) &&
-        isRoad(map.get(`${xKey}_${zKey - 1}`)) &&
-        isRoad(map.get(`${xKey}_${zKey - -1}`)) &&
-        isRoad(map.get(`${xKey}_${zKey}`))
+        notRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
+        isRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
+        isRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
+        isRoad(globals.map.get(`${xKey}_${zKey - -1}`)) &&
+        isRoad(globals.map.get(`${xKey}_${zKey}`))
       ) {
-        map.set(`${xKey}_${zKey}`, groundObject.road.three_right_crossing);
+        globals.map.set(
+          `${xKey}_${zKey}`,
+          globals.groundObject.road.three_right_crossing
+        );
       }
       drawingRoad();
     }

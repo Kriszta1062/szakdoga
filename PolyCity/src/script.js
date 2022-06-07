@@ -9,7 +9,7 @@ import { landGrow, generatingRoad } from "./functions";
 import * as dat from "dat.gui";
 import { keydownListener, resizeListener } from "./listeners";
 import { loadModels } from "./loader";
-import { sizes, land, placePicker, scene } from "./globals";
+import globals from "./globals";
 
 (async () => {
   console.log("Loading models...");
@@ -22,42 +22,38 @@ function initWorld() {
   let landWidth = 30;
   let landHeight = 30;
 
-  /*Base*/
-  // Canvas
-  const canvas = document.querySelector("canvas.polycity");
-
   //a videoban: 21. video 56. perc
 
   /* Land */
-  land.receiveShadow = true;
-  land.rotation.x = -Math.PI * 0.5;
-  land.position.y = -1.5;
-  scene.add(land);
-  const y = land.position.y;
-  land.geometry.needsUpdate = true;
-  land.geometry.dynamic = true;
-  land.scale.x = landWidth;
-  land.scale.y = landHeight;
+  globals.land.receiveShadow = true;
+  globals.land.rotation.x = -Math.PI * 0.5;
+  globals.land.position.y = -1.5;
+  globals.scene.add(globals.land);
+  const y = globals.land.position.y;
+  globals.land.geometry.needsUpdate = true;
+  globals.land.geometry.dynamic = true;
+  globals.land.scale.x = landWidth;
+  globals.land.scale.y = landHeight;
 
   /* Place picker */
-  placePicker.castShadow = true;
-  placePicker.receiveShadow = true;
-  placePicker.position.set(0, -1.5, 0);
-  placePicker.rotation.x = Math.PI / 2;
-  scene.add(placePicker);
+  globals.navigationHelper.placePicker.castShadow = true;
+  globals.navigationHelper.placePicker.receiveShadow = true;
+  globals.navigationHelper.placePicker.position.set(0, -1.5, 0);
+  globals.navigationHelper.placePicker.rotation.x = Math.PI / 2;
+  globals.scene.add(globals.navigationHelper.placePicker);
 
   /*Lights*/
   // Ambient light
   const ambientLight = new THREE.AmbientLight("#ffffff", 0.5);
-  scene.add(ambientLight);
+  globals.scene.add(ambientLight);
 
   const pointLight = new THREE.PointLight(0xffffff, 0.6, 0, 2);
   pointLight.castShadow = true;
   pointLight.shadow.mapSize.set(1024, 1024);
   pointLight.position.set(10, 3, 0);
-  scene.add(pointLight);
+  globals.scene.add(pointLight);
   //const helper = new THREE.PointLightHelper( pointLight, 10 )
-  //scene.add( helper )
+  //globals.scene.add( helper )
 
   /*Sizes*/
 
@@ -69,7 +65,7 @@ function initWorld() {
 
   window.addEventListener("dblclick", () => {
     if (!document.fullscreenElement) {
-      canvas.requestFullscreen();
+      globals.canvas.requestFullscreen();
     } else {
       document.exitFullscreen();
     }
@@ -79,27 +75,18 @@ function initWorld() {
 
   /*Camera*/
 
-  // Base camera
+  // Base globals.camera
 
-  const camera = new THREE.PerspectiveCamera(
-    75,
-    sizes.width / sizes.height,
-    0.1,
-    100
-  );
-  camera.position.z = 3;
-  scene.add(camera);
+  globals.camera.position.z = 3;
+  globals.scene.add(globals.camera);
 
   // Controls
-  const controls = new OrbitControls(camera, canvas);
+  const controls = new OrbitControls(globals.camera, globals.canvas);
   controls.enableDamping = true;
 
   /*Renderer*/
 
-  const renderer = new THREE.WebGLRenderer({
-    canvas: canvas,
-  });
-  renderer.setSize(sizes.width, sizes.height);
+  globals.renderer.setSize(globals.sizes.width, globals.sizes.height);
 
   /*Animate*/
 
@@ -112,7 +99,7 @@ function initWorld() {
     controls.update();
 
     // Render
-    renderer.render(scene, camera);
+    globals.renderer.render(globals.scene, globals.camera);
 
     // Call tick again on the next frame
     window.requestAnimationFrame(tick);

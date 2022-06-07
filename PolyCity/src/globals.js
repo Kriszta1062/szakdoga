@@ -1,57 +1,67 @@
 import * as THREE from "three";
 
 /*Global variables*/
+const globals = {
+  sizes: {
+    width: window.innerWidth,
+    height: window.innerHeight,
+  },
 
-const sizes = {
-  width: window.innerWidth,
-  height: window.innerHeight,
+  rotation: 0,
+  map: new Map(),
+  groundObject: {
+    road: {
+      road_down_right: 121,
+      road_up_right: 122,
+      road_down_left: 124,
+      road_up_left: 123,
+      road_hori: 131,
+      road_verti: 132,
+      four_crossing: 144,
+      three_up_crossing: 143,
+      three_down_crossing: 142,
+      three_left_crossing: 141,
+      three_right_crossing: 140,
+    },
+
+    building: {
+      house: 10,
+    },
+
+    vehicle: {
+      car: 201,
+    },
+  },
+
+  scenes: {},
+
+  // Scene
+  scene: new THREE.Scene(),
+
+  land: new THREE.Mesh(
+    new THREE.PlaneBufferGeometry(1, 1),
+    new THREE.MeshStandardMaterial({ color: 0x73db40 })
+  ),
+
+  navigationHelper: {
+    placePicker: new THREE.Mesh(
+      new THREE.ConeGeometry(0.5, 1, 20),
+      new THREE.MeshLambertMaterial({ color: 0xfa70aa })
+    ),
+  },
+
+  canvas: document.querySelector("canvas.polycity"),
 };
 
-let rotation = 0;
-let map = new Map();
-const groundObject = {
-  road: {
-    road_down_right: 121,
-    road_up_right: 122,
-    road_down_left: 124,
-    road_up_left: 123,
-    road_hori: 131,
-    road_verti: 132,
-    four_crossing: 144,
-    three_up_crossing: 143,
-    three_down_crossing: 142,
-    three_left_crossing: 141,
-    three_right_crossing: 140,
-  },
-
-  building: {
-    house: 10,
-  },
-
-  vehicle: {
-    car: 201,
-  },
-};
-
-const scenes = {};
-
-// Scene
-const scene = new THREE.Scene();
-
-const material = new THREE.MeshStandardMaterial({ color: 0x73db40 });
-let land = new THREE.Mesh(new THREE.PlaneBufferGeometry(1, 1), material);
-
-const placePicker = new THREE.Mesh(
-  new THREE.ConeGeometry(0.5, 1, 20),
-  new THREE.MeshLambertMaterial({ color: 0xfa70aa })
+globals.camera = new THREE.PerspectiveCamera(
+  75,
+  globals.sizes.width / globals.sizes.height,
+  0.1,
+  100
 );
 
-export { sizes, rotation, map, groundObject, scenes, scene, land, placePicker };
+globals.renderer = new THREE.WebGLRenderer({
+  canvas: globals.canvas,
+});
 
-/*
-const navigationHelpers = {
-  placePicker: new THREE.Mesh(
-    new THREE.ConeGeometry(0.5, 1, 20),
-    new THREE.MeshLambertMaterial({ color: 0xfa70aa })
-  ),
-};*/
+export default globals;
