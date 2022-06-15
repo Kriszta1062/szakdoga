@@ -9,6 +9,8 @@ const globals = {
 
   rotation: 0,
   map: new Map(),
+  roads: new Array(),
+
   groundObject: {
     road: {
       road_down_right: 121,
@@ -40,7 +42,32 @@ const globals = {
 
   land: new THREE.Mesh(
     new THREE.PlaneBufferGeometry(1, 1),
-    new THREE.MeshStandardMaterial({ color: 0x73db40 })
+    new THREE.MeshStandardMaterial({ color: 0x54cc58 })
+  ),
+
+  wall_north: new THREE.Mesh(
+    new THREE.PlaneBufferGeometry(1, 1),
+    new THREE.MeshStandardMaterial({ color: 0x6db8d6 })
+  ),
+
+  wall_south: new THREE.Mesh(
+    new THREE.PlaneBufferGeometry(1, 1),
+    new THREE.MeshStandardMaterial({ color: 0x6db8d6 })
+  ),
+
+  wall_east: new THREE.Mesh(
+    new THREE.PlaneBufferGeometry(1, 1),
+    new THREE.MeshStandardMaterial({ color: 0x6db8d6 })
+  ),
+
+  wall_west: new THREE.Mesh(
+    new THREE.PlaneBufferGeometry(1, 1),
+    new THREE.MeshStandardMaterial({ color: 0x6db8d6 })
+  ),
+
+  sky: new THREE.Mesh(
+    new THREE.PlaneBufferGeometry(1, 1),
+    new THREE.MeshStandardMaterial({ color: 0x6db8d6 })
   ),
 
   navigationHelper: {

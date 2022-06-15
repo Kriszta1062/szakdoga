@@ -343,15 +343,19 @@ function keydownListener(event) {
         globals.land.position.y,
         globals.navigationHelper.placePicker.position.z
       );
-      carScene.rotation.y = -Math.PI / 2;
+      carScene.rotation.y = Math.PI / 2;
       carScene.rotation.y -= globals.rotation;
       globals.scene.add(carScene);
       globals.map.set(
         `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
         globals.groundObject.vehicle.car
       );
+      globals.groundObject.vehicle.car++;
+
       console.log("car added");
+      console.log(globals.map);
     }
+    //  animate();
   }
 }
 
@@ -365,5 +369,14 @@ function resizeListener() {
   globals.renderer.setSize(globals.sizes.width, globals.sizes.height);
   globals.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 }
+/*
+function animate(){
+  requestAnimationFrame(animate);
+  controls.update();
+
+  if(globals.map.get() > 200){
+    
+  }
+}*/
 
 export { keydownListener, resizeListener };

@@ -82,6 +82,7 @@ function drawingRoad() {
       map: texture.threeRoad,
     });
 
+    //if (value >= 140 || !globals.roads.includes(key)) {
     if (isRoad(value)) {
       switch (value) {
         case globals.groundObject.road.road_down_right:
@@ -211,7 +212,9 @@ function drawingRoad() {
           globals.scene.add(three_right);
           break;
       }
+      //globals.roads.push(`${xKey - 1}_${zKey}`);
     }
+    //}
   });
 }
 
