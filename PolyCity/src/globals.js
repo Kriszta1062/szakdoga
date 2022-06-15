@@ -9,7 +9,7 @@ const globals = {
 
   rotation: 0,
   map: new Map(),
-  roads: new Array(),
+  roads: new Map(),
 
   groundObject: {
     road: {
@@ -24,6 +24,7 @@ const globals = {
       three_down_crossing: 142,
       three_left_crossing: 141,
       three_right_crossing: 140,
+      final_road: 400,
     },
 
     building: {
