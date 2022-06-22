@@ -24,7 +24,6 @@ const globals = {
       three_down_crossing: 142,
       three_left_crossing: 141,
       three_right_crossing: 140,
-      final_road: 400,
     },
 
     building: {
@@ -85,7 +84,7 @@ globals.camera = new THREE.PerspectiveCamera(
   75,
   globals.sizes.width / globals.sizes.height,
   0.1,
-  100
+  200
 );
 
 globals.renderer = new THREE.WebGLRenderer({

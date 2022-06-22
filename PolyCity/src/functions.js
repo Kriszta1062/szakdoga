@@ -4,20 +4,139 @@ import globals from "./globals";
 
 function landGrow(x, y) {
   if (Math.abs(x) - -10 > globals.land.scale.x / 2) {
+    let old_size = globals.wall_west.scale.x;
+
     globals.land.scale.y += Math.ceil(
       Math.abs(x) - -10 - globals.land.scale.x / 2
     ); //adunk minden épületnek egy 5 sugarú területet
     globals.land.scale.x += Math.ceil(
       Math.abs(x) - -10 - globals.land.scale.x / 2
     );
+
+    /*SKY */
+    globals.sky.scale.x += Math.ceil(
+      Math.abs(x) - -10 - globals.sky.scale.x / 2
+    );
+    globals.sky.scale.y += Math.ceil(
+      Math.abs(x) - -10 - globals.sky.scale.x / 2
+    );
+    globals.sky.position.y += Math.ceil(globals.sky.scale.x - old_size);
+
+    /*EAST */
+    globals.wall_east.scale.x += Math.ceil(
+      Math.abs(x) - -10 - globals.wall_east.scale.x / 2
+    );
+    globals.wall_east.scale.y += Math.ceil(
+      Math.abs(x) - -10 - globals.wall_east.scale.x / 2
+    );
+    globals.wall_east.position.x -=
+      Math.ceil(globals.wall_east.scale.x - old_size) / 2;
+    globals.wall_east.position.y +=
+      Math.ceil(globals.wall_east.scale.x - old_size) / 2;
+
+    /*NORTH */
+    globals.wall_north.scale.x += Math.ceil(
+      Math.abs(x) - -10 - globals.wall_north.scale.x / 2
+    );
+    globals.wall_north.scale.y += Math.ceil(
+      Math.abs(x) - -10 - globals.wall_north.scale.x / 2
+    );
+    globals.wall_north.position.y +=
+      Math.ceil(globals.wall_north.scale.x - old_size) / 2;
+    globals.wall_north.position.z -=
+      Math.ceil(globals.wall_north.scale.x - old_size) / 2;
+
+    /*SOUTH */
+
+    globals.wall_south.scale.x += Math.ceil(
+      Math.abs(x) - -10 - globals.wall_south.scale.x / 2
+    );
+    globals.wall_south.scale.y += Math.ceil(
+      Math.abs(x) - -10 - globals.wall_south.scale.x / 2
+    );
+    globals.wall_south.position.z +=
+      Math.ceil(globals.wall_south.scale.x - old_size) / 2;
+    globals.wall_south.position.y +=
+      Math.ceil(globals.wall_south.scale.x - old_size) / 2;
+
+    /*WEST */
+    globals.wall_west.scale.x += Math.ceil(
+      Math.abs(x) - -10 - globals.wall_west.scale.x / 2
+    );
+    globals.wall_west.scale.y += Math.ceil(
+      Math.abs(x) - -10 - globals.wall_west.scale.x / 2
+    );
+    globals.wall_west.position.x +=
+      Math.ceil(globals.wall_west.scale.x - old_size) / 2;
+    globals.wall_west.position.y +=
+      Math.ceil(globals.wall_west.scale.x - old_size) / 2;
   }
   if (Math.abs(y) - -10 > globals.land.scale.x / 2) {
+    let old_size = globals.wall_west.scale.y;
     globals.land.scale.x += Math.ceil(
       Math.abs(y) - -10 - globals.land.scale.y / 2
     ); // azért kell előbb az x, hogy ne változtassuk meg scale.y értékét, mert különben azzal számol tovább
     globals.land.scale.y += Math.ceil(
       Math.abs(y) - -10 - globals.land.scale.y / 2
     );
+
+    /*SKY */
+    globals.sky.scale.x += Math.ceil(
+      Math.abs(y) - -10 - globals.sky.scale.y / 2
+    );
+    globals.sky.scale.y += Math.ceil(
+      Math.abs(y) - -10 - globals.sky.scale.y / 2
+    );
+    globals.sky.position.y += Math.ceil(globals.sky.scale.y - old_size);
+
+    /*EAST */
+    globals.wall_east.scale.x += Math.ceil(
+      Math.abs(y) - -10 - globals.wall_east.scale.y / 2
+    );
+    globals.wall_east.scale.y += Math.ceil(
+      Math.abs(y) - -10 - globals.wall_east.scale.y / 2
+    );
+    globals.wall_east.position.x -=
+      Math.ceil(globals.wall_east.scale.y - old_size) / 2;
+    globals.wall_east.position.y +=
+      Math.ceil(globals.wall_east.scale.y - old_size) / 2;
+
+    /*NORTH */
+    globals.wall_north.scale.x += Math.ceil(
+      Math.abs(y) - -10 - globals.wall_north.scale.y / 2
+    );
+    globals.wall_north.scale.y += Math.ceil(
+      Math.abs(y) - -10 - globals.wall_north.scale.y / 2
+    );
+    globals.wall_north.position.y +=
+      Math.ceil(globals.wall_north.scale.y - old_size) / 2;
+    globals.wall_north.position.z -=
+      Math.ceil(globals.wall_north.scale.y - old_size) / 2;
+
+    /*SOUTH */
+
+    globals.wall_south.scale.x += Math.ceil(
+      Math.abs(y) - -10 - globals.wall_south.scale.y / 2
+    );
+    globals.wall_south.scale.y += Math.ceil(
+      Math.abs(y) - -10 - globals.wall_south.scale.y / 2
+    );
+    globals.wall_south.position.z +=
+      Math.ceil(globals.wall_south.scale.y - old_size) / 2;
+    globals.wall_south.position.y +=
+      Math.ceil(globals.wall_south.scale.y - old_size) / 2;
+
+    /*WEST */
+    globals.wall_west.scale.x += Math.ceil(
+      Math.abs(y) - -10 - globals.wall_west.scale.y / 2
+    );
+    globals.wall_west.scale.y += Math.ceil(
+      Math.abs(y) - -10 - globals.wall_west.scale.y / 2
+    );
+    globals.wall_west.position.x +=
+      Math.ceil(globals.wall_west.scale.y - old_size) / 2;
+    globals.wall_west.position.y +=
+      Math.ceil(globals.wall_west.scale.y - old_size) / 2;
   }
 }
 
@@ -173,7 +292,6 @@ function drawingRoad() {
                   globals.scene.children.length
                 }`
               );
-              globals.roads.set(key, value);
               break;
             case globals.groundObject.road.three_up_crossing:
               const three_up = new THREE.Mesh(
@@ -317,7 +435,7 @@ function isRoad(value) {
 }
 
 function notRoad(value) {
-  return 100 > value || value > 200 || value === undefined;
+  return 100 > value || value > 210 || value === undefined;
 }
 
 export { landGrow, generatingRoad, drawingRoad, roadRebuild, isRoad };
