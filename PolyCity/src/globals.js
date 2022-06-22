@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 /*Global variables*/
 const globals = {
@@ -84,8 +85,15 @@ globals.camera = new THREE.PerspectiveCamera(
   75,
   globals.sizes.width / globals.sizes.height,
   0.1,
-  200
+  2000
 );
+
+globals.controls = new OrbitControls(globals.camera, globals.canvas);
+
+globals.controls.enableDamping = true;
+globals.controls.maxDistance = 100; // itt allithatjuk be hogy ne menjunk ki a kameraval a dobozbol
+//globals.controls.maxPolarAngle = Math.PI / 2;
+//globals.controls.minPolarAngle = Math.PI / 2;
 
 globals.renderer = new THREE.WebGLRenderer({
   canvas: globals.canvas,
