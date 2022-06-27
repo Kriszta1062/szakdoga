@@ -88,7 +88,6 @@ function keydownListener(event) {
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
       );
-      //     drawingRoad();
       landGrow(
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
@@ -121,7 +120,6 @@ function keydownListener(event) {
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
       );
-      //      drawingRoad();
       landGrow(
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
@@ -154,7 +152,6 @@ function keydownListener(event) {
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
       );
-      //     drawingRoad();
       landGrow(
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
@@ -188,7 +185,6 @@ function keydownListener(event) {
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
       );
-      //     drawingRoad();
       landGrow(
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
@@ -222,7 +218,6 @@ function keydownListener(event) {
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
       );
-      //     drawingRoad();
       landGrow(
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
@@ -255,7 +250,6 @@ function keydownListener(event) {
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
       );
-      //      drawingRoad();
       landGrow(
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
@@ -287,7 +281,6 @@ function keydownListener(event) {
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
       );
-      //      drawingRoad();
       landGrow(
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
@@ -319,7 +312,6 @@ function keydownListener(event) {
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
       );
-      //      drawingRoad();
       landGrow(
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
@@ -353,10 +345,18 @@ function keydownListener(event) {
       globals.groundObject.vehicle.car++;
 
       console.log("car added");
-      console.log(globals.map);
     }
     //  animate();
   }
+  /*
+  if (event.keyCode == 79) {
+    globals.orbit.enabled = true;
+  }
+
+  if (event.keyCode == 80) {
+    globals.pointer.enabled = true;
+  }
+  */
 }
 
 function resizeListener() {

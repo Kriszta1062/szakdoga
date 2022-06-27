@@ -1,6 +1,5 @@
 import "./style.css";
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import { landGrow, generatingRoad } from "./functions";
@@ -19,8 +18,8 @@ import globals from "./globals";
 })();
 
 function initWorld() {
-  let landWidth = 40;
-  let landHeight = 40;
+  let landWidth = 100;
+  let landHeight = 100;
 
   //a videoban: 21. video 56. perc
 
@@ -35,47 +34,47 @@ function initWorld() {
   globals.land.scale.y = landHeight;
 
   globals.wall_east.receiveShadow = true;
-  globals.wall_east.position.y = landWidth / 2 - 1.5;
+  globals.wall_east.position.y = landWidth / 4 - 1.5;
   globals.wall_east.position.x = -landWidth / 2;
   globals.scene.add(globals.wall_east);
   globals.wall_east.geometry.needsUpdate = true;
   globals.wall_east.geometry.dynamic = true;
   globals.wall_east.scale.x = landWidth;
-  globals.wall_east.scale.y = landHeight;
+  globals.wall_east.scale.y = landHeight / 2;
   globals.wall_east.rotation.y = Math.PI * 0.5;
 
   globals.wall_north.receiveShadow = true;
-  globals.wall_north.position.y = landWidth / 2 - 1.5;
+  globals.wall_north.position.y = landWidth / 4 - 1.5;
   globals.wall_north.position.z = -landWidth / 2;
   globals.scene.add(globals.wall_north);
   globals.wall_north.geometry.needsUpdate = true;
   globals.wall_north.geometry.dynamic = true;
   globals.wall_north.scale.x = landWidth;
-  globals.wall_north.scale.y = landHeight;
+  globals.wall_north.scale.y = landHeight / 2;
 
   globals.wall_south.receiveShadow = true;
-  globals.wall_south.position.y = landWidth / 2 - 1.5;
+  globals.wall_south.position.y = landWidth / 4 - 1.5;
   globals.wall_south.position.z = landWidth / 2;
   globals.scene.add(globals.wall_south);
   globals.wall_south.geometry.needsUpdate = true;
   globals.wall_south.geometry.dynamic = true;
   globals.wall_south.scale.x = landWidth;
-  globals.wall_south.scale.y = landHeight;
+  globals.wall_south.scale.y = landHeight / 2;
   globals.wall_south.rotation.y = Math.PI;
 
   globals.wall_west.receiveShadow = true;
-  globals.wall_west.position.y = landWidth / 2 - 1.5;
+  globals.wall_west.position.y = landWidth / 4 - 1.5;
   globals.wall_west.position.x = landWidth / 2;
   globals.scene.add(globals.wall_west);
   globals.wall_west.geometry.needsUpdate = true;
   globals.wall_west.geometry.dynamic = true;
   globals.wall_west.scale.x = landWidth;
-  globals.wall_west.scale.y = landHeight;
+  globals.wall_west.scale.y = landHeight / 2;
   globals.wall_west.rotation.y = -Math.PI * 0.5;
 
   globals.sky.receiveShadow = true;
   globals.sky.rotation.x = Math.PI * 0.5;
-  globals.sky.position.y = landWidth - 1.5;
+  globals.sky.position.y = landWidth / 2 - 1.5;
   globals.scene.add(globals.sky);
   globals.sky.geometry.needsUpdate = true;
   globals.sky.geometry.dynamic = true;
@@ -94,7 +93,7 @@ function initWorld() {
   const ambientLight = new THREE.AmbientLight("#ffffff", 0.5);
   globals.scene.add(ambientLight);
 
-  const pointLight = new THREE.PointLight(0xffffff, 0.6, 0, 2);
+  const pointLight = new THREE.PointLight(0xffffff, 0.5, 0, 2);
   pointLight.castShadow = true;
   pointLight.shadow.mapSize.set(1024, 1024);
   pointLight.position.set(10, 3, 0);
@@ -127,10 +126,6 @@ function initWorld() {
   globals.camera.position.z = 3;
   globals.scene.add(globals.camera);
 
-  // Controls
-  const controls = new OrbitControls(globals.camera, globals.canvas);
-  controls.enableDamping = true;
-
   /*Renderer*/
 
   globals.renderer.setSize(globals.sizes.width, globals.sizes.height);
@@ -143,7 +138,7 @@ function initWorld() {
     const elapsedTime = clock.getElapsedTime();
 
     // Update controls
-    controls.update();
+    globals.orbit.update();
 
     // Render
     globals.renderer.render(globals.scene, globals.camera);

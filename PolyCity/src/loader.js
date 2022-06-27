@@ -5,18 +5,13 @@ import globals from "./globals";
 
 /*MODEL LOADERS*/
 
-const texture = {
-  road: new THREE.TextureLoader().load("/texture/road3.jpg"),
-  corner: new THREE.TextureLoader().load("/texture/corner.jpg"),
-  fourRoad: new THREE.TextureLoader().load("/texture/fourRoad.jpg"),
-  threeRoad: new THREE.TextureLoader().load("/texture/three_road.jpg"),
-};
-
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath("/draco/");
 
 const gltfLoader = new GLTFLoader();
 gltfLoader.setDRACOLoader(dracoLoader);
+
+const textureLoader = new THREE.TextureLoader();
 
 async function loadModels() {
   const panelGltf = await gltfLoader.loadAsync("/models/Panel/panel.gltf");
@@ -78,6 +73,38 @@ async function loadModels() {
   globals.scenes.carScene.scale.set(0.1, 0.1, 0.1);
   globals.scenes.carScene.receiveShadow = true;
   console.log("car loaded");
+
+  globals.texture.road = await textureLoader.loadAsync("/texture/road3.jpg");
+  globals.texture.corner = await textureLoader.loadAsync("/texture/corner.jpg");
+  globals.texture.fourRoad = await textureLoader.loadAsync(
+    "/texture/fourRoad.jpg"
+  );
+  globals.texture.threeRoad = await textureLoader.loadAsync(
+    "/texture/three_road.jpg"
+  );
+  globals.texture.horisont = await textureLoader.loadAsync(
+    "/texture/horison.jpg"
+  );
+
+  globals.wall_north = new THREE.Mesh(
+    new THREE.PlaneBufferGeometry(1, 1),
+    new THREE.MeshStandardMaterial({ map: globals.texture.horisont })
+  );
+
+  globals.wall_south = new THREE.Mesh(
+    new THREE.PlaneBufferGeometry(1, 1),
+    new THREE.MeshStandardMaterial({ map: globals.texture.horisont })
+  );
+
+  globals.wall_east = new THREE.Mesh(
+    new THREE.PlaneBufferGeometry(1, 1),
+    new THREE.MeshStandardMaterial({ map: globals.texture.horisont })
+  );
+
+  globals.wall_west = new THREE.Mesh(
+    new THREE.PlaneBufferGeometry(1, 1),
+    new THREE.MeshStandardMaterial({ map: globals.texture.horisont })
+  );
 }
 
-export { texture, loadModels };
+export { loadModels };

@@ -1,11 +1,14 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 
 /*Global variables*/
+
 const globals = {
   sizes: {
     width: window.innerWidth,
     height: window.innerHeight,
+    camera_size: 20,
   },
 
   rotation: 0,
@@ -25,6 +28,7 @@ const globals = {
       three_down_crossing: 142,
       three_left_crossing: 141,
       three_right_crossing: 140,
+      final_road: 146,
     },
 
     building: {
@@ -43,32 +47,12 @@ const globals = {
 
   land: new THREE.Mesh(
     new THREE.PlaneBufferGeometry(1, 1),
-    new THREE.MeshStandardMaterial({ color: 0x54cc58 })
-  ),
-
-  wall_north: new THREE.Mesh(
-    new THREE.PlaneBufferGeometry(1, 1),
-    new THREE.MeshStandardMaterial({ color: 0x6db8d6 })
-  ),
-
-  wall_south: new THREE.Mesh(
-    new THREE.PlaneBufferGeometry(1, 1),
-    new THREE.MeshStandardMaterial({ color: 0x6db8d6 })
-  ),
-
-  wall_east: new THREE.Mesh(
-    new THREE.PlaneBufferGeometry(1, 1),
-    new THREE.MeshStandardMaterial({ color: 0x6db8d6 })
-  ),
-
-  wall_west: new THREE.Mesh(
-    new THREE.PlaneBufferGeometry(1, 1),
-    new THREE.MeshStandardMaterial({ color: 0x6db8d6 })
+    new THREE.MeshStandardMaterial({ color: 0x60ba5b })
   ),
 
   sky: new THREE.Mesh(
     new THREE.PlaneBufferGeometry(1, 1),
-    new THREE.MeshStandardMaterial({ color: 0x6db8d6 })
+    new THREE.MeshStandardMaterial({ color: 0x82d1f4 })
   ),
 
   navigationHelper: {
@@ -79,6 +63,8 @@ const globals = {
   },
 
   canvas: document.querySelector("canvas.polycity"),
+
+  texture: {},
 };
 
 globals.camera = new THREE.PerspectiveCamera(
@@ -88,12 +74,10 @@ globals.camera = new THREE.PerspectiveCamera(
   2000
 );
 
-globals.controls = new OrbitControls(globals.camera, globals.canvas);
-
-globals.controls.enableDamping = true;
-globals.controls.maxDistance = 100; // itt allithatjuk be hogy ne menjunk ki a kameraval a dobozbol
-//globals.controls.maxPolarAngle = Math.PI / 2;
-//globals.controls.minPolarAngle = Math.PI / 2;
+globals.orbit = new OrbitControls(globals.camera, globals.canvas);
+globals.orbit.maxDistance = 20; // itt allithatjuk be hogy ne menjunk ki a kameraval a dobozbol
+globals.orbit.maxPolarAngle = Math.PI / 2;
+globals.orbit.screenSpacePanning = false;
 
 globals.renderer = new THREE.WebGLRenderer({
   canvas: globals.canvas,
