@@ -13,3 +13,44 @@
 html, body{
     overflow: hidden;
 }
+
+
+
+
+#glasspane {
+    position: absolute;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border: thin solid rgba(255, 255, 255, 0.6);
+    color: #eeeeee;
+    font-size: 12px;
+    box-shadow: rgba(255, 255, 255, 0.5) 5px 5px 20px;
+    align-items: center;
+    z-index: 100;
+
+ }
+
+ #stat_title{
+    padding: 10px;
+    text-align: center;
+ }
+
+ #choosing_panel {
+    position: absolute;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border: thin solid rgba(255, 255, 255, 0.6);
+    color: #eeeeee;
+    font-size: 12px;
+    box-shadow: rgba(255, 255, 255, 0.5) 5px 5px 20px;
+    align-items: center;
+    z-index: 100;
+
+ }
+
+.panels{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 200;
+}

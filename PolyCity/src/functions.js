@@ -390,6 +390,30 @@ function roadRebuild() {
   drawingRoad();
 }
 
+function movingCars() {
+  requestAnimationFrame(movingCars);
+
+  globals.cars.forEach((car) => {
+    console.log("car    " + JSON.stringify(car));
+    let odavissza;
+
+    if (car.position.x >= 30) {
+      odavissza = 1;
+      car.rotation.y -= Math.PI;
+    } else if (car.position.x <= 0) {
+      car.rotation.y -= Math.PI;
+
+      odavissza = 0;
+    }
+
+    if (odavissza == 0) {
+      car.position.x += 0.08;
+    } else {
+      car.position.x -= 0.08;
+    }
+  });
+}
+
 function isRoad(value) {
   return 100 <= value && value <= 210;
 }
@@ -398,4 +422,11 @@ function notRoad(value) {
   return 100 > value || value > 210 || value === undefined;
 }
 
-export { landGrow, generatingRoad, drawingRoad, roadRebuild, isRoad };
+export {
+  landGrow,
+  generatingRoad,
+  drawingRoad,
+  roadRebuild,
+  isRoad,
+  movingCars,
+};

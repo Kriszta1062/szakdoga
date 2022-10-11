@@ -9,6 +9,7 @@ import * as dat from "dat.gui";
 import { keydownListener, resizeListener } from "./listeners";
 import { loadModels } from "./loader";
 import globals from "./globals";
+import { movingCars } from "./functions";
 
 (async () => {
   console.log("Loading models...");
@@ -22,6 +23,24 @@ function initWorld() {
   let landHeight = 100;
 
   //a videoban: 21. video 56. perc
+
+  const city_stat_pop = document.getElementById("city_stat_pop");
+  city_stat_pop.innerHTML =
+    "<h4>Population: " + globals.circs.population + "</h4>";
+
+  const city_stat_work = document.getElementById("city_stat_work");
+  city_stat_work.innerHTML =
+    "<h4>Woking place: " + globals.circs.work + "</h4>";
+
+  const city_stat_fun = document.getElementById("city_stat_fun");
+  city_stat_fun.innerHTML = "<h4>Fun level: " + globals.circs.fun + "</h4>";
+
+  const city_stat_shop = document.getElementById("city_stat_shop");
+  city_stat_shop.innerHTML =
+    "<h4>Shopping opportunity: " + globals.circs.shopping + "</h4>";
+
+  const stat_title = document.getElementById("stat_title");
+  stat_title.innerHTML = "<h3>City Stats</h3>";
 
   /* Land */
   globals.land.receiveShadow = true;
@@ -148,6 +167,8 @@ function initWorld() {
   };
 
   tick();
+
+  movingCars();
 }
 
 /*

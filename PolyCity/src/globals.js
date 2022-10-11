@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls";
 
 /*Global variables*/
 
@@ -40,6 +39,13 @@ const globals = {
     },
   },
 
+  circs: {
+    population: 0,
+    shopping: 0,
+    work: 0,
+    fun: 0,
+  },
+
   scenes: {},
 
   // Scene
@@ -65,6 +71,8 @@ const globals = {
   canvas: document.querySelector("canvas.polycity"),
 
   texture: {},
+
+  cars: [],
 };
 
 globals.camera = new THREE.PerspectiveCamera(

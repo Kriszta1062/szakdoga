@@ -82,6 +82,11 @@ function keydownListener(event) {
         globals.groundObject.building.house
       );
       globals.scene.add(panelCopy);
+      globals.circs.population += 40;
+      globals.circs.fun -= 40;
+      globals.circs.shopping -= 30;
+      globals.circs.work -= 20;
+      console.log(globals.circs);
       console.log("panel added");
 
       generatingRoad(
@@ -114,6 +119,10 @@ function keydownListener(event) {
         `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
         globals.groundObject.building.house
       );
+      globals.circs.fun += 10;
+      globals.circs.shopping += 5;
+      globals.circs.work += 3;
+      console.log(globals.circs);
       console.log("icecream added");
 
       generatingRoad(
@@ -147,6 +156,11 @@ function keydownListener(event) {
         `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
         globals.groundObject.building.house
       );
+      globals.circs.population += 5;
+      globals.circs.fun -= 5;
+      globals.circs.shopping -= 2;
+      globals.circs.work -= 2;
+      console.log(globals.circs);
       console.log("house added");
       generatingRoad(
         globals.navigationHelper.placePicker.position.x,
@@ -179,7 +193,10 @@ function keydownListener(event) {
         `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
         globals.groundObject.building.house
       );
-      console.log("house added");
+      globals.circs.fun += 3;
+      globals.circs.work += 30;
+      console.log(globals.circs);
+      console.log("office added");
 
       generatingRoad(
         globals.navigationHelper.placePicker.position.x,
@@ -212,7 +229,11 @@ function keydownListener(event) {
         `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
         globals.groundObject.building.house
       );
-      console.log("house added");
+      globals.circs.fun += 5;
+      globals.circs.shopping += 5;
+      globals.circs.work += 5;
+      console.log(globals.circs);
+      console.log("hamburger added");
 
       generatingRoad(
         globals.navigationHelper.placePicker.position.x,
@@ -245,7 +266,10 @@ function keydownListener(event) {
         `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
         globals.groundObject.building.house
       );
-      console.log("house added");
+      globals.circs.shopping += 15;
+      globals.circs.work += 10;
+      console.log(globals.circs);
+      console.log("grocery added");
       generatingRoad(
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
@@ -276,6 +300,10 @@ function keydownListener(event) {
         `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
         globals.groundObject.building.house
       );
+      globals.circs.fun += 10;
+      globals.circs.shopping += 5;
+      globals.circs.work += 5;
+      console.log(globals.circs);
       console.log("toyshop added");
       generatingRoad(
         globals.navigationHelper.placePicker.position.x,
@@ -287,6 +315,25 @@ function keydownListener(event) {
       );
     }
   }
+
+  const city_stat_pop = document.getElementById("city_stat_pop");
+  city_stat_pop.innerHTML =
+    "<h4>Population: " + globals.circs.population + "</h4>";
+
+  const city_stat_work = document.getElementById("city_stat_work");
+  city_stat_work.innerHTML =
+    "<h4>Woking place: " + globals.circs.work + "</h4>";
+
+  const city_stat_fun = document.getElementById("city_stat_fun");
+  city_stat_fun.innerHTML = "<h4>Fun level: " + globals.circs.fun + "</h4>";
+
+  const city_stat_shop = document.getElementById("city_stat_shop");
+  city_stat_shop.innerHTML =
+    "<h4>Shopping opportunity: " + globals.circs.shopping + "</h4>";
+
+  const stat_title = document.getElementById("stat_title");
+  stat_title.innerHTML = "<h3>City Stats</h3>";
+
   /*PLAYGROUND */
   if (event.keyCode == 57) {
     if (
@@ -307,7 +354,9 @@ function keydownListener(event) {
         `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
         globals.groundObject.building.house
       );
-      console.log("toyshop added");
+      globals.circs.fun += 15;
+      console.log(globals.circs);
+      console.log("playground added");
       generatingRoad(
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
@@ -344,9 +393,12 @@ function keydownListener(event) {
       );
       globals.groundObject.vehicle.car++;
 
-      console.log("car added");
+      console.log(
+        "car added, and the number is " + globals.groundObject.vehicle.car
+      );
+
+      globals.cars.push(carScene);
     }
-    //  animate();
   }
   /*
   if (event.keyCode == 79) {
