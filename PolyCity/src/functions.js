@@ -146,6 +146,7 @@ function generatingRoad(x, z) {
   }
 
   roadRebuild();
+  matchingRoads(x, z);
 }
 
 // delete this line:
@@ -390,29 +391,120 @@ function roadRebuild() {
   drawingRoad();
 }
 
+function matchingRoads(x, z) {
+  //ha minden ut csak ketto masikhoz kapcsolodik
+  // és több ut van a tömbben mint 8
+  // hivjuk meg a legrövidebb utat
+  let road = 0;
+  let justTwoNeighbours = 0;
+  globals.map.forEach((value, key) => {
+    let [xKey, zKey] = key.split("_");
+
+    if (isRoad(value)) {
+      road++;
+    }
+
+    if (
+      (xKey == x - 1 && zKey == z) ||
+      (xKey == x + 1 && zKey == z) ||
+      (xKey == x - 1 && zKey == z - 1) ||
+      (xKey == x + 1 && zKey == z + 1) ||
+      (xKey == x + 1 && zKey == z - 1) ||
+      (xKey == x - 1 && zKey == z + 1) ||
+      (xKey == x && zKey == z + 1) ||
+      (xKey == x && zKey == z - 1)
+    ) {
+      if (
+        (isRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
+          isRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
+          notRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
+          notRoad(globals.map.get(`${xKey}_${zKey - -1}`))) ||
+        (isRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
+          notRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
+          isRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
+          notRoad(globals.map.get(`${xKey}_${zKey - -1}`))) ||
+        (notRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
+          isRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
+          isRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
+          notRoad(globals.map.get(`${xKey}_${zKey - -1}`))) ||
+        (isRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
+          notRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
+          notRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
+          isRoad(globals.map.get(`${xKey}_${zKey - -1}`))) ||
+        (notRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
+          notRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
+          isRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
+          isRoad(globals.map.get(`${xKey}_${zKey - -1}`))) ||
+        (notRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
+          isRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
+          notRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
+          isRoad(globals.map.get(`${xKey}_${zKey - -1}`)))
+      ) {
+        justTwoNeighbours++;
+      }
+    }
+  });
+
+  if (road > 8 && justTwoNeighbours === 8) {
+    console.log("összekötés ellenőrzése");
+    shortestPath();
+  }
+}
+
 function movingCars() {
   requestAnimationFrame(movingCars);
 
   globals.cars.forEach((car) => {
-    console.log("car    " + JSON.stringify(car));
-    let odavissza;
+    if (
+      globals.map.has(`${car.position.x + 1}_${car.position.z}`) &&
+      isRoad(globals.map.get(`${car.position.x + 1}_${car.position.z}`))
+    ) {
+      car.position.x += 1;
+      car.rotation.y -= Math.PI / 2;
 
-    if (car.position.x >= 30) {
-      odavissza = 1;
-      car.rotation.y -= Math.PI;
-    } else if (car.position.x <= 0) {
-      car.rotation.y -= Math.PI;
+      console.log("hatra");
+    } else if (
+      globals.map.has(`${car.position.x}_${car.position.z - 1}`) &&
+      isRoad(globals.map.get(`${car.position.x}_${car.position.z - 1}`))
+    ) {
+      car.position.z -= 1;
+      car.rotation.y += Math.PI / 2;
 
-      odavissza = 0;
-    }
+      console.log("balra");
+    } else if (
+      globals.map.has(`${car.position.x - 1}_${car.position.z}`) &&
+      isRoad(globals.map.get(`${car.position.x - 1}_${car.position.z}`))
+    ) {
+      car.position.x -= 1;
+      car.rotation.y += Math.PI / 2;
 
-    if (odavissza == 0) {
-      car.position.x += 0.08;
-    } else {
-      car.position.x -= 0.08;
+      console.log("elore");
+    } else if (
+      globals.map.has(`${car.position.x}_${car.position.z + 1}`) &&
+      isRoad(globals.map.get(`${car.position.x}_${car.position.z + 1}`))
+    ) {
+      car.position.z += 1;
+      car.rotation.y -= Math.PI / 2;
+
+      console.log("jobbra");
     }
   });
 }
+
+function shortestPath(start, end) {
+  // le kell ellenorizni megivaskor hogy ha
+  // if "no road aroind" && isRosad > 8 => hivjuk meg ezt a fv-t  az egyik most generalt ut koordinatajara
+  // kesobbi szamitasokat igenel hogy melyikre
+  let path = [];
+
+  while (start != end) {
+    start = get_next_shortest_node(start, end);
+    path.pusht(start);
+  }
+  return path;
+}
+
+function get_next_shortest_node(start, end) {}
 
 function isRoad(value) {
   return 100 <= value && value <= 210;

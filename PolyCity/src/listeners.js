@@ -391,13 +391,11 @@ function keydownListener(event) {
         `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
         globals.groundObject.vehicle.car
       );
+      globals.cars.push(carScene);
+
       globals.groundObject.vehicle.car++;
 
-      console.log(
-        "car added, and the number is " + globals.groundObject.vehicle.car
-      );
-
-      globals.cars.push(carScene);
+      console.log("cars array    " + JSON.stringify(global.cars));
     }
   }
   /*
