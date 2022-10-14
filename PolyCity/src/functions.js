@@ -447,7 +447,7 @@ function matchingRoads(x, z) {
 
   if (road > 8 && justTwoNeighbours === 8) {
     console.log("összekötés ellenőrzése");
-    shortestPath();
+    choosingStartEnd(x, z);
   }
 }
 
@@ -491,17 +491,120 @@ function movingCars() {
   });
 }
 
-function shortestPath(start, end) {
+function choosingStartEnd(x, z) {
+  let neighbours = [
+    `${x + 1}_${z + 1}`,
+    `${x + 1}_${z - 1}`,
+    `${x - 1}_${z + 1}`,
+    `${x - 1}_${z - 1}`,
+    `${x}_${z + 1}`,
+    `${x}_${z - 1}`,
+    `${x + 1}_${z}`,
+    `${x - 1}_${z}`,
+  ];
+  let min = Infinity;
+  let distance = 0;
+  let endX;
+  let endZ;
+  let startX;
+  let startZ;
+  neighbours.forEach((coordinate) => {
+    let [xCoordinate, zCoordinate] = coordinate.split("_");
+
+    globals.map.forEach((value, key) => {
+      if (isRoad(value)) {
+        let [xKey, zKey] = key.split("_");
+        xKey = parseInt(xKey);
+        zKey = parseInt(zKey);
+
+        if (
+          !(
+            (xKey == x + 1 || xKey == x - 1 || xKey == x) &&
+            (zKey == z - 1 || zKey == z + 1 || zKey == z)
+          )
+        ) {
+          distance = Math.sqrt(
+            (xKey - xCoordinate) * (xKey - xCoordinate) +
+              (zKey - zCoordinate) * (zKey - zCoordinate)
+          );
+
+          if (distance < min && distance !== 0) {
+            min = distance;
+            endX = xKey;
+            endZ = zKey;
+            startX = xCoordinate;
+            startZ = zCoordinate;
+          }
+        }
+      }
+    });
+  });
+
+  console.log("MIN");
+  console.log(min);
+  console.log("START");
+  console.log(startX);
+  console.log(startZ);
+  console.log("END");
+  console.log(endX);
+  console.log(endZ);
+  console.log(neighbours);
+
+  shortestPath(startX, startZ, endX, endZ);
+}
+
+function shortestPath(startX, startZ, endX, endZ) {
   // le kell ellenorizni megivaskor hogy ha
   // if "no road aroind" && isRosad > 8 => hivjuk meg ezt a fv-t  az egyik most generalt ut koordinatajara
   // kesobbi szamitasokat igenel hogy melyikre
-  let path = [];
-
-  while (start != end) {
-    start = get_next_shortest_node(start, end);
-    path.pusht(start);
+  // let currentX = startX;
+  // let currentZ = startZ;
+  if (startX > endX) {
+    while (startX != endX) {
+      if (!globals.map.has(`${startX}_${startZ}`)) {
+        globals.map.set(
+          `${startX}_${startZ}`,
+          globals.groundObject.road.road_hori
+        );
+      }
+      startX--;
+    }
+  } else {
+    while (startX != endX) {
+      if (!globals.map.has(`${startX}_${startZ}`)) {
+        globals.map.set(
+          `${startX}_${startZ}`,
+          globals.groundObject.road.road_hori
+        );
+      }
+      startX++;
+    }
   }
-  return path;
+
+  if (startZ > endZ) {
+    while (startZ != endZ) {
+      if (!globals.map.has(`${startX}_${startZ}`)) {
+        globals.map.set(
+          `${startX}_${startZ}`,
+          globals.groundObject.road.road_verti
+        );
+      }
+      startZ--;
+    }
+  } else {
+    while (startZ != endZ) {
+      if (!globals.map.has(`${startX}_${startZ}`)) {
+        globals.map.set(
+          `${startX}_${startZ}`,
+          globals.groundObject.road.road_verti
+        );
+      }
+      startZ++;
+    }
+  }
+
+  drawingRoad();
+  roadRebuild();
 }
 
 function get_next_shortest_node(start, end) {}
