@@ -100,3 +100,70 @@ function animate() {
 
   render();
 }
+
+if (startX == endX) {
+  roadType = globals.groundObject.road.road_hori;
+} else if (startZ == endZ) {
+  roadType = globals.groundObject.road.road_verti;
+} else if (startX > endX && startZ > endZ) {
+  roadType = globals.groundObject.road.road_down_left;
+} else if (startX < endX && startZ > endZ) {
+  roadType = globals.groundObject.road.road_down_right;
+} else if (startX > endX && startZ < endZ) {
+  roadType = globals.groundObject.road.road_up_left;
+} else if (startX < endX && startZ < endZ) {
+  roadType = globals.groundObject.road.road_up_right;
+}
+if (startX > endX) {
+  while (startX != endX) {
+    if (!globals.map.has(`${startX}_${startZ}`)) {
+      if (startX == endX + 1) {
+        globals.map.set(`${startX}_${startZ}`, roadType);
+      } else {
+        globals.map.set(
+          `${startX}_${startZ}`,
+          globals.groundObject.road.road_hori
+        );
+      }
+    }
+    startX--;
+  }
+} else {
+  while (startX != endX) {
+    if (!globals.map.has(`${startX}_${startZ}`)) {
+      if (startX == endX - 1) {
+        globals.map.set(`${startX}_${startZ}`, roadType);
+      } else {
+        globals.map.set(
+          `${startX}_${startZ}`,
+          globals.groundObject.road.road_hori
+        );
+      }
+    }
+    startX++;
+  }
+}
+
+if (startZ > endZ) {
+  while (startZ != endZ) {
+    if (!globals.map.has(`${startX}_${startZ}`)) {
+      if (startX == endX + 1) {
+        globals.map.set(`${startX}_${startZ}`, roadType);
+      } else {
+        globals.map.set(`${startX}_${startZ}`, globals.groundObject.road.verti);
+      }
+    }
+    startZ--;
+  }
+} else {
+  while (startZ != endZ) {
+    if (!globals.map.has(`${startX}_${startZ}`)) {
+      if (startX == endX - 1) {
+        globals.map.set(`${startX}_${startZ}`, roadType);
+      } else {
+        globals.map.set(`${startX}_${startZ}`, globals.groundObject.road.verti);
+      }
+    }
+    startZ++;
+  }
+}

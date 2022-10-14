@@ -334,8 +334,7 @@ function roadRebuild() {
         isRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
         isRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
         isRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
-        isRoad(globals.map.get(`${xKey}_${zKey - -1}`)) &&
-        isRoad(globals.map.get(`${xKey}_${zKey}`))
+        isRoad(globals.map.get(`${xKey}_${zKey - -1}`))
       ) {
         globals.map.set(
           `${xKey}_${zKey}`,
@@ -345,8 +344,7 @@ function roadRebuild() {
         isRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
         isRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
         isRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
-        notRoad(globals.map.get(`${xKey}_${zKey - -1}`)) &&
-        isRoad(globals.map.get(`${xKey}_${zKey}`))
+        notRoad(globals.map.get(`${xKey}_${zKey - -1}`))
       ) {
         globals.map.set(
           `${xKey}_${zKey}`,
@@ -356,8 +354,7 @@ function roadRebuild() {
         isRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
         isRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
         notRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
-        isRoad(globals.map.get(`${xKey}_${zKey - -1}`)) &&
-        isRoad(globals.map.get(`${xKey}_${zKey}`))
+        isRoad(globals.map.get(`${xKey}_${zKey - -1}`))
       ) {
         globals.map.set(
           `${xKey}_${zKey}`,
@@ -367,8 +364,8 @@ function roadRebuild() {
         isRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
         notRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
         isRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
-        isRoad(globals.map.get(`${xKey}_${zKey - -1}`)) &&
-        isRoad(globals.map.get(`${xKey}_${zKey}`))
+        isRoad(globals.map.get(`${xKey}_${zKey - -1}`))
+        // isRoad(globals.map.get(`${xKey}_${zKey}`)) mar egyszer leellenoriztuk
       ) {
         globals.map.set(
           `${xKey}_${zKey}`,
@@ -378,12 +375,68 @@ function roadRebuild() {
         notRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
         isRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
         isRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
-        isRoad(globals.map.get(`${xKey}_${zKey - -1}`)) &&
-        isRoad(globals.map.get(`${xKey}_${zKey}`))
+        isRoad(globals.map.get(`${xKey}_${zKey - -1}`))
       ) {
         globals.map.set(
           `${xKey}_${zKey}`,
           globals.groundObject.road.three_right_crossing
+        );
+      } else if (
+        notRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
+        isRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
+        notRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
+        isRoad(globals.map.get(`${xKey}_${zKey - -1}`))
+      ) {
+        globals.map.set(
+          `${xKey}_${zKey}`,
+          globals.groundObject.road.road_down_right
+        );
+      } else if (
+        notRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
+        isRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
+        isRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
+        notRoad(globals.map.get(`${xKey}_${zKey - -1}`))
+      ) {
+        globals.map.set(
+          `${xKey}_${zKey}`,
+          globals.groundObject.road.road_down_left
+        );
+      } else if (
+        isRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
+        isRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
+        notRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
+        notRoad(globals.map.get(`${xKey}_${zKey - -1}`))
+      ) {
+        globals.map.set(`${xKey}_${zKey}`, globals.groundObject.road.road_hori);
+      } else if (
+        notRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
+        notRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
+        isRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
+        isRoad(globals.map.get(`${xKey}_${zKey - -1}`))
+      ) {
+        globals.map.set(
+          `${xKey}_${zKey}`,
+          globals.groundObject.road.road_verti
+        );
+      } else if (
+        isRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
+        notRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
+        notRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
+        isRoad(globals.map.get(`${xKey}_${zKey - -1}`))
+      ) {
+        globals.map.set(
+          `${xKey}_${zKey}`,
+          globals.groundObject.road.road_up_right
+        );
+      } else if (
+        isRoad(globals.map.get(`${xKey - 1}_${zKey}`)) &&
+        notRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
+        isRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
+        notRoad(globals.map.get(`${xKey}_${zKey - -1}`))
+      ) {
+        globals.map.set(
+          `${xKey}_${zKey}`,
+          globals.groundObject.road.road_up_left
         );
       }
     }
@@ -557,8 +610,7 @@ function shortestPath(startX, startZ, endX, endZ) {
   // le kell ellenorizni megivaskor hogy ha
   // if "no road aroind" && isRosad > 8 => hivjuk meg ezt a fv-t  az egyik most generalt ut koordinatajara
   // kesobbi szamitasokat igenel hogy melyikre
-  // let currentX = startX;
-  // let currentZ = startZ;
+
   if (startX > endX) {
     while (startX != endX) {
       if (!globals.map.has(`${startX}_${startZ}`)) {
@@ -606,8 +658,6 @@ function shortestPath(startX, startZ, endX, endZ) {
   drawingRoad();
   roadRebuild();
 }
-
-function get_next_shortest_node(start, end) {}
 
 function isRoad(value) {
   return 100 <= value && value <= 210;
