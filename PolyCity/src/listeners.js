@@ -398,15 +398,265 @@ function keydownListener(event) {
       console.log("cars array    " + JSON.stringify(global.cars));
     }
   }
-  /*
-  if (event.keyCode == 79) {
-    globals.orbit.enabled = true;
-  }
+}
 
-  if (event.keyCode == 80) {
-    globals.pointer.enabled = true;
+/*GETTING ELEMENTS BY ID */
+
+const car_button = document.getElementById("car");
+car_button.addEventListener("click", addCar);
+
+const ice_button = document.getElementById("ice");
+ice_button.addEventListener("click", addIcecream);
+
+const panel_button = document.getElementById("panel");
+panel_button.addEventListener("click", addPanel);
+
+const house_button = document.getElementById("house");
+house_button.addEventListener("click", addHouse);
+
+const toy_button = document.getElementById("toy");
+toy_button.addEventListener("click", addToy);
+
+function addCar() {
+  /*CAR */
+  if (
+    isRoad(
+      globals.map.get(
+        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
+      )
+    )
+  ) {
+    const carScene = globals.scenes.carScene.clone();
+    carScene.position.set(
+      globals.navigationHelper.placePicker.position.x,
+      globals.land.position.y,
+      globals.navigationHelper.placePicker.position.z
+    );
+    carScene.rotation.y = Math.PI / 2;
+    carScene.rotation.y -= globals.rotation;
+    globals.scene.add(carScene);
+    globals.map.set(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
+      globals.groundObject.vehicle.car
+    );
+    globals.cars.push(carScene);
+    globals.groundObject.vehicle.car++;
+    console.log("cars array    " + JSON.stringify(global.cars));
   }
-  */
+}
+
+function addPanel() {
+  if (
+    !globals.map.has(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
+    )
+  ) {
+    const panelCopy = globals.scenes.panelScene.clone();
+    panelCopy.position.set(
+      globals.navigationHelper.placePicker.position.x,
+      globals.land.position.y,
+      globals.navigationHelper.placePicker.position.z
+    );
+    panelCopy.rotation.y -= globals.rotation;
+    globals.map.set(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
+      globals.groundObject.building.house
+    );
+    globals.scene.add(panelCopy);
+    globals.circs.population += 40;
+    globals.circs.fun -= 40;
+    globals.circs.shopping -= 30;
+    globals.circs.work -= 20;
+    console.log(globals.circs);
+    console.log("panel added");
+
+    generatingRoad(
+      globals.navigationHelper.placePicker.position.x,
+      globals.navigationHelper.placePicker.position.z
+    );
+    landGrow(
+      globals.navigationHelper.placePicker.position.x,
+      globals.navigationHelper.placePicker.position.z
+    );
+  }
+}
+
+// function addPanel() {
+//   if (
+//     !globals.map.has(
+//       `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
+//     )
+//   ) {
+//     const panelCopy = globals.scenes.panelScene.clone();
+//     panelCopy.position.set(
+//       globals.navigationHelper.placePicker.position.x,
+//       globals.land.position.y,
+//       globals.navigationHelper.placePicker.position.z
+//     );
+//     panelCopy.rotation.y -= globals.rotation;
+//     globals.map.set(
+//       `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
+//       globals.groundObject.building.house
+//     );
+//     globals.scene.add(panelCopy);
+//     globals.circs.population += 40;
+//     globals.circs.fun -= 40;
+//     globals.circs.shopping -= 30;
+//     globals.circs.work -= 20;
+//     console.log(globals.circs);
+//     console.log("panel added");
+
+//     generatingRoad(
+//       globals.navigationHelper.placePicker.position.x,
+//       globals.navigationHelper.placePicker.position.z
+//     );
+//     landGrow(
+//       globals.navigationHelper.placePicker.position.x,
+//       globals.navigationHelper.placePicker.position.z
+//     );
+//   }
+// }
+
+function addHouse() {
+  if (
+    !globals.map.has(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
+    )
+  ) {
+    const houseScene = globals.scenes.houseScene.clone();
+
+    houseScene.position.set(
+      globals.navigationHelper.placePicker.position.x,
+      globals.land.position.y,
+      globals.navigationHelper.placePicker.position.z
+    );
+    houseScene.rotation.y = -Math.PI / 2;
+    houseScene.rotation.y -= globals.rotation;
+    globals.scene.add(houseScene);
+    globals.map.set(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
+      globals.groundObject.building.house
+    );
+    globals.circs.population += 5;
+    globals.circs.fun -= 5;
+    globals.circs.shopping -= 2;
+    globals.circs.work -= 2;
+    console.log(globals.circs);
+    console.log("house added");
+    generatingRoad(
+      globals.navigationHelper.placePicker.position.x,
+      globals.navigationHelper.placePicker.position.z
+    );
+    landGrow(
+      globals.navigationHelper.placePicker.position.x,
+      globals.navigationHelper.placePicker.position.z
+    );
+  }
+}
+
+function addToy() {
+  if (
+    !globals.map.has(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
+    )
+  ) {
+    const toyShopScene = globals.scenes.toyShopScene.clone();
+
+    toyShopScene.position.set(
+      globals.navigationHelper.placePicker.position.x,
+      globals.land.position.y,
+      globals.navigationHelper.placePicker.position.z
+    );
+    toyShopScene.rotation.y -= globals.rotation;
+    globals.scene.add(toyShopScene);
+    globals.map.set(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
+      globals.groundObject.building.house
+    );
+    globals.circs.fun += 10;
+    globals.circs.shopping += 5;
+    globals.circs.work += 5;
+    console.log(globals.circs);
+    console.log("toyshop added");
+    generatingRoad(
+      globals.navigationHelper.placePicker.position.x,
+      globals.navigationHelper.placePicker.position.z
+    );
+    landGrow(
+      globals.navigationHelper.placePicker.position.x,
+      globals.navigationHelper.placePicker.position.z
+    );
+  }
+}
+
+function addPlayground() {
+  /*PLAYGROUND */
+  if (
+    !globals.map.has(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
+    )
+  ) {
+    const playgroundScene = globals.scenes.playgroundScene.clone();
+
+    playgroundScene.position.set(
+      globals.navigationHelper.placePicker.position.x,
+      globals.land.position.y,
+      globals.navigationHelper.placePicker.position.z
+    );
+    playgroundScene.rotation.y -= globals.rotation;
+    globals.scene.add(playgroundScene);
+    globals.map.set(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
+      globals.groundObject.building.house
+    );
+    globals.circs.fun += 15;
+    console.log(globals.circs);
+    console.log("playground added");
+    generatingRoad(
+      globals.navigationHelper.placePicker.position.x,
+      globals.navigationHelper.placePicker.position.z
+    );
+    landGrow(
+      globals.navigationHelper.placePicker.position.x,
+      globals.navigationHelper.placePicker.position.z
+    );
+  }
+}
+
+function addIcecream() {
+  if (
+    !globals.map.has(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
+    )
+  ) {
+    const iceCreamScene = globals.scenes.iceCreamScene.clone();
+
+    iceCreamScene.position.set(
+      globals.navigationHelper.placePicker.position.x,
+      globals.land.position.y,
+      globals.navigationHelper.placePicker.position.z
+    );
+    iceCreamScene.rotation.y -= globals.rotation;
+    globals.scene.add(iceCreamScene);
+    globals.map.set(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
+      globals.groundObject.building.house
+    );
+    globals.circs.fun += 10;
+    globals.circs.shopping += 5;
+    globals.circs.work += 3;
+    console.log(globals.circs);
+    console.log("icecream added");
+
+    generatingRoad(
+      globals.navigationHelper.placePicker.position.x,
+      globals.navigationHelper.placePicker.position.z
+    );
+    landGrow(
+      globals.navigationHelper.placePicker.position.x,
+      globals.navigationHelper.placePicker.position.z
+    );
+  }
 }
 
 function resizeListener() {

@@ -12,12 +12,13 @@
 
 html, body{
     overflow: hidden;
+    background-color: aqua;
 }
 
 
 
 
-#glasspane {
+#glasspanel {
     position: absolute;
     padding: 20px;
     background: rgba(0, 0, 0, 0.3);
@@ -27,6 +28,8 @@ html, body{
     box-shadow: rgba(255, 255, 255, 0.5) 5px 5px 20px;
     align-items: center;
     z-index: 100;
+    height: 100%;
+    width: 10%;
 
  }
 
@@ -53,4 +56,36 @@ html, body{
     justify-content: space-between;
     align-items: center;
     z-index: 200;
+}
+
+#buildings{
+    padding-top: 20px;
+    font-size: 20px;
+}
+
+img{
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 10px white;
+
+}
+
+.building{
+display: flex;
+justify-content: center;
+align-items: center;
+margin: 40px;
+flex-direction: column;
+cursor: pointer;
+}
+/* button{
+    margin: 5px;
+    width: 50px;
+    box-shadow: 0 0 50px white;
+    border: none;
+    background-color: beige;
+} */
+
+h3{
+    text-align: center;
 }
