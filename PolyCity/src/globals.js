@@ -73,6 +73,13 @@ const globals = {
   texture: {},
 
   cars: [],
+
+  dir: [
+    [1, 0],
+    [-1, 0],
+    [0, 1],
+    [0, -1],
+  ],
 };
 
 globals.camera = new THREE.PerspectiveCamera(

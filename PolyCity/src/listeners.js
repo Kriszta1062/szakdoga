@@ -1,6 +1,7 @@
 import globals from "./globals";
 
 import { generatingRoad, landGrow, isRoad } from "./functions";
+import { random } from "gsap";
 
 function keydownListener(event) {
   if (event.keyCode == 38) {
@@ -391,8 +392,11 @@ function keydownListener(event) {
         `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
         globals.groundObject.vehicle.car
       );
-      globals.cars.push(carScene);
 
+      let direction = globals.dir[Math.floor(Math.random() * 4)]; // igy 0 es 4 kozotti szamot kapunk
+
+      globals.cars.push({ carScene, direction });
+      console.log(direction);
       globals.groundObject.vehicle.car++;
 
       console.log("cars array    " + JSON.stringify(global.cars));
