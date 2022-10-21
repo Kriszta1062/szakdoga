@@ -395,15 +395,13 @@ function keydownListener(event) {
       let direction = globals.dir[Math.floor(Math.random() * 4)]; // igy 0 es 4 kozotti szamot kapunk
 
       if (direction[0] == 0 && direction[1] == 1) {
-        // ez jo
         carScene.rotation.y = Math.PI / 2;
       } else if (direction[0] == 0 && direction[1] == -1) {
-        carScene.rotation.y = Math.PI / 2;
+        carScene.rotation.y = Math.PI * 1.5;
       } else if (direction[0] == 1 && direction[1] == 0) {
-        // ez is jo
         carScene.rotation.y = Math.PI;
       } else if (direction[0] == -1 && direction[1] == 0) {
-        carScene.rotation.y = Math.PI;
+        carScene.rotation.y = Math.PI * 2;
       }
 
       globals.cars.push({ carScene, direction });

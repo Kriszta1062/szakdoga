@@ -365,7 +365,6 @@ function roadRebuild() {
         notRoad(globals.map.get(`${xKey - -1}_${zKey}`)) &&
         isRoad(globals.map.get(`${xKey}_${zKey - 1}`)) &&
         isRoad(globals.map.get(`${xKey}_${zKey - -1}`))
-        // isRoad(globals.map.get(`${xKey}_${zKey}`)) mar egyszer leellenoriztuk
       ) {
         globals.map.set(
           `${xKey}_${zKey}`,
@@ -538,8 +537,10 @@ function movingCars() {
             )
           ) {
             globals.cars[i].direction = [1, 0];
+            car.carScene.rotation.y = Math.PI;
           } else {
             globals.cars[i].direction = [-1, 0];
+            car.carScene.rotation.y = Math.PI * 2;
           }
         } else {
           if (
@@ -550,36 +551,14 @@ function movingCars() {
             )
           ) {
             globals.cars[i].direction = [0, 1];
+            car.carScene.rotation.y = Math.PI / 2;
           } else {
             globals.cars[i].direction = [0, -1];
+            car.carScene.rotation.y = Math.PI * 1.5;
           }
         }
       }
       // else if (iranyvaltassal is lenne ott ut, es random 20%) {valts}
-
-      // igy 0 es 4 kozotti szamot kapunk
-
-      if (
-        globals.cars[i].direction[0] == 0 &&
-        globals.cars[i].direction[1] == 1
-      ) {
-        car.carScene.rotation.y = Math.PI / 2;
-      } else if (
-        globals.cars[i].direction[0] == 0 &&
-        globals.cars[i].direction[1] == -1
-      ) {
-        car.carScene.rotation.y = Math.PI / 2;
-      } else if (
-        globals.cars[i].direction[0] == 1 &&
-        globals.cars[i].direction[1] == 0
-      ) {
-        car.carScene.rotation.y = Math.PI;
-      } else if (
-        globals.cars[i].direction[0] == -1 &&
-        globals.cars[i].direction[1] == 0
-      ) {
-        car.carScene.rotation.y = Math.PI;
-      }
 
       globals.cars[i].cycle = 1;
     }
