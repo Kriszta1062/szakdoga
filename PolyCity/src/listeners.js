@@ -385,8 +385,7 @@ function keydownListener(event) {
         globals.land.position.y,
         globals.navigationHelper.placePicker.position.z
       );
-      carScene.rotation.y = Math.PI / 2;
-      carScene.rotation.y -= globals.rotation;
+
       globals.scene.add(carScene);
       globals.map.set(
         `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
@@ -395,11 +394,23 @@ function keydownListener(event) {
 
       let direction = globals.dir[Math.floor(Math.random() * 4)]; // igy 0 es 4 kozotti szamot kapunk
 
+      if (direction[0] == 0 && direction[1] == 1) {
+        // ez jo
+        carScene.rotation.y = Math.PI / 2;
+      } else if (direction[0] == 0 && direction[1] == -1) {
+        carScene.rotation.y = Math.PI / 2;
+      } else if (direction[0] == 1 && direction[1] == 0) {
+        // ez is jo
+        carScene.rotation.y = Math.PI;
+      } else if (direction[0] == -1 && direction[1] == 0) {
+        carScene.rotation.y = Math.PI;
+      }
+
       globals.cars.push({ carScene, direction });
       console.log(direction);
       globals.groundObject.vehicle.car++;
 
-      console.log("cars array    " + JSON.stringify(global.cars));
+      // console.log("cars array    " + JSON.stringify(global.cars));
     }
   }
 }
@@ -484,42 +495,6 @@ function addPanel() {
     );
   }
 }
-
-// function addPanel() {
-//   if (
-//     !globals.map.has(
-//       `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
-//     )
-//   ) {
-//     const panelCopy = globals.scenes.panelScene.clone();
-//     panelCopy.position.set(
-//       globals.navigationHelper.placePicker.position.x,
-//       globals.land.position.y,
-//       globals.navigationHelper.placePicker.position.z
-//     );
-//     panelCopy.rotation.y -= globals.rotation;
-//     globals.map.set(
-//       `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
-//       globals.groundObject.building.house
-//     );
-//     globals.scene.add(panelCopy);
-//     globals.circs.population += 40;
-//     globals.circs.fun -= 40;
-//     globals.circs.shopping -= 30;
-//     globals.circs.work -= 20;
-//     console.log(globals.circs);
-//     console.log("panel added");
-
-//     generatingRoad(
-//       globals.navigationHelper.placePicker.position.x,
-//       globals.navigationHelper.placePicker.position.z
-//     );
-//     landGrow(
-//       globals.navigationHelper.placePicker.position.x,
-//       globals.navigationHelper.placePicker.position.z
-//     );
-//   }
-// }
 
 function addHouse() {
   if (
@@ -673,14 +648,5 @@ function resizeListener() {
   globals.renderer.setSize(globals.sizes.width, globals.sizes.height);
   globals.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 }
-/*
-function animate(){
-  requestAnimationFrame(animate);
-  controls.update();
-
-  if(globals.map.get() > 200){
-    
-  }
-}*/
 
 export { keydownListener, resizeListener };

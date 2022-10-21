@@ -504,31 +504,17 @@ function matchingRoads(x, z) {
   }
 }
 
-function isWhole(num) {
-  return Math.round((num * 10) % 10) == 0 && Math.round((num * 100) % 10) == 0;
-}
-
-function correctFloat(num) {
-  const whole = Math.round(num);
-  const first = Math.round((num * 10) % 10);
-  const second = Math.round((num * 100) % 10);
-  return (whole * 100 + first * 10 + second) / 100;
-}
-
 function movingCars() {
   requestAnimationFrame(movingCars);
 
   for (let i = 0; i < globals.cars.length; i++) {
-    // if mezo kozepen van
     let car = globals.cars[i];
-    // console.log(
-    //   `carScene position ${car.carScene.position.x} ${car.carScene.position.z} ${globals.cars[i].cycle}`
-    // );
+
     if (!car.cycle || car.cycle == 50) {
-      console.log("WHOLE");
       car.carScene.position.x = Math.round(car.carScene.position.x);
       car.carScene.position.z = Math.round(car.carScene.position.z);
-      while (
+
+      if (
         !car.direction ||
         !globals.map.has(
           `${car.carScene.position.x + car.direction[0]}_${
@@ -543,66 +529,65 @@ function movingCars() {
           )
         )
       ) {
-        globals.cars[i].direction = globals.dir[Math.floor(Math.random() * 4)]; // igy 0 es 4 kozotti szamot kapunk
+        if (globals.cars[i].direction[0] == 0) {
+          if (
+            isRoad(
+              globals.map.get(
+                `${car.carScene.position.x + 1}_${car.carScene.position.z}`
+              )
+            )
+          ) {
+            globals.cars[i].direction = [1, 0];
+          } else {
+            globals.cars[i].direction = [-1, 0];
+          }
+        } else {
+          if (
+            isRoad(
+              globals.map.get(
+                `${car.carScene.position.x}_${car.carScene.position.z + 1}`
+              )
+            )
+          ) {
+            globals.cars[i].direction = [0, 1];
+          } else {
+            globals.cars[i].direction = [0, -1];
+          }
+        }
       }
-      globals.cars[i].cycle = 1;
+      // else if (iranyvaltassal is lenne ott ut, es random 20%) {valts}
 
-      //car.carScene.rotation.y -= Math.PI / 2;
+      // igy 0 es 4 kozotti szamot kapunk
+
+      if (
+        globals.cars[i].direction[0] == 0 &&
+        globals.cars[i].direction[1] == 1
+      ) {
+        car.carScene.rotation.y = Math.PI / 2;
+      } else if (
+        globals.cars[i].direction[0] == 0 &&
+        globals.cars[i].direction[1] == -1
+      ) {
+        car.carScene.rotation.y = Math.PI / 2;
+      } else if (
+        globals.cars[i].direction[0] == 1 &&
+        globals.cars[i].direction[1] == 0
+      ) {
+        car.carScene.rotation.y = Math.PI;
+      } else if (
+        globals.cars[i].direction[0] == -1 &&
+        globals.cars[i].direction[1] == 0
+      ) {
+        car.carScene.rotation.y = Math.PI;
+      }
+
+      globals.cars[i].cycle = 1;
     }
 
-    // car.carScene.position.x = correctFloat(
-    //   car.carScene.position.x + car.direction[0] / 50
-    // );
-    // car.carScene.position.z = correctFloat(
-    //   car.carScene.position.z + car.direction[1] / 50
-    // );
     car.carScene.position.x = car.carScene.position.x + car.direction[0] / 50;
     car.carScene.position.z = car.carScene.position.z + car.direction[1] / 50;
     globals.cars[i].cycle++;
   }
-
-  // if (
-  //   globals.map.has(`${carScene.position.x + 1}_${carScene.position.z}`) &&
-  //   isRoad(
-  //     globals.map.get(`${carScene.position.x + 1}_${carScene.position.z}`)
-  //   )
-  // ) {
-  //   carScene.position.x += 1;
-  //   carScene.rotation.y -= Math.PI / 2;
-
-  //   console.log("hatra");
-  // } else if (
-  //   globals.map.has(`${carScene.position.x}_${carScene.position.z - 1}`) &&
-  //   isRoad(
-  //     globals.map.get(`${carScene.position.x}_${carScene.position.z - 1}`)
-  //   )
-  // ) {
-  //   carScene.position.z -= 1;
-  //   carScene.rotation.y += Math.PI / 2;
-
-  //   console.log("balra");
-  // } else if (
-  //   globals.map.has(`${carScene.position.x - 1}_${carScene.position.z}`) &&
-  //   isRoad(
-  //     globals.map.get(`${carScene.position.x - 1}_${carScene.position.z}`)
-  //   )
-  // ) {
-  //   carScene.position.x -= 1;
-  //   carScene.rotation.y += Math.PI / 2;
-
-  //   console.log("elore");
-  // } else if (
-  //   globals.map.has(`${carScene.position.x}_${carScene.position.z + 1}`) &&
-  //   isRoad(
-  //     globals.map.get(`${carScene.position.x}_${carScene.position.z + 1}`)
-  //   )
-  // ) {
-  //   carScene.position.z += 1;
-  //   carScene.rotation.y -= Math.PI / 2;
-
-  //   console.log("jobbra");
-  // }
-  //});
 }
 
 function choosingStartEnd(x, z) {
@@ -721,7 +706,7 @@ function shortestPath(startX, startZ, endX, endZ) {
 }
 
 function isRoad(value) {
-  return 100 <= value && value <= 210;
+  return value && 100 <= value && value <= 210;
 }
 
 function notRoad(value) {
