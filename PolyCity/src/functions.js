@@ -534,6 +534,30 @@ function movingCars() {
               globals.map.get(
                 `${car.carScene.position.x + 1}_${car.carScene.position.z}`
               )
+            ) &&
+            isRoad(
+              globals.map.get(
+                `${car.carScene.position.x - 1}_${car.carScene.position.z}`
+              )
+            )
+          ) {
+            if (Math.random() > 0.7) {
+              console.log(Math.random());
+              globals.cars[i].direction = [1, 0];
+              car.carScene.rotation.y = Math.PI;
+              console.log("bigger_road");
+            } else {
+              console.log(Math.random());
+
+              globals.cars[i].direction = [-1, 0];
+              car.carScene.rotation.y = Math.PI * 2;
+              console.log("lower_road");
+            }
+          } else if (
+            isRoad(
+              globals.map.get(
+                `${car.carScene.position.x + 1}_${car.carScene.position.z}`
+              )
             )
           ) {
             globals.cars[i].direction = [1, 0];
@@ -544,6 +568,30 @@ function movingCars() {
           }
         } else {
           if (
+            isRoad(
+              globals.map.get(
+                `${car.carScene.position.x}_${car.carScene.position.z + 1}`
+              )
+            ) &&
+            isRoad(
+              globals.map.get(
+                `${car.carScene.position.x}_${car.carScene.position.z - 1}`
+              )
+            )
+          ) {
+            if (Math.random() > 0.7) {
+              console.log(Math.random());
+              globals.cars[i].direction = [0, 1];
+              car.carScene.rotation.y = Math.PI / 2;
+              console.log("bigger");
+            } else {
+              console.log(Math.random());
+
+              globals.cars[i].direction = [0, -1];
+              car.carScene.rotation.y = Math.PI * 1.5;
+              console.log("lower");
+            }
+          } else if (
             isRoad(
               globals.map.get(
                 `${car.carScene.position.x}_${car.carScene.position.z + 1}`

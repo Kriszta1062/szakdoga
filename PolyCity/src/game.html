@@ -1,12 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html id="game_html" lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PolyCity</title>
   </head>
-  <body>
-    <img src="/model_pic/modelling4.png" alt="cover" />
-    <button><a href="/index.html">Let's play </a></button>
+  <body id="game_body">
+    <div id="glasspanel">
+      <div id="stat_title"></div>
+      <div id="city_stat_pop"></div>
+      <div id="city_stat_work"></div>
+      <div id="city_stat_shop"></div>
+      <div id="city_stat_fun"></div>
+      <div id="buildings">
+        <h3>Buildings</h3>
+
+        <div class="building">
+          <img
+            class="image"
+            id="ice"
+            src="/model_pic/modelling2.png"
+            alt="building"
+          />
+          <!-- <button id="ice">Add</button> -->
+        </div>
+        <div class="building">
+          <img
+            class="image"
+            id="house"
+            src="/model_pic/modelling3.png"
+            alt="building"
+          />
+          <!-- <button id="house">Add</button> -->
+        </div>
+        <div class="building">
+          <img
+            class="image"
+            id="toy"
+            src="/model_pic/modelling4.png"
+            alt="building"
+          />
+          <!-- <button id="toy">Add</button> -->
+        </div>
+        <div class="building">
+          <img
+            class="image"
+            id="car"
+            src="/model_pic/modelling5.png"
+            alt="building"
+          />
+          <!-- <button id="car">Add</button> -->
+        </div>
+        <div class="building">
+          <img
+            class="image"
+            id="panel"
+            src="/model_pic/modelling6.png"
+            alt="building"
+          />
+          <!-- <button id="panel">Add</button> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- </div> -->
+    <canvas class="polycity"> </canvas>
   </body>
 </html>

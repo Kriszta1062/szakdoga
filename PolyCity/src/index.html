@@ -6,39 +6,132 @@
     <title>PolyCity</title>
   </head>
   <body>
-    <div id="glasspanel">
-      <div id="stat_title"></div>
-      <div id="city_stat_pop"></div>
-      <div id="city_stat_work"></div>
-      <div id="city_stat_shop"></div>
-      <div id="city_stat_fun"></div>
-      <div id="buildings">
-        <h3>Buildings</h3>
+    <style>
+      body {
+        background-color: rgb(139, 195, 59);
+        background-image: url("/texture/horison.jpg");
+        margin: 20px;
+        text-align: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+      }
+      .cover {
+        width: 60%;
+        box-shadow: 0 0 10px black;
+        border-radius: 10px;
+      }
+      .play_btn {
+        margin: 40px;
+        cursor: pointer;
+        background-color: rgb(92, 183, 183);
+        margin-left: 40%;
+        margin-right: 40%;
+        padding: 10px;
+        font-size: 25px;
+        border-radius: 50px;
+        box-shadow: 0 0 10px black;
+      }
+      a {
+        text-decoration: none;
+        color: rgb(60, 60, 60);
+      }
 
-        <div class="building">
-          <img id="ice" src="/model_pic/modelling2.png" alt="building" />
-          <!-- <button id="ice">Add</button> -->
+      .box {
+        box-shadow: 0 0 10px black;
+        margin-left: 20%;
+        margin-right: 20%;
+        background-color: rgb(255, 156, 215);
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        color: rgb(60, 60, 60);
+      }
+      .desc {
+        font-size: 25px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+      }
+
+      .row,
+      .row_right {
+        font-size: 25px;
+        padding: 20px;
+        display: flex;
+        flex-direction: row;
+        text-align: justify;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .arrow,
+      .obj_picker {
+        width: 200px;
+        margin-left: 30px;
+        box-shadow: 0 0 10px black;
+      }
+
+      .arrow_real {
+        width: 200px;
+        margin-left: 30px;
+      }
+
+      .obj_picker {
+        margin-left: 0px;
+        margin-right: 30px;
+      }
+    </style>
+    <img class="cover" src="/model_pic/borito2.png" alt="cover" />
+    <div class="play_btn"><a href="game.html">Let's play </a></div>
+    <div class="box">
+      <h2>What is PolyCity</h2>
+      <div class="desc">
+        This is a place where you can build your dream city, where you can let
+        your imagination fly and you can also trial your strategy skills. Build
+        a happy, well organized city with balancing the statistics such as
+        purchase request, working places and entertainment, according to the
+        population.
+      </div>
+    </div>
+    <div class="box">
+      <h2>How To Play</h2>
+      <div class="desc">
+        <div class="row">
+          To choose the space of a building, use your arrow keys! The up and
+          down keys are for moving, the left and right arrows are for rotating
+          the the picker object.
+          <img class="arrow_real" src="/model_pic/arrow.png" alt="arrow" />
         </div>
-        <div class="building">
-          <img id="house" src="/model_pic/modelling3.png" alt="building" />
-          <!-- <button id="house">Add</button> -->
+        <div class="row_right">
+          <img class="obj_picker" src="/model_pic/pick.png" alt="arrow" />
+          If you picked the place where you want to add your building, choose
+          its type at the side bar, and click on it!
         </div>
-        <div class="building">
-          <img id="toy" src="/model_pic/modelling4.png" alt="building" />
-          <!-- <button id="toy">Add</button> -->
+        <div class="row">
+          Now, you have a building and roads around it.
+          <img class="arrow" src="/model_pic/placed.png" alt="arrow" />
         </div>
-        <div class="building">
-          <img id="car" src="/model_pic/modelling5.png" alt="building" />
-          <!-- <button id="car">Add</button> -->
+        <div class="row_right">
+          <img class="obj_picker" src="/model_pic/edge.png" alt="arrow" />
+          You can add buildings this way, anywhere on the board. If you want to
+          grow the play area, just place a building at the edge of the board, it
+          will collapse the land size a bit.
         </div>
-        <div class="building">
-          <img id="panel" src="/model_pic/modelling6.png" alt="building" />
-          <!-- <button id="panel">Add</button> -->
+        <div class="row">
+          You can also add cars, but just if the picker object is on a road. You
+          don't want to crash the buildings with speeding vehicles, don't you?
+          <img class="arrow" src="/model_pic/cars.png" alt="arrow" />
+        </div>
+        <div class="row_right">
+          <img class="obj_picker" src="/model_pic/stat.png" alt="arrow" />
+          While you are building the city of your dreams, take care of the
+          people's wishes too. Make sure the city has the right amount of
+          working places, shopping centers and the ability to have fun and live
+          a wonderful life under your leadership! :)
         </div>
       </div>
     </div>
-
-    <!-- </div> -->
-    <canvas class="polycity"> </canvas>
   </body>
 </html>

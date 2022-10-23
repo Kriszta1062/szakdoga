@@ -10,9 +10,8 @@
     outline: none;
 }
 
-html, body{
+#game_html, #game_body{
     overflow: hidden;
-    background-color: aqua;
 }
 
 
@@ -63,7 +62,7 @@ html, body{
     font-size: 20px;
 }
 
-img{
+.image{
     width: 100%;
     height: 100%;
     box-shadow: 0 0 10px white;
