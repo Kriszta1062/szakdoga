@@ -430,6 +430,12 @@ house_button.addEventListener("click", addHouse);
 const toy_button = document.getElementById("toy");
 toy_button.addEventListener("click", addToy);
 
+const church_button = document.getElementById("church");
+church_button.addEventListener("click", addChurch);
+
+const factory_button = document.getElementById("factory");
+factory_button.addEventListener("click", addFactory);
+
 function addCar() {
   /*CAR */
   if (
@@ -482,6 +488,42 @@ function addPanel() {
     globals.circs.work -= 20;
     console.log(globals.circs);
     console.log("panel added");
+
+    generatingRoad(
+      globals.navigationHelper.placePicker.position.x,
+      globals.navigationHelper.placePicker.position.z
+    );
+    landGrow(
+      globals.navigationHelper.placePicker.position.x,
+      globals.navigationHelper.placePicker.position.z
+    );
+  }
+}
+
+function addFactory() {
+  if (
+    !globals.map.has(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
+    )
+  ) {
+    const factoryCopy = globals.scenes.factoryScene.clone();
+    factoryCopy.position.set(
+      globals.navigationHelper.placePicker.position.x,
+      globals.land.position.y,
+      globals.navigationHelper.placePicker.position.z
+    );
+    factoryCopy.rotation.y -= globals.rotation;
+    globals.map.set(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
+      globals.groundObject.building.house
+    );
+    globals.scene.add(factoryCopy);
+    globals.circs.population += 40;
+    globals.circs.fun -= 40;
+    globals.circs.shopping -= 30;
+    globals.circs.work -= 20;
+    console.log(globals.circs);
+    console.log("factory added");
 
     generatingRoad(
       globals.navigationHelper.placePicker.position.x,
@@ -555,6 +597,41 @@ function addToy() {
     globals.circs.work += 5;
     console.log(globals.circs);
     console.log("toyshop added");
+    generatingRoad(
+      globals.navigationHelper.placePicker.position.x,
+      globals.navigationHelper.placePicker.position.z
+    );
+    landGrow(
+      globals.navigationHelper.placePicker.position.x,
+      globals.navigationHelper.placePicker.position.z
+    );
+  }
+}
+
+function addChurch() {
+  if (
+    !globals.map.has(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
+    )
+  ) {
+    const churchScene = globals.scenes.churchScene.clone();
+
+    churchScene.position.set(
+      globals.navigationHelper.placePicker.position.x,
+      globals.land.position.y,
+      globals.navigationHelper.placePicker.position.z
+    );
+    churchScene.rotation.y += globals.rotation;
+    globals.scene.add(churchScene);
+    globals.map.set(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
+      globals.groundObject.building.house
+    );
+    globals.circs.fun += 10;
+    globals.circs.shopping += 5;
+    globals.circs.work += 5;
+    console.log(globals.circs);
+    console.log("church added");
     generatingRoad(
       globals.navigationHelper.placePicker.position.x,
       globals.navigationHelper.placePicker.position.z

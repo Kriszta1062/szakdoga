@@ -46,6 +46,20 @@ async function loadModels() {
   globals.scenes.hamburgerScene.receiveShadow = true;
   console.log("hamburger loaded");
 
+  const churchGltf = await gltfLoader.loadAsync("/models/church/church.gltf");
+  globals.scenes.churchScene = churchGltf.scene;
+  globals.scenes.churchScene.scale.set(0.02, 0.02, 0.02);
+  globals.scenes.churchScene.receiveShadow = true;
+  console.log("church loaded");
+
+  const factoryGltf = await gltfLoader.loadAsync(
+    "/models/factory/factory.gltf"
+  );
+  globals.scenes.factoryScene = factoryGltf.scene;
+  globals.scenes.factoryScene.scale.set(0.1, 0.1, 0.1);
+  globals.scenes.factoryScene.receiveShadow = true;
+  console.log("church loaded");
+
   const groceryGltf = await gltfLoader.loadAsync("/models/House/house.gltf");
   globals.scenes.groceryScene = groceryGltf.scene;
   globals.scenes.groceryScene.scale.set(0.025, 0.025, 0.025);
