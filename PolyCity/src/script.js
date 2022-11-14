@@ -109,7 +109,7 @@ function initWorld() {
 
   /*Lights*/
   // Ambient light
-  const ambientLight = new THREE.AmbientLight("#ffffff", 0.5);
+  const ambientLight = new THREE.AmbientLight("#ffffff", 0.6);
   globals.scene.add(ambientLight);
 
   const pointLight = new THREE.PointLight(0xffffff, 0.5, 0, 2);
