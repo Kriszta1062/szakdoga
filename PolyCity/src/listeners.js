@@ -437,7 +437,44 @@ const factory_button = document.getElementById("factory");
 factory_button.addEventListener("click", addFactory);
 
 function addCar() {
-  /*CAR */
+  if (
+    isRoad(
+      globals.map.get(
+        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
+      )
+    )
+  ) {
+    // kellenek tovabbi feltetelek az utak iranyarol
+    const carScene = globals.scenes.carScene.clone();
+
+    carScene.position.set(
+      globals.navigationHelper.placePicker.position.x,
+      globals.land.position.y,
+      globals.navigationHelper.placePicker.position.z
+    );
+
+    globals.scene.add(carScene); /*
+    globals.map.set(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
+      globals.groundObject.vehicle.car
+    );*/
+
+    let direction = globals.dir[Math.floor(Math.random() * 4)]; // igy 0 es 4 kozotti szamot kapunk
+
+    if (direction[0] == 0 && direction[1] == 1) {
+      carScene.rotation.y = Math.PI / 2;
+    } else if (direction[0] == 0 && direction[1] == -1) {
+      carScene.rotation.y = Math.PI * 1.5;
+    } else if (direction[0] == 1 && direction[1] == 0) {
+      carScene.rotation.y = Math.PI;
+    } else if (direction[0] == -1 && direction[1] == 0) {
+      carScene.rotation.y = Math.PI * 2;
+    }
+
+    globals.cars.push({ carScene, direction });
+    console.log(direction);
+    globals.groundObject.vehicle.car++;
+    /*
   if (
     isRoad(
       globals.map.get(
@@ -461,6 +498,7 @@ function addCar() {
     globals.cars.push(carScene);
     globals.groundObject.vehicle.car++;
     console.log("cars array    " + JSON.stringify(global.cars));
+  }*/
   }
 }
 
