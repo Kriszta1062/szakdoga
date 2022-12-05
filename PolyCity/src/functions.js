@@ -740,6 +740,20 @@ function notRoad(value) {
   return 100 > value || value > 210 || value === undefined;
 }
 
+function outOfAccepted() {
+  if (
+    globals.circs.fun < 10 ||
+    globals.circs.shopping < 10 ||
+    globals.circs.shopping > 50 ||
+    globals.circs.work < 10 ||
+    globals.circs.work > 20
+  ) {
+    console.log("Kileptunk a hatarokbol...");
+  } else {
+    console.log("Minden a legnagyobb rendben :)");
+  }
+}
+
 export {
   landGrow,
   generatingRoad,
@@ -747,4 +761,5 @@ export {
   roadRebuild,
   isRoad,
   movingCars,
+  outOfAccepted,
 };

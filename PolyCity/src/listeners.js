@@ -1,6 +1,6 @@
 import globals from "./globals";
 
-import { generatingRoad, landGrow, isRoad } from "./functions";
+import { generatingRoad, landGrow, isRoad, outOfAccepted } from "./functions";
 import { random } from "gsap";
 
 function keydownListener(event) {
@@ -500,6 +500,7 @@ function addCar() {
     console.log("cars array    " + JSON.stringify(global.cars));
   }*/
   }
+  outOfAccepted();
 }
 
 function addPanel() {
@@ -535,6 +536,7 @@ function addPanel() {
       globals.navigationHelper.placePicker.position.x,
       globals.navigationHelper.placePicker.position.z
     );
+    outOfAccepted();
   }
 }
 
@@ -556,10 +558,8 @@ function addFactory() {
       globals.groundObject.building.house
     );
     globals.scene.add(factoryCopy);
-    globals.circs.population += 40;
-    globals.circs.fun -= 40;
-    globals.circs.shopping -= 30;
-    globals.circs.work -= 20;
+    globals.circs.fun -= 20;
+    globals.circs.work += 20;
     console.log(globals.circs);
     console.log("factory added");
 
@@ -571,6 +571,7 @@ function addFactory() {
       globals.navigationHelper.placePicker.position.x,
       globals.navigationHelper.placePicker.position.z
     );
+    outOfAccepted();
   }
 }
 
@@ -608,6 +609,7 @@ function addHouse() {
       globals.navigationHelper.placePicker.position.x,
       globals.navigationHelper.placePicker.position.z
     );
+    outOfAccepted();
   }
 }
 
@@ -643,6 +645,7 @@ function addToy() {
       globals.navigationHelper.placePicker.position.x,
       globals.navigationHelper.placePicker.position.z
     );
+    outOfAccepted();
   }
 }
 
@@ -666,7 +669,6 @@ function addChurch() {
       globals.groundObject.building.house
     );
     globals.circs.fun += 10;
-    globals.circs.shopping += 5;
     globals.circs.work += 5;
     console.log(globals.circs);
     console.log("church added");
@@ -678,6 +680,7 @@ function addChurch() {
       globals.navigationHelper.placePicker.position.x,
       globals.navigationHelper.placePicker.position.z
     );
+    outOfAccepted();
   }
 }
 
@@ -712,6 +715,7 @@ function addPlayground() {
       globals.navigationHelper.placePicker.position.x,
       globals.navigationHelper.placePicker.position.z
     );
+    outOfAccepted();
   }
 }
 
@@ -748,6 +752,7 @@ function addIcecream() {
       globals.navigationHelper.placePicker.position.x,
       globals.navigationHelper.placePicker.position.z
     );
+    outOfAccepted();
   }
 }
 
