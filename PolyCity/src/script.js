@@ -173,7 +173,5 @@ function initWorld() {
 
 /*
   - parenthez kötni az utat és minden generáláskor kitörölni és újraépíteni az utakat 
-
-
 útgenerálást törölni, majd frissíteni az új elemek szerint 
 */
