@@ -12,9 +12,14 @@ import globals from "./globals";
 import { movingCars } from "./functions";
 
 (async () => {
+  let loading_schreen = document.getElementById("loading");
+  let glass_panel = document.getElementById("glasspanel");
+
   console.log("Loading models...");
   await loadModels();
   console.log("Models loaded");
+  loading_schreen.style.visibility = "hidden";
+  glass_panel.style.visibility = "visible";
   initWorld();
 })();
 

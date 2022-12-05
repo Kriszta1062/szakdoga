@@ -29,6 +29,7 @@
     z-index: 100;
     height: 100%;
     width: 10%;
+    visibility:hidden;
 
  }
 
@@ -87,4 +88,19 @@ cursor: pointer;
 
 h3{
     text-align: center;
+}
+
+#loading{
+    background-color: aqua;
+    width: 100%;
+    height: 100%;
+    z-index: 200;
+    position: absolute; 
+    top: 0; 
+    left: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+   
 }
