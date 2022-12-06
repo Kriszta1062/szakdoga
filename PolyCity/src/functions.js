@@ -749,6 +749,8 @@ function outOfAccepted() {
     globals.circs.work > 20
   ) {
     console.log("Kileptunk a hatarokbol...");
+    let game_over = document.getElementById("game_over");
+    game_over.style.visibility = "visible";
   } else {
     console.log("Minden a legnagyobb rendben :)");
   }

@@ -100,7 +100,19 @@ h3{
     left: 0;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover;   
+}
 
-   
+#game_over{
+    background-color:rgba(40,170,226);
+    width: 100%;
+    height: 100%;
+    z-index: 300;
+    position: absolute; 
+    top: 0; 
+    left: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;  
+    visibility: hidden;
 }
