@@ -9,12 +9,16 @@
     id="loading"
     style="background-image: url('/model_pic/loading2.gif')"
   ></div>
-  <div
-    id="game_over"
-    style="background-image: url('/model_pic/game_over.png')"
-  ></div>
+  <div id="game_over" style="background-image: url('/model_pic/game_over.png')">
+    <div class="buttons">
+      <a href="game.html" class="game_over_btn">Try again</a>
+      <a href="index.html" class="game_over_btn">Go Home</a>
+    </div>
+  </div>
   <body id="game_body">
     <div id="glasspanel">
+      <div id="counter"></div>
+
       <div id="stat_title"></div>
       <div id="city_stat_pop"></div>
       <div id="city_stat_work"></div>

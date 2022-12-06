@@ -116,3 +116,20 @@ h3{
     background-size: cover;  
     visibility: hidden;
 }
+
+.game_over_btn {
+    text-decoration: none;
+    color: rgb(60, 60, 60);
+    cursor: pointer;
+    background-color: rgb(92, 183, 183);
+    padding: 10px 30px;
+    margin: 500px 60px;
+    font-size: 25px;
+    border-radius: 50px;
+    box-shadow: 0 0 10px black;
+  }
+
+.buttons{
+    display: flex;
+    justify-content: center;
+}

@@ -748,9 +748,17 @@ function outOfAccepted() {
     globals.circs.work < 10 ||
     globals.circs.work > 20
   ) {
-    console.log("Kileptunk a hatarokbol...");
-    let game_over = document.getElementById("game_over");
-    game_over.style.visibility = "visible";
+    let count = 10;
+    let timer = setInterval(function () {
+      count--;
+      console.log("Kileptunk a hatarokbol...");
+      console.log(count);
+      if (count == 0) {
+        clearInterval(timer);
+        let game_over = document.getElementById("game_over");
+        game_over.style.visibility = "visible";
+      }
+    }, 1000);
   } else {
     console.log("Minden a legnagyobb rendben :)");
   }
