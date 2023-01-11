@@ -444,7 +444,6 @@ function addCar() {
       )
     )
   ) {
-    // kellenek tovabbi feltetelek az utak iranyarol
     const carScene = globals.scenes.carScene.clone();
 
     carScene.position.set(
