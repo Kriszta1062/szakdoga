@@ -411,3 +411,35 @@ const tick = () => {
 };
 
 tick();
+
+
+/*
+listeners add cars
+
+
+if (
+    isRoad(
+      globals.map.get(
+        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
+      )
+    )
+  ) {
+    const carScene = globals.scenes.carScene.clone();
+    carScene.position.set(
+      globals.navigationHelper.placePicker.position.x,
+      globals.land.position.y,
+      globals.navigationHelper.placePicker.position.z
+    );
+    carScene.rotation.y = Math.PI / 2;
+    carScene.rotation.y -= globals.rotation;
+    globals.scene.add(carScene);
+    globals.map.set(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
+      globals.groundObject.vehicle.car
+    );
+    globals.cars.push(carScene);
+    globals.groundObject.vehicle.car++;
+    console.log("cars array    " + JSON.stringify(global.cars));
+  }*/
+
+*/

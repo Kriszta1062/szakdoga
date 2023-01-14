@@ -149,9 +149,6 @@ function generatingRoad(x, z) {
   matchingRoads(x, z);
 }
 
-// delete this line:
-let fourRoadsCount = 0;
-
 function drawingRoad() {
   globals.map.forEach((value, key) => {
     let [xKey, zKey] = key.split("_");
@@ -253,11 +250,6 @@ function drawingRoad() {
             four.position.set(xKey, globals.land.position.y + 0.013, zKey);
             globals.scene.add(four);
             globals.map.set(key, globals.groundObject.road.final_road);
-            console.log(
-              `four added (${fourRoadsCount++}), total scene children: ${
-                globals.scene.children.length
-              }`
-            );
             break;
           case globals.groundObject.road.three_up_crossing:
             const three_up = new THREE.Mesh(
@@ -498,7 +490,6 @@ function matchingRoads(x, z) {
   });
 
   if (road > 8 && justTwoNeighbours === 8) {
-    console.log("összekötés ellenőrzése");
     choosingStartEnd(x, z);
   }
 }
@@ -542,16 +533,11 @@ function movingCars() {
             )
           ) {
             if (Math.random() > 0.7) {
-              console.log(Math.random());
               globals.cars[i].direction = [1, 0];
               car.carScene.rotation.y = Math.PI;
-              console.log("bigger_road");
             } else {
-              console.log(Math.random());
-
               globals.cars[i].direction = [-1, 0];
               car.carScene.rotation.y = Math.PI * 2;
-              console.log("lower_road");
             }
           } else if (
             isRoad(
@@ -580,16 +566,11 @@ function movingCars() {
             )
           ) {
             if (Math.random() > 0.7) {
-              console.log(Math.random());
               globals.cars[i].direction = [0, 1];
               car.carScene.rotation.y = Math.PI / 2;
-              console.log("bigger");
             } else {
-              console.log(Math.random());
-
               globals.cars[i].direction = [0, -1];
               car.carScene.rotation.y = Math.PI * 1.5;
-              console.log("lower");
             }
           } else if (
             isRoad(
@@ -666,24 +647,10 @@ function choosingStartEnd(x, z) {
     });
   });
 
-  console.log("MIN");
-  console.log(min);
-  console.log("START");
-  console.log(startX);
-  console.log(startZ);
-  console.log("END");
-  console.log(endX);
-  console.log(endZ);
-  console.log(neighbours);
-
   shortestPath(startX, startZ, endX, endZ);
 }
 
 function shortestPath(startX, startZ, endX, endZ) {
-  // le kell ellenorizni megivaskor hogy ha
-  // if "no road aroind" && isRosad > 8 => hivjuk meg ezt a fv-t  az egyik most generalt ut koordinatajara
-  // kesobbi szamitasokat igenel hogy melyikre
-
   if (startX > endX) {
     while (startX != endX) {
       if (!globals.map.has(`${startX}_${startZ}`)) {

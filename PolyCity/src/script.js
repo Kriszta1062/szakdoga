@@ -120,10 +120,10 @@ function initWorld() {
   const pointLight = new THREE.PointLight(0xffffff, 0.5, 0, 2);
   pointLight.castShadow = true;
   pointLight.shadow.mapSize.set(1024, 1024);
-  pointLight.position.set(10, 3, 0);
+  pointLight.position.set(0, 5, 0);
   globals.scene.add(pointLight);
-  //const helper = new THREE.PointLightHelper( pointLight, 10 )
-  //globals.scene.add( helper )
+  const helper = new THREE.PointLightHelper(pointLight, 20);
+  globals.scene.add(helper);
 
   /*Sizes*/
 

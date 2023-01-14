@@ -11,12 +11,6 @@ function keydownListener(event) {
     ) {
       globals.navigationHelper.placePicker.position.z -= 1;
     }
-    console.log(
-      "x= " +
-        globals.navigationHelper.placePicker.position.x +
-        "z= " +
-        globals.navigationHelper.placePicker.position.z
-    );
   }
   if (event.keyCode == 39) {
     if (
@@ -25,12 +19,6 @@ function keydownListener(event) {
     ) {
       globals.navigationHelper.placePicker.position.x += 1;
     }
-    console.log(
-      "x=" +
-        globals.navigationHelper.placePicker.position.x +
-        "z=" +
-        globals.navigationHelper.placePicker.position.z
-    );
   }
   if (event.keyCode == 37) {
     if (
@@ -39,12 +27,6 @@ function keydownListener(event) {
     ) {
       globals.navigationHelper.placePicker.position.x -= 1;
     }
-    console.log(
-      "x=" +
-        globals.navigationHelper.placePicker.position.x +
-        "z=" +
-        globals.navigationHelper.placePicker.position.z
-    );
   }
   if (event.keyCode == 40) {
     if (
@@ -53,12 +35,6 @@ function keydownListener(event) {
     ) {
       globals.navigationHelper.placePicker.position.z += 1;
     }
-    console.log(
-      "x=" +
-        globals.navigationHelper.placePicker.position.x +
-        "z=" +
-        globals.navigationHelper.placePicker.position.z
-    );
   }
   if (event.keyCode == 51) {
     globals.rotation += Math.PI / 2;
@@ -87,8 +63,6 @@ function keydownListener(event) {
       globals.circs.fun -= 40;
       globals.circs.shopping -= 30;
       globals.circs.work -= 20;
-      console.log(globals.circs);
-      console.log("panel added");
 
       generatingRoad(
         globals.navigationHelper.placePicker.position.x,
@@ -123,8 +97,6 @@ function keydownListener(event) {
       globals.circs.fun += 10;
       globals.circs.shopping += 5;
       globals.circs.work += 3;
-      console.log(globals.circs);
-      console.log("icecream added");
 
       generatingRoad(
         globals.navigationHelper.placePicker.position.x,
@@ -161,8 +133,6 @@ function keydownListener(event) {
       globals.circs.fun -= 5;
       globals.circs.shopping -= 2;
       globals.circs.work -= 2;
-      console.log(globals.circs);
-      console.log("house added");
       generatingRoad(
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
@@ -196,8 +166,6 @@ function keydownListener(event) {
       );
       globals.circs.fun += 3;
       globals.circs.work += 30;
-      console.log(globals.circs);
-      console.log("office added");
 
       generatingRoad(
         globals.navigationHelper.placePicker.position.x,
@@ -233,8 +201,6 @@ function keydownListener(event) {
       globals.circs.fun += 5;
       globals.circs.shopping += 5;
       globals.circs.work += 5;
-      console.log(globals.circs);
-      console.log("hamburger added");
 
       generatingRoad(
         globals.navigationHelper.placePicker.position.x,
@@ -269,8 +235,6 @@ function keydownListener(event) {
       );
       globals.circs.shopping += 15;
       globals.circs.work += 10;
-      console.log(globals.circs);
-      console.log("grocery added");
       generatingRoad(
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
@@ -304,8 +268,6 @@ function keydownListener(event) {
       globals.circs.fun += 10;
       globals.circs.shopping += 5;
       globals.circs.work += 5;
-      console.log(globals.circs);
-      console.log("toyshop added");
       generatingRoad(
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
@@ -356,8 +318,6 @@ function keydownListener(event) {
         globals.groundObject.building.house
       );
       globals.circs.fun += 15;
-      console.log(globals.circs);
-      console.log("playground added");
       generatingRoad(
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z
@@ -405,13 +365,12 @@ function keydownListener(event) {
       }
 
       globals.cars.push({ carScene, direction });
-      console.log(direction);
       globals.groundObject.vehicle.car++;
-
-      // console.log("cars array    " + JSON.stringify(global.cars));
     }
   }
 }
+
+/*A felntieknel a lehelyezo billentyuket le lehet torolni */
 
 /*GETTING ELEMENTS BY ID */
 
@@ -452,11 +411,7 @@ function addCar() {
       globals.navigationHelper.placePicker.position.z
     );
 
-    globals.scene.add(carScene); /*
-    globals.map.set(
-      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
-      globals.groundObject.vehicle.car
-    );*/
+    globals.scene.add(carScene);
 
     let direction = globals.dir[Math.floor(Math.random() * 4)]; // igy 0 es 4 kozotti szamot kapunk
 
@@ -471,33 +426,7 @@ function addCar() {
     }
 
     globals.cars.push({ carScene, direction });
-    console.log(direction);
     globals.groundObject.vehicle.car++;
-    /*
-  if (
-    isRoad(
-      globals.map.get(
-        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
-      )
-    )
-  ) {
-    const carScene = globals.scenes.carScene.clone();
-    carScene.position.set(
-      globals.navigationHelper.placePicker.position.x,
-      globals.land.position.y,
-      globals.navigationHelper.placePicker.position.z
-    );
-    carScene.rotation.y = Math.PI / 2;
-    carScene.rotation.y -= globals.rotation;
-    globals.scene.add(carScene);
-    globals.map.set(
-      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
-      globals.groundObject.vehicle.car
-    );
-    globals.cars.push(carScene);
-    globals.groundObject.vehicle.car++;
-    console.log("cars array    " + JSON.stringify(global.cars));
-  }*/
   }
   outOfAccepted();
 }
@@ -524,8 +453,6 @@ function addPanel() {
     globals.circs.fun -= 40;
     globals.circs.shopping -= 30;
     globals.circs.work -= 20;
-    console.log(globals.circs);
-    console.log("panel added");
 
     generatingRoad(
       globals.navigationHelper.placePicker.position.x,
@@ -559,8 +486,6 @@ function addFactory() {
     globals.scene.add(factoryCopy);
     globals.circs.fun -= 20;
     globals.circs.work += 20;
-    console.log(globals.circs);
-    console.log("factory added");
 
     generatingRoad(
       globals.navigationHelper.placePicker.position.x,
@@ -598,8 +523,6 @@ function addHouse() {
     globals.circs.fun -= 5;
     globals.circs.shopping -= 2;
     globals.circs.work -= 2;
-    console.log(globals.circs);
-    console.log("house added");
     generatingRoad(
       globals.navigationHelper.placePicker.position.x,
       globals.navigationHelper.placePicker.position.z
@@ -634,8 +557,6 @@ function addToy() {
     globals.circs.fun += 10;
     globals.circs.shopping += 5;
     globals.circs.work += 5;
-    console.log(globals.circs);
-    console.log("toyshop added");
     generatingRoad(
       globals.navigationHelper.placePicker.position.x,
       globals.navigationHelper.placePicker.position.z
@@ -669,8 +590,6 @@ function addChurch() {
     );
     globals.circs.fun += 10;
     globals.circs.work += 5;
-    console.log(globals.circs);
-    console.log("church added");
     generatingRoad(
       globals.navigationHelper.placePicker.position.x,
       globals.navigationHelper.placePicker.position.z
@@ -704,8 +623,6 @@ function addPlayground() {
       globals.groundObject.building.house
     );
     globals.circs.fun += 15;
-    console.log(globals.circs);
-    console.log("playground added");
     generatingRoad(
       globals.navigationHelper.placePicker.position.x,
       globals.navigationHelper.placePicker.position.z
@@ -740,8 +657,6 @@ function addIcecream() {
     globals.circs.fun += 10;
     globals.circs.shopping += 5;
     globals.circs.work += 3;
-    console.log(globals.circs);
-    console.log("icecream added");
 
     generatingRoad(
       globals.navigationHelper.placePicker.position.x,
