@@ -1,11 +1,5 @@
 import "./style.css";
 import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
-import { landGrow, generatingRoad } from "./functions";
-//import {TWEEN} from 'three/examples/jsm/libs/tween.module.min.js';
-//import gsap from 'gsap'
-import * as dat from "dat.gui";
 import { keydownListener, resizeListener } from "./listeners";
 import { loadModels } from "./loader";
 import globals from "./globals";
@@ -26,8 +20,6 @@ import { movingCars } from "./functions";
 function initWorld() {
   let landWidth = 100;
   let landHeight = 100;
-
-  //a videoban: 21. video 56. perc
 
   const city_stat_pop = document.getElementById("city_stat_pop");
   city_stat_pop.innerHTML =
@@ -122,8 +114,8 @@ function initWorld() {
   pointLight.shadow.mapSize.set(1024, 1024);
   pointLight.position.set(0, 5, 0);
   globals.scene.add(pointLight);
-  const helper = new THREE.PointLightHelper(pointLight, 20);
-  globals.scene.add(helper);
+  // const helper = new THREE.PointLightHelper(pointLight, 20);
+  // globals.scene.add(helper);
 
   /*Sizes*/
 

@@ -1,7 +1,5 @@
 import globals from "./globals";
-
 import { generatingRoad, landGrow, isRoad, outOfAccepted } from "./functions";
-import { random } from "gsap";
 
 function keydownListener(event) {
   if (event.keyCode == 38) {
@@ -76,6 +74,8 @@ function keydownListener(event) {
   }
   /* ICE CREAM */
   if (event.keyCode == 50) {
+    console.log(globals.roads);
+    console.log(globals.map);
     if (
       !globals.map.has(
         `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
