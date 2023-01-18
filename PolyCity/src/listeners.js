@@ -177,29 +177,27 @@ function keydownListener(event) {
       );
     }
   }
-  /*HAMBURGER */
+  /*Church */
   if (event.keyCode == 54) {
     if (
       !globals.map.has(
         `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
       )
     ) {
-      const hamburgerScene = globals.scenes.hamburgerScene.clone();
+      const churchScene = globals.scenes.churchScene.clone();
 
-      hamburgerScene.position.set(
+      churchScene.position.set(
         globals.navigationHelper.placePicker.position.x,
         globals.land.position.y,
         globals.navigationHelper.placePicker.position.z
       );
-      hamburgerScene.rotation.y = -Math.PI / 2;
-      hamburgerScene.rotation.y -= globals.rotation;
-      globals.scene.add(hamburgerScene);
+      churchScene.rotation.y += globals.rotation;
+      globals.scene.add(churchScene);
       globals.map.set(
         `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
         globals.groundObject.building.house
       );
-      globals.circs.fun += 5;
-      globals.circs.shopping += 5;
+      globals.circs.fun += 10;
       globals.circs.work += 5;
 
       generatingRoad(
@@ -212,29 +210,28 @@ function keydownListener(event) {
       );
     }
   }
-  /*GROCERY */
+  /*Factory */
   if (event.keyCode == 55) {
     if (
       !globals.map.has(
         `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
       )
     ) {
-      const groceryScene = globals.scenes.groceryScene.clone();
-
-      groceryScene.position.set(
+      const factoryCopy = globals.scenes.factoryScene.clone();
+      factoryCopy.position.set(
         globals.navigationHelper.placePicker.position.x,
         globals.land.position.y,
         globals.navigationHelper.placePicker.position.z
       );
-      groceryScene.rotation.y = -Math.PI / 2;
-      groceryScene.rotation.y -= globals.rotation;
-      globals.scene.add(groceryScene);
+      factoryCopy.rotation.y -= globals.rotation;
       globals.map.set(
         `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
         globals.groundObject.building.house
       );
-      globals.circs.shopping += 15;
-      globals.circs.work += 10;
+      globals.scene.add(factoryCopy);
+      globals.circs.fun -= 20;
+      globals.circs.work += 20;
+
       generatingRoad(
         globals.navigationHelper.placePicker.position.x,
         globals.navigationHelper.placePicker.position.z

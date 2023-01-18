@@ -56,7 +56,7 @@ async function loadModels() {
     "/models/factory/factory.gltf"
   );
   globals.scenes.factoryScene = factoryGltf.scene;
-  globals.scenes.factoryScene.scale.set(0.13, 0.13, 0.13);
+  globals.scenes.factoryScene.scale.set(0.125, 0.125, 0.125);
   globals.scenes.factoryScene.receiveShadow = true;
   console.log("church loaded");
 
