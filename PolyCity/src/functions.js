@@ -58,6 +58,7 @@ function landGrow(x, y) {
   }
   if (Math.abs(y) - -10 > globals.land.scale.x / 2) {
     let old_size = globals.wall_west.scale.x;
+
     globals.land.scale.x += Math.ceil(
       Math.abs(y) - -10 - globals.land.scale.y / 2
     ); // azért kell előbb az x, hogy ne változtassuk meg scale.y értékét, mert különben azzal számol tovább
