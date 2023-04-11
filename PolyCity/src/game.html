@@ -27,14 +27,20 @@
       <div id="buildings">
         <h3>Buildings</h3>
 
-        <div class="building">
+        <div class="building" onmouseover="details('iceDetails')">
           <img
             class="image"
             id="ice"
             src="/model_pic/modelling2.png"
             alt="building"
           />
-          <!-- <button id="ice">Add</button> -->
+          <div class="dropdown">
+            <div id="iceDetails" class="dropdown-content">
+              <a href="#home">Home</a>
+              <a href="#about">About</a>
+              <a href="#contact">Contact</a>
+            </div>
+          </div>
         </div>
         <div class="building">
           <img

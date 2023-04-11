@@ -588,8 +588,6 @@ function movingCars() {
           }
         }
       }
-      // else if (iranyvaltassal is lenne ott ut, es random 20%) {valts}
-
       globals.cars[i].cycle = 1;
     }
 
@@ -716,20 +714,25 @@ function outOfAccepted() {
     globals.circs.work < 10 ||
     globals.circs.work > 20
   ) {
-    let count = 10;
-    let timer = setInterval(function () {
-      count--;
-      console.log("Kileptunk a hatarokbol...");
-      console.log(count);
-      if (count == 0) {
-        clearInterval(timer);
-        let game_over = document.getElementById("game_over");
-        game_over.style.visibility = "visible";
-      }
-    }, 1000);
+    // let count = 10;
+    // let timer = setInterval(function () {
+    //   count--;
+    //   console.log("Kileptunk a hatarokbol...");
+    //   console.log(count);
+    //   if (count == 0) {
+    //     clearInterval(timer);
+    //     let game_over = document.getElementById("game_over");
+    //     game_over.style.visibility = "visible";
+    //   }
+    // }, 1000);
   } else {
     console.log("Minden a legnagyobb rendben :)");
   }
+}
+
+function details(id) {
+  document.getElementById(id).classList.toggle("show");
+  console.log("this is a detail mouseover");
 }
 
 export {
@@ -740,4 +743,5 @@ export {
   isRoad,
   movingCars,
   outOfAccepted,
+  details,
 };
