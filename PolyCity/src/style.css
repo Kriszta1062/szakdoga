@@ -15,9 +15,6 @@
     overflow: hidden;
 }
 
-
-
-
 #glasspanel {
     position: absolute;
     padding: 20px;
@@ -77,14 +74,9 @@
     aspect-ratio: 1/1;
     object-fit: cover;
 
-
-
 }
 
-.image:hover{
-    box-shadow: 0 0 10px rgb(255, 149, 190);
 
-}
 
 .building{
 display: flex;
@@ -93,16 +85,33 @@ align-items: center;
 margin: 40px;
 flex-direction: column;
 cursor: pointer;
+/* position: absolute; */
+}
+/* 
+.building:hover, .details{
+    display: inline;
+} */
+
+/* .image:hover{
+        box-shadow: 0 0 10px rgb(255, 149, 190);
+
+}
+
+.details{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
+    background-color: #ff61bd6c;
+    min-width: 160px; 
     overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
+    box-shadow: 0 0 10px rgb(255, 149, 190);
+    z-index: 10;
   }
 
   .dropdown-content a {
@@ -124,16 +133,6 @@ cursor: pointer;
 .dropdown {
     position: relative;
     display: inline-block;
-}
-
-
-
-/* button{
-    margin: 5px;
-    width: 50px;
-    box-shadow: 0 0 50px white;
-    border: none;
-    background-color: beige;
 } */
 
 h3{
@@ -197,4 +196,30 @@ h3{
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: rgb(117, 217, 214);
+
+}
+
+.timer{
+    position: absolute;
+    width: 100%;
+    visibility:hidden;
+    height: 4%;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content:center ;
+    margin-top: 10px;
+}
+
+.time{
+    background: rgba(255, 0, 0, 0.5);
+    border: thin solid rgba(255, 255, 255, 0.6);
+    color: #eeeeee;
+    box-shadow: rgba(255, 255, 255, 0.5) 5px 5px 20px;
+    width: 10%;
+    font-size: 2rem;
+    height: 100%;
+    padding: 5px;
+    text-align: center;
+    font-weight: bolder;
 }

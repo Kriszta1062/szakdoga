@@ -291,6 +291,13 @@ function keydownListener(event) {
   city_stat_shop.innerHTML =
     "<h4>Shopping opportunity: " + globals.circs.shopping + "</h4>";
 
+  const city_stat_con = document.getElementById("city_stat_con");
+  city_stat_con.innerHTML = "<h4>Contamination: " + globals.circs.con + "</h4>";
+
+  const city_stat_pub_supply = document.getElementById("city_stat_pub_supply");
+  city_stat_pub_supply.innerHTML =
+    "<h4>Public supply: " + globals.circs.pub_supply + "</h4>";
+
   const stat_title = document.getElementById("stat_title");
   stat_title.innerHTML = "<h3>City Stats</h3>";
 

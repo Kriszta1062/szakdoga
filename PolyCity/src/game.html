@@ -24,23 +24,30 @@
       <div id="city_stat_work"></div>
       <div id="city_stat_shop"></div>
       <div id="city_stat_fun"></div>
+      <div id="city_stat_con"></div>
+      <div id="city_stat_pub_supply"></div>
       <div id="buildings">
         <h3>Buildings</h3>
 
-        <div class="building" onmouseover="details('iceDetails')">
+        <div class="building">
           <img
             class="image"
             id="ice"
             src="/model_pic/modelling2.png"
             alt="building"
+            onmouseover="details('iceDropdown')"
           />
-          <div class="dropdown">
-            <div id="iceDetails" class="dropdown-content">
-              <a href="#home">Home</a>
-              <a href="#about">About</a>
-              <a href="#contact">Contact</a>
-            </div>
+          <!-- <div id="iceDropdown" class="details">
+            <h3>Kutya</h3>
+            <h3>Cica</h3>
+            <h3>Elefánt</h3>
           </div>
+          <script>
+            function details(id) {
+              document.getElementById(id).classList.toggle("show");
+              console.log("this is a detail mouseover");
+            }
+          </script> -->
         </div>
         <div class="building">
           <img
@@ -97,6 +104,10 @@
           <!-- <button id="panel">Add</button> -->
         </div>
       </div>
+    </div>
+
+    <div class="timer">
+      <div class="time">0:36</div>
     </div>
 
     <!-- </div> -->

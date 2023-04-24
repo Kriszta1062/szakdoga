@@ -44,6 +44,8 @@ const globals = {
     shopping: 0,
     work: 0,
     fun: 0,
+    con: 0,
+    pub_supply: 0,
   },
 
   scenes: {},

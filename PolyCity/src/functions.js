@@ -730,10 +730,10 @@ function outOfAccepted() {
   }
 }
 
-function details(id) {
-  document.getElementById(id).classList.toggle("show");
-  console.log("this is a detail mouseover");
-}
+// function details(id) {
+//   document.getElementById(id).classList.toggle("show");
+//   console.log("this is a detail mouseover");
+// }
 
 export {
   landGrow,
@@ -743,5 +743,5 @@ export {
   isRoad,
   movingCars,
   outOfAccepted,
-  details,
+  // details,
 };
