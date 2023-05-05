@@ -276,6 +276,40 @@ function keydownListener(event) {
     }
   }
 
+  /*Fuel Station */
+  if (event.keyCode == 58) {
+    if (
+      !globals.map.has(
+        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
+      )
+    ) {
+      const fuelScene = globals.scenes.fuelScene.clone();
+
+      fuelScene.position.set(
+        globals.navigationHelper.placePicker.position.x,
+        globals.land.position.y,
+        globals.navigationHelper.placePicker.position.z
+      );
+      fuelScene.rotation.y -= globals.rotation;
+      globals.scene.add(fuelScene);
+      globals.map.set(
+        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
+        globals.groundObject.building.house
+      );
+      globals.circs.fun += 10;
+      globals.circs.shopping += 5;
+      globals.circs.work += 5;
+      generatingRoad(
+        globals.navigationHelper.placePicker.position.x,
+        globals.navigationHelper.placePicker.position.z
+      );
+      landGrow(
+        globals.navigationHelper.placePicker.position.x,
+        globals.navigationHelper.placePicker.position.z
+      );
+    }
+  }
+
   const city_stat_pop = document.getElementById("city_stat_pop");
   city_stat_pop.innerHTML =
     "<h4>Population: " + globals.circs.population + "</h4>";
@@ -399,6 +433,15 @@ church_button.addEventListener("click", addChurch);
 const factory_button = document.getElementById("factory");
 factory_button.addEventListener("click", addFactory);
 
+const fuel_button = document.getElementById("fuel");
+fuel_button.addEventListener("click", addFuel);
+
+const playground_button = document.getElementById("playground");
+playground_button.addEventListener("click", addPlayground);
+
+const hospital_button = document.getElementById("hospital");
+hospital_button.addEventListener("click", addHospital);
+
 function addCar() {
   if (
     isRoad(
@@ -470,6 +513,41 @@ function addPanel() {
   }
 }
 
+function addHospital() {
+  if (
+    !globals.map.has(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
+    )
+  ) {
+    const hospitalCopy = globals.scenes.hospitalScene.clone();
+    hospitalCopy.position.set(
+      globals.navigationHelper.placePicker.position.x,
+      globals.land.position.y,
+      globals.navigationHelper.placePicker.position.z
+    );
+    hospitalCopy.rotation.y -= globals.rotation;
+    globals.map.set(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
+      globals.groundObject.building.house
+    );
+    globals.scene.add(hospitalCopy);
+    globals.circs.population += 40;
+    globals.circs.fun -= 40;
+    globals.circs.shopping -= 30;
+    globals.circs.work -= 20;
+
+    generatingRoad(
+      globals.navigationHelper.placePicker.position.x,
+      globals.navigationHelper.placePicker.position.z
+    );
+    landGrow(
+      globals.navigationHelper.placePicker.position.x,
+      globals.navigationHelper.placePicker.position.z
+    );
+    outOfAccepted();
+  }
+}
+
 function addFactory() {
   if (
     !globals.map.has(
@@ -488,6 +566,39 @@ function addFactory() {
       globals.groundObject.building.house
     );
     globals.scene.add(factoryCopy);
+    globals.circs.fun -= 20;
+    globals.circs.work += 20;
+
+    generatingRoad(
+      globals.navigationHelper.placePicker.position.x,
+      globals.navigationHelper.placePicker.position.z
+    );
+    landGrow(
+      globals.navigationHelper.placePicker.position.x,
+      globals.navigationHelper.placePicker.position.z
+    );
+    outOfAccepted();
+  }
+}
+
+function addFuel() {
+  if (
+    !globals.map.has(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
+    )
+  ) {
+    const fuelCopy = globals.scenes.fuelScene.clone();
+    fuelCopy.position.set(
+      globals.navigationHelper.placePicker.position.x,
+      globals.land.position.y,
+      globals.navigationHelper.placePicker.position.z
+    );
+    fuelCopy.rotation.y -= globals.rotation;
+    globals.map.set(
+      `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
+      globals.groundObject.building.house
+    );
+    globals.scene.add(fuelCopy);
     globals.circs.fun -= 20;
     globals.circs.work += 20;
 
