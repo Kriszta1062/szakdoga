@@ -34,11 +34,12 @@ function keydownListener(event) {
       globals.navigationHelper.placePicker.position.z += 1;
     }
   }
-  if (event.keyCode == 51) {
+  if (event.keyCode == 32) {
     globals.rotation += Math.PI / 2;
     globals.navigationHelper.placePicker.rotation.z = globals.rotation;
   }
-  /* PANEL */
+
+  // / /* PANEL */
   if (event.keyCode == 49) {
     if (
       !globals.map.has(
@@ -72,345 +73,36 @@ function keydownListener(event) {
       );
     }
   }
-  /* ICE CREAM */
-  if (event.keyCode == 50) {
-    console.log(globals.roads);
-    console.log(globals.map);
-    if (
-      !globals.map.has(
-        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
-      )
-    ) {
-      const iceCreamScene = globals.scenes.iceCreamScene.clone();
+}
 
-      iceCreamScene.position.set(
-        globals.navigationHelper.placePicker.position.x,
-        globals.land.position.y,
-        globals.navigationHelper.placePicker.position.z
-      );
-      iceCreamScene.rotation.y -= globals.rotation;
-      globals.scene.add(iceCreamScene);
-      globals.map.set(
-        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
-        globals.groundObject.building.house
-      );
-      globals.circs.fun += 10;
-      globals.circs.shopping += 5;
-      globals.circs.work += 3;
-
-      generatingRoad(
-        globals.navigationHelper.placePicker.position.x,
-        globals.navigationHelper.placePicker.position.z
-      );
-      landGrow(
-        globals.navigationHelper.placePicker.position.x,
-        globals.navigationHelper.placePicker.position.z
-      );
-    }
-  }
-  /* HOUSE */
-  if (event.keyCode == 52) {
-    if (
-      !globals.map.has(
-        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
-      )
-    ) {
-      const houseScene = globals.scenes.houseScene.clone();
-
-      houseScene.position.set(
-        globals.navigationHelper.placePicker.position.x,
-        globals.land.position.y,
-        globals.navigationHelper.placePicker.position.z
-      );
-      houseScene.rotation.y = -Math.PI / 2;
-      houseScene.rotation.y -= globals.rotation;
-      globals.scene.add(houseScene);
-      globals.map.set(
-        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
-        globals.groundObject.building.house
-      );
-      globals.circs.population += 5;
-      globals.circs.fun -= 5;
-      globals.circs.shopping -= 2;
-      globals.circs.work -= 2;
-      generatingRoad(
-        globals.navigationHelper.placePicker.position.x,
-        globals.navigationHelper.placePicker.position.z
-      );
-      landGrow(
-        globals.navigationHelper.placePicker.position.x,
-        globals.navigationHelper.placePicker.position.z
-      );
-    }
-  }
-  /*OFFICE */
-  if (event.keyCode == 53) {
-    if (
-      !globals.map.has(
-        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
-      )
-    ) {
-      const officeScene = globals.scenes.officeScene.clone();
-
-      officeScene.position.set(
-        globals.navigationHelper.placePicker.position.x,
-        globals.land.position.y,
-        globals.navigationHelper.placePicker.position.z
-      );
-      officeScene.rotation.y = -Math.PI / 2;
-      officeScene.rotation.y -= globals.rotation;
-      globals.scene.add(officeScene);
-      globals.map.set(
-        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
-        globals.groundObject.building.house
-      );
-      globals.circs.fun += 3;
-      globals.circs.work += 30;
-
-      generatingRoad(
-        globals.navigationHelper.placePicker.position.x,
-        globals.navigationHelper.placePicker.position.z
-      );
-      landGrow(
-        globals.navigationHelper.placePicker.position.x,
-        globals.navigationHelper.placePicker.position.z
-      );
-    }
-  }
-  /*Church */
-  if (event.keyCode == 54) {
-    if (
-      !globals.map.has(
-        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
-      )
-    ) {
-      const churchScene = globals.scenes.churchScene.clone();
-
-      churchScene.position.set(
-        globals.navigationHelper.placePicker.position.x,
-        globals.land.position.y,
-        globals.navigationHelper.placePicker.position.z
-      );
-      churchScene.rotation.y += globals.rotation;
-      globals.scene.add(churchScene);
-      globals.map.set(
-        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
-        globals.groundObject.building.house
-      );
-      globals.circs.fun += 10;
-      globals.circs.work += 5;
-
-      generatingRoad(
-        globals.navigationHelper.placePicker.position.x,
-        globals.navigationHelper.placePicker.position.z
-      );
-      landGrow(
-        globals.navigationHelper.placePicker.position.x,
-        globals.navigationHelper.placePicker.position.z
-      );
-    }
-  }
-  /*Factory */
-  if (event.keyCode == 55) {
-    if (
-      !globals.map.has(
-        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
-      )
-    ) {
-      const factoryCopy = globals.scenes.factoryScene.clone();
-      factoryCopy.position.set(
-        globals.navigationHelper.placePicker.position.x,
-        globals.land.position.y,
-        globals.navigationHelper.placePicker.position.z
-      );
-      factoryCopy.rotation.y -= globals.rotation;
-      globals.map.set(
-        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
-        globals.groundObject.building.house
-      );
-      globals.scene.add(factoryCopy);
-      globals.circs.fun -= 20;
-      globals.circs.work += 20;
-
-      generatingRoad(
-        globals.navigationHelper.placePicker.position.x,
-        globals.navigationHelper.placePicker.position.z
-      );
-      landGrow(
-        globals.navigationHelper.placePicker.position.x,
-        globals.navigationHelper.placePicker.position.z
-      );
-    }
-  }
-  /*TOYSHOP */
-  if (event.keyCode == 56) {
-    if (
-      !globals.map.has(
-        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
-      )
-    ) {
-      const toyShopScene = globals.scenes.toyShopScene.clone();
-
-      toyShopScene.position.set(
-        globals.navigationHelper.placePicker.position.x,
-        globals.land.position.y,
-        globals.navigationHelper.placePicker.position.z
-      );
-      toyShopScene.rotation.y -= globals.rotation;
-      globals.scene.add(toyShopScene);
-      globals.map.set(
-        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
-        globals.groundObject.building.house
-      );
-      globals.circs.fun += 10;
-      globals.circs.shopping += 5;
-      globals.circs.work += 5;
-      generatingRoad(
-        globals.navigationHelper.placePicker.position.x,
-        globals.navigationHelper.placePicker.position.z
-      );
-      landGrow(
-        globals.navigationHelper.placePicker.position.x,
-        globals.navigationHelper.placePicker.position.z
-      );
-    }
-  }
-
-  /*Fuel Station */
-  if (event.keyCode == 58) {
-    if (
-      !globals.map.has(
-        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
-      )
-    ) {
-      const fuelScene = globals.scenes.fuelScene.clone();
-
-      fuelScene.position.set(
-        globals.navigationHelper.placePicker.position.x,
-        globals.land.position.y,
-        globals.navigationHelper.placePicker.position.z
-      );
-      fuelScene.rotation.y -= globals.rotation;
-      globals.scene.add(fuelScene);
-      globals.map.set(
-        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
-        globals.groundObject.building.house
-      );
-      globals.circs.fun += 10;
-      globals.circs.shopping += 5;
-      globals.circs.work += 5;
-      generatingRoad(
-        globals.navigationHelper.placePicker.position.x,
-        globals.navigationHelper.placePicker.position.z
-      );
-      landGrow(
-        globals.navigationHelper.placePicker.position.x,
-        globals.navigationHelper.placePicker.position.z
-      );
-    }
-  }
-
-  const city_stat_pop = document.getElementById("city_stat_pop");
-  city_stat_pop.innerHTML =
-    "<h4>Population: " + globals.circs.population + "</h4>";
-
-  const city_stat_work = document.getElementById("city_stat_work");
-  city_stat_work.innerHTML =
-    "<h4>Woking place: " + globals.circs.work + "</h4>";
-
-  const city_stat_fun = document.getElementById("city_stat_fun");
-  city_stat_fun.innerHTML = "<h4>Fun level: " + globals.circs.fun + "</h4>";
-
-  const city_stat_shop = document.getElementById("city_stat_shop");
-  city_stat_shop.innerHTML =
-    "<h4>Shopping opportunity: " + globals.circs.shopping + "</h4>";
-
-  const city_stat_con = document.getElementById("city_stat_con");
-  city_stat_con.innerHTML = "<h4>Contamination: " + globals.circs.con + "</h4>";
-
-  const city_stat_pub_supply = document.getElementById("city_stat_pub_supply");
-  city_stat_pub_supply.innerHTML =
-    "<h4>Public supply: " + globals.circs.pub_supply + "</h4>";
-
+/*GETTING CITY STATS ELEMENTS BY ID */
+function setCityStats() {
   const stat_title = document.getElementById("stat_title");
   stat_title.innerHTML = "<h3>City Stats</h3>";
 
-  /*PLAYGROUND */
-  if (event.keyCode == 57) {
-    if (
-      !globals.map.has(
-        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
-      )
-    ) {
-      const playgroundScene = globals.scenes.playgroundScene.clone();
+  let city_stat_pop = document.getElementById("city_stat_pop");
+  city_stat_pop.innerHTML =
+    "<h4>Population: " + globals.circs.population + "</h4>";
 
-      playgroundScene.position.set(
-        globals.navigationHelper.placePicker.position.x,
-        globals.land.position.y,
-        globals.navigationHelper.placePicker.position.z
-      );
-      playgroundScene.rotation.y -= globals.rotation;
-      globals.scene.add(playgroundScene);
-      globals.map.set(
-        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
-        globals.groundObject.building.house
-      );
-      globals.circs.fun += 15;
-      generatingRoad(
-        globals.navigationHelper.placePicker.position.x,
-        globals.navigationHelper.placePicker.position.z
-      );
-      landGrow(
-        globals.navigationHelper.placePicker.position.x,
-        globals.navigationHelper.placePicker.position.z
-      );
-    }
-  }
-  /*CAR */
-  if (event.keyCode == 67) {
-    if (
-      isRoad(
-        globals.map.get(
-          `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`
-        )
-      )
-    ) {
-      // kellenek tovabbi feltetelek az utak iranyarol
-      const carScene = globals.scenes.carScene.clone();
+  let city_stat_work = document.getElementById("city_stat_work");
+  city_stat_work.innerHTML =
+    "<h4>Woking place: " + globals.circs.work + "</h4>";
 
-      carScene.position.set(
-        globals.navigationHelper.placePicker.position.x,
-        globals.land.position.y,
-        globals.navigationHelper.placePicker.position.z
-      );
+  let city_stat_fun = document.getElementById("city_stat_fun");
+  city_stat_fun.innerHTML = "<h4>Fun level: " + globals.circs.fun + "</h4>";
 
-      globals.scene.add(carScene);
-      globals.map.set(
-        `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
-        globals.groundObject.vehicle.car
-      );
+  let city_stat_shop = document.getElementById("city_stat_shop");
+  city_stat_shop.innerHTML =
+    "<h4>Shopping opportunity: " + globals.circs.shopping + "</h4>";
 
-      let direction = globals.dir[Math.floor(Math.random() * 4)]; // igy 0 es 4 kozotti szamot kapunk
+  let city_stat_con = document.getElementById("city_stat_con");
+  city_stat_con.innerHTML = "<h4>Contamination: " + globals.circs.con + "</h4>";
 
-      if (direction[0] == 0 && direction[1] == 1) {
-        carScene.rotation.y = Math.PI / 2;
-      } else if (direction[0] == 0 && direction[1] == -1) {
-        carScene.rotation.y = Math.PI * 1.5;
-      } else if (direction[0] == 1 && direction[1] == 0) {
-        carScene.rotation.y = Math.PI;
-      } else if (direction[0] == -1 && direction[1] == 0) {
-        carScene.rotation.y = Math.PI * 2;
-      }
-
-      globals.cars.push({ carScene, direction });
-      globals.groundObject.vehicle.car++;
-    }
-  }
+  let city_stat_pub_supply = document.getElementById("city_stat_pub_supply");
+  city_stat_pub_supply.innerHTML =
+    "<h4>Public supply: " + globals.circs.pub_supply + "</h4>";
 }
-
-/*A felntieknel a lehelyezo billentyuket le lehet torolni */
-
-/*GETTING ELEMENTS BY ID */
+/*GETTING BUTTON ELEMENTS BY ID */
 
 const car_button = document.getElementById("car");
 car_button.addEventListener("click", addCar);
@@ -442,6 +134,8 @@ playground_button.addEventListener("click", addPlayground);
 const hospital_button = document.getElementById("hospital");
 hospital_button.addEventListener("click", addHospital);
 
+/*FUNCTIONS FOR ADDING OBJECT TO THE SCENE */
+
 function addCar() {
   if (
     isRoad(
@@ -459,6 +153,11 @@ function addCar() {
     );
 
     globals.scene.add(carScene);
+
+    globals.circs.fun += 5;
+    globals.circs.shopping -= 2;
+    globals.circs.con += 2;
+    setCityStats();
 
     let direction = globals.dir[Math.floor(Math.random() * 4)]; // igy 0 es 4 kozotti szamot kapunk
 
@@ -496,10 +195,15 @@ function addPanel() {
       globals.groundObject.building.house
     );
     globals.scene.add(panelCopy);
-    globals.circs.population += 40;
-    globals.circs.fun -= 40;
-    globals.circs.shopping -= 30;
+
+    globals.circs.fun -= 15;
+    globals.circs.shopping -= 15;
     globals.circs.work -= 20;
+    globals.circs.population += 25;
+    globals.circs.con += 4;
+    globals.circs.pub_supply -= 20;
+
+    setCityStats();
 
     generatingRoad(
       globals.navigationHelper.placePicker.position.x,
@@ -531,10 +235,12 @@ function addHospital() {
       globals.groundObject.building.house
     );
     globals.scene.add(hospitalCopy);
-    globals.circs.population += 40;
-    globals.circs.fun -= 40;
-    globals.circs.shopping -= 30;
-    globals.circs.work -= 20;
+
+    globals.circs.fun -= 10;
+    globals.circs.work += 7;
+    globals.circs.con += 1;
+    globals.circs.pub_supply += 20;
+    setCityStats();
 
     generatingRoad(
       globals.navigationHelper.placePicker.position.x,
@@ -566,8 +272,12 @@ function addFactory() {
       globals.groundObject.building.house
     );
     globals.scene.add(factoryCopy);
-    globals.circs.fun -= 20;
-    globals.circs.work += 20;
+
+    globals.circs.fun -= 14;
+    globals.circs.shopping += 8;
+    globals.circs.work += 10;
+    globals.circs.con += 10;
+    setCityStats();
 
     generatingRoad(
       globals.navigationHelper.placePicker.position.x,
@@ -599,8 +309,12 @@ function addFuel() {
       globals.groundObject.building.house
     );
     globals.scene.add(fuelCopy);
-    globals.circs.fun -= 20;
-    globals.circs.work += 20;
+
+    globals.circs.fun -= 2;
+    globals.circs.shopping += 5;
+    globals.circs.work += 2;
+    globals.circs.con += 5;
+    setCityStats();
 
     generatingRoad(
       globals.navigationHelper.placePicker.position.x,
@@ -634,10 +348,15 @@ function addHouse() {
       `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
       globals.groundObject.building.house
     );
-    globals.circs.population += 5;
+
     globals.circs.fun -= 5;
-    globals.circs.shopping -= 2;
-    globals.circs.work -= 2;
+    globals.circs.shopping -= 3;
+    globals.circs.work -= 4;
+    globals.circs.population += 5;
+    globals.circs.con -= 5;
+    globals.circs.pub_supply -= 5;
+    setCityStats();
+
     generatingRoad(
       globals.navigationHelper.placePicker.position.x,
       globals.navigationHelper.placePicker.position.z
@@ -669,9 +388,12 @@ function addToy() {
       `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
       globals.groundObject.building.house
     );
-    globals.circs.fun += 10;
+
+    globals.circs.fun += 15;
     globals.circs.shopping += 5;
-    globals.circs.work += 5;
+    globals.circs.work += 1;
+    setCityStats();
+
     generatingRoad(
       globals.navigationHelper.placePicker.position.x,
       globals.navigationHelper.placePicker.position.z
@@ -703,8 +425,13 @@ function addChurch() {
       `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
       globals.groundObject.building.house
     );
-    globals.circs.fun += 10;
-    globals.circs.work += 5;
+
+    globals.circs.fun += 5;
+    globals.circs.work += 2;
+    globals.circs.con -= 10;
+    globals.circs.pub_supply += 5;
+    setCityStats();
+
     generatingRoad(
       globals.navigationHelper.placePicker.position.x,
       globals.navigationHelper.placePicker.position.z
@@ -738,6 +465,9 @@ function addPlayground() {
       globals.groundObject.building.house
     );
     globals.circs.fun += 15;
+    globals.circs.con -= 7;
+    setCityStats();
+
     generatingRoad(
       globals.navigationHelper.placePicker.position.x,
       globals.navigationHelper.placePicker.position.z
@@ -769,9 +499,10 @@ function addIcecream() {
       `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
       globals.groundObject.building.house
     );
-    globals.circs.fun += 10;
-    globals.circs.shopping += 5;
-    globals.circs.work += 3;
+    globals.circs.fun += 6;
+    globals.circs.shopping += 4;
+    globals.circs.work += 2;
+    setCityStats();
 
     generatingRoad(
       globals.navigationHelper.placePicker.position.x,
@@ -796,4 +527,4 @@ function resizeListener() {
   globals.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 }
 
-export { keydownListener, resizeListener };
+export { keydownListener, resizeListener, setCityStats };

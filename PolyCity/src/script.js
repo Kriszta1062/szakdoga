@@ -1,6 +1,6 @@
 import "./style.css";
 import * as THREE from "three";
-import { keydownListener, resizeListener } from "./listeners";
+import { keydownListener, resizeListener, setCityStats } from "./listeners";
 import { loadModels } from "./loader";
 import globals from "./globals";
 import { movingCars } from "./functions";
@@ -21,30 +21,7 @@ function initWorld() {
   let landWidth = 100;
   let landHeight = 100;
 
-  const city_stat_pop = document.getElementById("city_stat_pop");
-  city_stat_pop.innerHTML =
-    "<h4>Population: " + globals.circs.population + "</h4>";
-
-  const city_stat_work = document.getElementById("city_stat_work");
-  city_stat_work.innerHTML =
-    "<h4>Woking place: " + globals.circs.work + "</h4>";
-
-  const city_stat_fun = document.getElementById("city_stat_fun");
-  city_stat_fun.innerHTML = "<h4>Fun level: " + globals.circs.fun + "</h4>";
-
-  const city_stat_shop = document.getElementById("city_stat_shop");
-  city_stat_shop.innerHTML =
-    "<h4>Shopping opportunity: " + globals.circs.shopping + "</h4>";
-
-  const city_stat_con = document.getElementById("city_stat_con");
-  city_stat_con.innerHTML = "<h4>Contamination: " + globals.circs.con + "</h4>";
-
-  const city_stat_pub_supply = document.getElementById("city_stat_pub_supply");
-  city_stat_pub_supply.innerHTML =
-    "<h4>Public supply: " + globals.circs.pub_supply + "</h4>";
-
-  const stat_title = document.getElementById("stat_title");
-  stat_title.innerHTML = "<h3>City Stats</h3>";
+  setCityStats();
 
   /* Land */
   globals.land.receiveShadow = true;

@@ -76,8 +76,6 @@
 
 }
 
-
-
 .building{
 display: flex;
 justify-content: center;
@@ -85,55 +83,37 @@ align-items: center;
 margin: 40px;
 flex-direction: column;
 cursor: pointer;
-/* position: absolute; */
-}
-/* 
-.building:hover, .details{
-    display: inline;
-} */
-
-/* .image:hover{
-        box-shadow: 0 0 10px rgb(255, 149, 190);
-
+position: relative;
+z-index: 200;
 }
 
-.details{
-    position: absolute;
-    top: 0;
-    left: 0;
+
+
+.show {
+    display: block !important;
+}
+
+
+.dropdown{
+    /* position: absolute; */
     display: none;
+    background-color:rgb(214, 121, 183);
+    z-index: 200;
+    width: 100%;
+    min-width: 80px;
+    height: 100%;
+    box-shadow: 0 0 10px white;
+    font-size: 10px;
+    padding: 5px;
+    border-radius: 10%;
+    text-align:left;
+    justify-content: left;
 }
 
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #ff61bd6c;
-    min-width: 160px; 
-    overflow: auto;
-    box-shadow: 0 0 10px rgb(255, 149, 190);
-    z-index: 10;
-  }
-
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-
-  .dropdown a:hover {
-    background-color: #ddd;
-  }
-
-  .show {
-    display: block;
-  }
-
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-} */
+hr{
+    border: 1px solid rgb(95, 210, 255);
+    margin: 3px;
+}
 
 h3{
     text-align: center;
@@ -149,8 +129,7 @@ h3{
     left: 0;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;   
-    
+    background-size: cover;      
 }
 
 #game_over{
@@ -196,7 +175,6 @@ h3{
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: rgb(117, 217, 214);
-
 }
 
 .timer{

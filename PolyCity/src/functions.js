@@ -714,26 +714,37 @@ function outOfAccepted() {
     globals.circs.work < 10 ||
     globals.circs.work > 20
   ) {
-    // let count = 10;
-    // let timer = setInterval(function () {
-    //   count--;
-    //   console.log("Kileptunk a hatarokbol...");
-    //   console.log(count);
-    //   if (count == 0) {
-    //     clearInterval(timer);
-    //     let game_over = document.getElementById("game_over");
-    //     game_over.style.visibility = "visible";
-    //   }
-    // }, 1000);
+    console.log("Kileptunk a hatarokbol...");
+    let count = 120;
+    let timer = setInterval(function () {
+      if (
+        globals.circs.fun < 10 ||
+        globals.circs.shopping < 10 ||
+        globals.circs.shopping > 50 ||
+        globals.circs.work < 10 ||
+        globals.circs.work > 20
+      ) {
+        count--;
+        console.log(count);
+        if (count == 0) {
+          clearInterval(timer);
+          let game_over = document.getElementById("game_over");
+          game_over.style.visibility = "visible";
+        }
+      } else {
+        console.log("you fixed");
+        return;
+      }
+    }, 1000);
   } else {
     console.log("Minden a legnagyobb rendben :)");
   }
 }
 
-// function details(id) {
-//   document.getElementById(id).classList.toggle("show");
-//   console.log("this is a detail mouseover");
-// }
+function details(id) {
+  document.getElementById(id).classList.toggle("show");
+  console.log("this is a detail mouseover");
+}
 
 export {
   landGrow,
@@ -743,5 +754,5 @@ export {
   isRoad,
   movingCars,
   outOfAccepted,
-  // details,
+  details,
 };

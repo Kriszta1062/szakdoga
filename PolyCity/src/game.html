@@ -36,18 +36,19 @@
             src="/model_pic/modelling2.png"
             alt="building"
             onmouseover="details('iceDropdown')"
+            onmouseleave="hide('iceDropdown')"
           />
-          <!-- <div id="iceDropdown" class="details">
-            <h3>Kutya</h3>
-            <h3>Cica</h3>
-            <h3>Elefánt</h3>
+          <div id="iceDropdown" class="dropdown">
+            <h3>
+              Ice cream<br><hr>
+              Woking place<br>
+              +2<br>
+              Shopping opportunity<br>
+              +4<br>
+              Fun level<br>
+              +6
+              </h3>
           </div>
-          <script>
-            function details(id) {
-              document.getElementById(id).classList.toggle("show");
-              console.log("this is a detail mouseover");
-            }
-          </script> -->
         </div>
         <div class="building">
           <img
@@ -55,8 +56,26 @@
             id="house"
             src="/model_pic/modelling3.png"
             alt="building"
+            onmouseover="details('houseDropdown')"
+            onmouseleave="hide('houseDropdown')"
           />
-          <!-- <button id="house">Add</button> -->
+          <div id="houseDropdown" class="dropdown">
+            <h3>
+              House<br><html></html>
+              Population<br>
+              +5<br>
+              Woking place<br>
+              -4<br>
+              Shopping opportunity<br>
+              -3<br>
+              Fun level<br>
+              -5<br>
+              Contamination<br>
+              -5<br>
+              Public supply<br>
+              -5
+              </h3>
+          </div>
         </div>
         <div class="building">
           <img
@@ -64,8 +83,21 @@
             id="toy"
             src="/model_pic/modelling4.png"
             alt="building"
+            onmouseover="details('toyDropdown')"
+            onmouseleave="hide('toyDropdown')"
           />
-          <!-- <button id="toy">Add</button> -->
+          <div id="toyDropdown" class="dropdown">
+            <h3>
+              Toy shop<br><hr>
+              Woking place<br>
+              +1<br>
+              Shopping opportunity<br>
+              +5<br>
+              Fun level<br>
+              +15<br>
+              </h3>
+          </div>
+      </div>
         </div>
         <div class="building">
           <img
@@ -73,8 +105,22 @@
             id="factory"
             src="/model_pic/factory.png"
             alt="building"
+            onmouseover="details('factoryDropdown')"
+            onmouseleave="hide('factoryDropdown')"
           />
-          <!-- <button id="fuel">Add</button> -->
+          <div id="factoryDropdown" class="dropdown">
+            <h3>
+              Factory<br><hr>
+              Woking place<br>
+              +10<br>
+              Shopping opportunity<br>
+              +8<br>
+              Fun level<br>
+              -14<br>
+              Contamination<br>
+              +10<br>
+              </h3>
+          </div>
         </div>
         <div class="building">
           <img
@@ -82,8 +128,22 @@
             id="fuel"
             src="/model_pic/fuel.png"
             alt="building"
+            onmouseover="details('fuelDropdown')"
+            onmouseleave="hide('fuelDropdown')"
           />
-          <!-- <button id="toy">Add</button> -->
+          <div id="fuelDropdown" class="dropdown">
+            <h3>
+              Fuel station<br><hr>
+              Woking place<br>
+              +2<br>
+              Shopping opportunity<br>
+              +5<br>
+              Fun level<br>
+              -2<br>
+              Contamination<br>
+              +5
+              </h3>
+          </div>
         </div>
         <div class="building">
           <img
@@ -91,26 +151,18 @@
             id="playground"
             src="/model_pic/playground.png"
             alt="building"
+            onmouseover="details('playgroundDropdown')"
+            onmouseleave="hide('playgroundDropdown')"
           />
-          <!-- <button id="toy">Add</button> -->
-        </div>
-        <div class="building">
-          <img
-            class="image"
-            id="hospital"
-            src="/model_pic/hospital.png"
-            alt="building"
-          />
-          <!-- <button id="toy">Add</button> -->
-        </div>
-        <div class="building">
-          <img
-            class="image"
-            id="church"
-            src="/model_pic/church_final.png"
-            alt="building"
-          />
-          <!-- <button id="toy">Add</button> -->
+          <div id="playgroundDropdown" class="dropdown">
+            <h3>
+              Playground<br><hr>
+              Fun level<br>
+              +15<br>
+              Contamination<br>
+              -7<br>
+              </h3>
+          </div>
         </div>
         <div class="building">
           <img
@@ -118,8 +170,20 @@
             id="car"
             src="/model_pic/modelling5.png"
             alt="building"
+            onmouseover="details('carDropdown')"
+            onmouseleave="hide('carDropdown')"
           />
-          <!-- <button id="car">Add</button> -->
+          <div id="carDropdown" class="dropdown">
+            <h3>
+              Car<br><hr>
+              Shopping opportunity<br>
+              -2 <br>
+              Fun level<br>
+              +5 <br>
+              Contamination<br>
+              +2
+              </h3>
+          </div>
         </div>
         <div class="building">
           <img
@@ -127,9 +191,75 @@
             id="panel"
             src="/model_pic/modelling6.png"
             alt="building"
+            onmouseover="details('panelDropdown')"
+            onmouseleave="hide('panelDropdown')"
           />
-          <!-- <button id="panel">Add</button> -->
+          <div id="panelDropdown" class="dropdown">
+            <h3>
+            Panel house<br><hr>
+            Population<br>
+            +25<br>
+            Woking place<br>
+            -20<br>
+            Shopping opportunity<br>
+            -15<br>
+            Fun level<br>
+            -15<br>
+            Contamination<br>
+            +4<br>
+            Public supply<br>
+            -20
+            </h3>
+          </div>
         </div>
+        <div class="building">
+          <img
+            class="image"
+            id="hospital"
+            src="/model_pic/hospital.png"
+            alt="building"
+            onmouseover="details('hospitalDropdown')"
+            onmouseleave="hide('hospitalDropdown')"
+          />
+          <div id="hospitalDropdown" class="dropdown">
+            <h3>
+              Hospital<br><hr>
+              Woking place<br>
+              +7 <br>
+              Fun level<br>
+              -10 <br>              
+              Public supply<br>
+              +20<br>
+              Contamination<br>
+              +1
+              </h3>
+          </div>
+        </div>
+        <div class="building">
+          <img
+            class="image"
+            id="church"
+            src="/model_pic/church_final.png"
+            alt="building"
+            onmouseover="details('churchDropdown')"
+            onmouseleave="hide('churchDropdown')"
+          />
+          <div id="churchDropdown" class="dropdown">
+            <h3>
+              Church<br><hr>
+              Woking place<br>
+              +2<br>
+              Fun level<br>
+              +5<br>
+              Contamination<br>
+              -10<br>
+              Public supply<br>
+              +5
+              </h3>
+          </div>
+        </div>
+        
+        
       </div>
     </div>
 
@@ -139,5 +269,16 @@
 
     <!-- </div> -->
     <canvas class="polycity"> </canvas>
+    <script>
+      function details(id) {
+        document.getElementById(id).classList.toggle("show");
+        console.log("this is a detail mouseover from html " + id);
+      }
+
+      function hide(id) {
+        document.getElementById(id).classList.toggle("show");
+        console.log("this is a detail mouseover from html " + id);
+      }
+    </script>
   </body>
 </html>
