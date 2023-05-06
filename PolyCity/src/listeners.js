@@ -349,7 +349,7 @@ function addHouse() {
       globals.groundObject.building.house
     );
 
-    globals.circs.fun -= 5;
+    globals.circs.fun -= 4;
     globals.circs.shopping -= 3;
     globals.circs.work -= 4;
     globals.circs.population += 5;
@@ -499,7 +499,7 @@ function addIcecream() {
       `${globals.navigationHelper.placePicker.position.x}_${globals.navigationHelper.placePicker.position.z}`,
       globals.groundObject.building.house
     );
-    globals.circs.fun += 6;
+    globals.circs.fun += 5;
     globals.circs.shopping += 4;
     globals.circs.work += 2;
     setCityStats();
