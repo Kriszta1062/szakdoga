@@ -1,0 +1,96 @@
+Legrövidebb út algoritmus kódban történő megvalósításához segítségül használtam a következő videót: https://www.youtube.com/watch?v=NlccuV2tMmw
+
+a legrövidebb ut algoritmus megírásához az A\* és a Dijkstra algoritmus leegyszerűsített kombinációját használtam.
+
+//ezeket már beleírtam
+
+- az utak összekötéséhez szükségem volt arra, hogy leellenőrizzem, hogy az adott épület lehelyezésével generált utaknak csak két szomszédja van (előző utakkal nem került összekötésre), valamint, hogy a pályán már van e előzőleg lehelyezett út. Ezután, ha mindkettő állítás igazra értékelődött ki, meg kell vizsgálnunk, hogy az útjaink a többi úttal összekötve milyen távokat adnak ki. Ehhez a d = gyök((x2-x1)^2 + (z2-z1)^2) képletet használtam. Az így megkapott távolságokból a legkisebbet kiválasztva megkaptam a kezdő és végkoordinátákat az algoritmus folytatásához. Ezután a kezdő koordinátától indulva folyamatosan lecsökkentettem a z koorinátákat, amig a végző koordináta z tagjával egyenlőt nem kaptam, majd ugyan ezt elvégeztem az x koorinátákra is. Így megkapva azon koordináták összességét, amik majd az új utakat fogják képezni. Ezeket a párokat hozzáadtam a map-hez, majd meghívtam az útgenerálás függvényt.
+  Segédvideó: https://www.google.com/search?q=count+way+between+two+points&oq=count+way+between+two+points&aqs=chrome..69i57.31489j0j1&sourceid=chrome&ie=UTF-8#kpvalbx=_FRBIY4-QBcSE9u8PgZ6syAQ_35
+
+A játéktérre való dupla kattintással teljes képernyőben és az oldalpanelok nélkül csodálhatjuk meg a felépített városunkat
+
+BEVEZETÉS:
+
+
+Motiváció: (miért válaszottam) 1-1,5 oldal
+
+    A modellezés iránti érdeklődésem, annak hobbiszerű űzése adott ihletet egy olyan játék létrehozására, amelyben szabadon fel tudom használni az elkészült munkáimat. Egy ideje foglalkoztat a Low Poly stílusú épületek modellezése, így került a képbe egy város építő webalkalmazás elkészítése, ahol nem csak az általam készített épületek, járművek különbözőségének felfedezése adhatja a játék élményét, hanem a városunk építése során kihívásokkal is szembe kell néznünk, fenntatva ezzel a játékos érdeklődését.
+    A cél, hogy minél kiegyensúlyozottabb várost építsünk. Különböző statisztikai tényezőknek kell megfeleltetnünk a városunkat, amelyeket ha nem tartunk be, nem tudjuk jól összehangolni a lehelyezett épületeinket, járműveinket, és nem tudjuk az időkorláton belül feloldani a kiegyensúlyozatlanság okozta problémákat, a játék véget ér.
+
+Hasonló jellegű generáló programok (+1-2 példa)
+
+    A motivációm egy részét a gyerekkoromtól még mai napig kedvelt játékok adták. Ezek közül a legmeghatározóbbak a SimCity és a RamaCity. Ezek mellett számos online, ingyenesen és szabadon hozzáférhetó, különböző funkcionalitásokban eltérő játékokat lehet találni az interneten.
+    Bár az alap koncepciója a PolyCity-nek megegyezik a fentebb említett két játékával, funkcionalitását tekintve nagyban eltér azoktól. Az egyik alapvető befolyásoló tényező ugyanis az én verziómban nem jelenik meg, ami így egy erős korlátot felold a játék során, azonban figyelembe vesz olyan részleteket, mint például a populáció által meghatározott munkahelyigény, valamint vásárlási igény kielégítése, amit a másik kettő játék nem tűz ki célként.
+
+Dolgozat felépítése, miről lesz szó az egyes fejezetekben:
+
+    A dolgozatom következő fejezeteiben az alapfogalmak ismertetése után szeretnék szélesebb körű betekintést nyújtani az implementáció és fejlesztés folyamatába, a kód struktúráltságába és szerkezeti felépítésébe. Részletesen tárgyalni fogom a használt algoritmusokat, főként az automatikusan generált objektumokkal és a mozgó elemekkel kapcsolatban. Végül az elkészült funkciókat mutatom be, melyek azok amiket a játék fejlesztésének kezdeténél kigondoltam, hogyan sikerült őket megterveznem és megvalósítanom. Arra is ki fogok térni a dolgozatom zárása előtt, hogy melyek azok a továbbfejlesztési lehetőségek, funkciók, amelyekkel a játékot még élvezetesebbé és esztétikusabbá lehetne tenni.
+
+
+
+
+
+algoritmikusan hogyan tervezed meg a várost,
+
+Three-js-ben hogyan implementáltam
+
+Életszínvonal és egyéb paraméterek alakulása, hogyan kötöd be a rendszerbe ezeket a paramétereket:
+
+    A játék során az épületek és a járművek különbözőképpen alakítják a város statisztikáit. Építkezés során X paramétert kell a lehető legnagyobb egyensúlyba hozni. Minden lehelyezett épület és jármű rendelkezik saját paraméterekkel, hogy melyik mennyivel növel, vagy csökkent bizonyos tényezőket. Lakóépületek lehelyezésével például a populáció növekszik, a munkahelyigény, vásárlási igény megnő, a szórakoztatási szint lecsökken. Ezek kiegyensúlyozására szükséges boltokat, szórakozóhelyeket és munkahelyeket biztosító épületet lehelyeznünk, amelyek természetesen ezen paraméterek szabályozásán túl majdnem minden más tényezőt is befolyásolnak, így nehezítve a játékot.
+    Amennyiben valamely paraméter értéke túlzottan eltér a megengedett tartománytól, elindul egy számláló. Ez az idő alatt kell a játékosnak helyrehoznia az okozott hibát, olyan objektumokat kell lehelyeznie, amelyek visszalendítik az értékeket az elfogadható szintre. Amennyiben a játékosnak ez nem sikerül, az játéktér eltűnik, a játékunknak vége. Ez után a figyelmeztető szöveg alatt megjelenik egy gomb amivel a legelejéről kezdhetjük az építkezést.
+
+Nehézségek:
+
+    A fejlesztés során akadtak kisebb-nagyobb kihívásaim. Ilyen volt például az autók mozgatása során felmerült tört számok osztásánál keletkező, JavaScript-ben előforduló hiba. A tört számokkal végzett műveleteket ugyanis a nyelv nem kezeli le tökéletesen, ugyan azon művelet többszöri elvégzése egy számon nem ugyan azokat a hatásokat fejti ki. Ez a pici pontatlanság viszont a mozgatás sosrán végzett számításoknál jelentős probléma volt, így hosszas próbálgatás során a megoldásom (ITT FOGALMAM SINCS HOGY OLDOTTAM MEG) volt.
+
+kiértékelő fejezet: mit sikerült elkészítenem
+
+
+Telepítési és felhasználási útmutató:
+
+    Tetszőleges fejlesztői környezetben megnyitva a programot, a terminálban az npm run start parancs kiadásával megjelenik a főoldal a böngészőnkben. A főoldalon angol nyelven olvashatunk egy rövid ismertetőt a játékról, valamint részletes leírást kapunk annak használatáról, képekkel demonstrálva azt
+    Rögtön a bemutatkozás alatt a "Let's play" gombra kattintva átnavigál minket egy betöltő oldalra, majd a játék megnyílik.
+    Bal oldalt találhatunk egy sávot, melynek tetején a város paraméterei találhatók. Ez alatt tudunk választani a lehelyezhető épületek és járművek közül. A képernyő további részén a játéktér található, melyen tetszőleges, a pálya méretei által korlátozott mezőkre navigálhatjuk a kurzorunkat a nyílbillentyűk segítségével, valamint annak irányát is módosíthatjuk a space billentyű lenyomásával, így az épületünk lehelyezése előtt be tudjuk igazítani, hogy az merre nézzen. Egy épület lehelyezése után automatikusan generálódik köré egy úthálózat. Több épület lehelyezése esetén ezek az utak szintén a program által összekötésre kerülnek, az előző utak állapotai frissülnek annak függvényében, hogy alakultak-e ki körülötte kereszteződések, vagy sem. Amennyiben a pálya széléhez közelítünk, és épületeket helyezünk le, a játéktér mérete megnövekszik.
+    Lehetőségünk van járműveket lehelyezni, azonban ezeket csak utakra tudjuk megtenni. A jármű objektumok lehelyezés során menetirányba helyezkednek, így azok lerakásakor a forgatással és irányválasztással nem kell törődnünk.
+    A statisztikai adatok helyes értéktartományban tartásának érdekében a lehelyezett objektumainkat okosan kell megválasztanunk. Amennyiben az értékeink túlzottan kilengnek valamelyik irányba, van percünk azt helyrehozni további épületek, járművek lehelyezésével. Amennyiben ez nem sikerül, a játékunknak vége. Az oldalon megjelenő "Try again" gombra kattintva a játékunk újra töltődik, és előröl kezdhetjük az építkezést.
+
+
+ÖSSZEFOGLALÁS (0,5 oldal) motiváció, elékszített algoritmusok, milyen technológiákkal valósítottam meg, továbbfejlesztés
+
+Továbbfejlesztési lehetőségek:
+
+    Munkálataim során kimaratak egyes funkciók, amelyek bár nem képezték az elvárásaim részét, de mindenképp hozzájárulnának a PolyCity élvezhetőbb, esztétikusabb játékká fejlesztéséhez.
+
+
+40-45 oldal programkódokkal együtt
+
+magyarázó ábra, illusztráció,
+
+mellékletbe inkább
+
+programkódokat is lehet beleírni
+
+
+
+
+
+
+
+
+
+
+
+
+
+Fejlesztési lehetőségek:
+
+Lehetne játékos szemszögből figyelni a dolgot, lehetne pénzlimithez kötni, ami idővel nő, bizonyos épületek termelnek, fejlesztésükkel többet, lehetne sokkal több modellt belekötni, több életszínvonali paramétert feltételezni.
+
+
+
+
+
+Linkek:
+
+Innen kerestem hasonló játékokat:
+    https://www.makeuseof.com/tag/5-fun-online-city-building-games-run-browser/

@@ -82,6 +82,8 @@ const globals = {
     [0, 1],
     [0, -1],
   ],
+
+  countdown_started: false,
 };
 
 globals.camera = new THREE.PerspectiveCamera(
@@ -92,7 +94,7 @@ globals.camera = new THREE.PerspectiveCamera(
 );
 
 globals.orbit = new OrbitControls(globals.camera, globals.canvas);
-globals.orbit.maxDistance = 20; // itt allithatjuk be hogy ne menjunk ki a kameraval a dobozbol
+globals.orbit.maxDistance = 20;
 globals.orbit.maxPolarAngle = Math.PI / 2;
 globals.orbit.screenSpacePanning = false;
 

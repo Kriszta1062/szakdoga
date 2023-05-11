@@ -61,7 +61,7 @@
           />
           <div id="houseDropdown" class="dropdown">
             <h3>
-              House<br><html></html>
+              House<br><hr>
               Population<br>
               +5<br>
               Woking place<br>
@@ -263,8 +263,8 @@
       </div>
     </div>
 
-    <div class="timer">
-      <div class="time">0:36</div>
+    <div id="timer">
+      <div id="time"></div>
     </div>
 
     <!-- </div> -->
@@ -272,12 +272,10 @@
     <script>
       function details(id) {
         document.getElementById(id).classList.toggle("show");
-        console.log("this is a detail mouseover from html " + id);
       }
 
       function hide(id) {
         document.getElementById(id).classList.toggle("show");
-        console.log("this is a detail mouseover from html " + id);
       }
     </script>
   </body>

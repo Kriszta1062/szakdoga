@@ -708,42 +708,61 @@ function notRoad(value) {
 
 function outOfAccepted() {
   if (
-    globals.circs.fun < 10 ||
-    globals.circs.shopping < 10 ||
-    globals.circs.shopping > 50 ||
-    globals.circs.work < 10 ||
-    globals.circs.work > 20
+    (globals.circs.fun > 20 ||
+      globals.circs.work > 20 ||
+      globals.circs.con > 20 ||
+      globals.circs.pub_supply > 20 ||
+      globals.circs.shopping > 20 ||
+      globals.circs.fun < 0 ||
+      globals.circs.shopping < 0 ||
+      globals.circs.con < 0 ||
+      globals.circs.pub_supply < 0 ||
+      globals.circs.work < 0) &&
+    !globals.countdown_started
   ) {
     console.log("Kileptunk a hatarokbol...");
-    let count = 120;
+    let count = 60;
+    let countdown = document.getElementById("timer");
+    countdown.style.visibility = "visible";
+
+    let time = document.getElementById("time");
+    globals.countdown_started = true;
+    time.innerHTML = count;
+
     let timer = setInterval(function () {
       if (
-        globals.circs.fun < 10 ||
-        globals.circs.shopping < 10 ||
-        globals.circs.shopping > 50 ||
-        globals.circs.work < 10 ||
-        globals.circs.work > 20
+        globals.circs.fun > 20 ||
+        globals.circs.work > 20 ||
+        globals.circs.con > 20 ||
+        globals.circs.pub_supply > 20 ||
+        globals.circs.shopping > 20 ||
+        globals.circs.fun < 0 ||
+        globals.circs.shopping < 0 ||
+        globals.circs.con < 0 ||
+        globals.circs.pub_supply < 0 ||
+        globals.circs.work < 0
       ) {
         count--;
-        console.log(count);
+        time.innerHTML = count;
+
         if (count == 0) {
           clearInterval(timer);
           let game_over = document.getElementById("game_over");
           game_over.style.visibility = "visible";
         }
       } else {
-        console.log("you fixed");
+        clearInterval(timer);
+
+        countdown.style.visibility = "hidden";
+        globals.countdown_started = false;
         return;
       }
     }, 1000);
-  } else {
-    console.log("Minden a legnagyobb rendben :)");
   }
 }
 
 function details(id) {
   document.getElementById(id).classList.toggle("show");
-  console.log("this is a detail mouseover");
 }
 
 export {
